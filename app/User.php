@@ -39,4 +39,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function specializations(){
+        return $this->belongsToMany('Modules\Member\Entities\UserSpec\Specialization', 'user_specialization','user_id','catg_code');
+    }
 }
