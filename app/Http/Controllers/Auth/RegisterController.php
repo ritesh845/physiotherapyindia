@@ -15,6 +15,8 @@ use App\SendCode;
 use Mail;
 use App\Mail\VerifyMail;
 use App\Models\GlobalTag;
+use Modules\Member\Entities\Member;
+
 class RegisterController extends Controller
 {
     /*
@@ -86,13 +88,18 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-
         if($user){
             $user->attachRole('3');
             $user->code = SendCode::sendCode($user->phone);                
             $user->remember_token = Str::random(40);
             $user->save();
             Mail::to($user->email)->send(new VerifyMail($user));
+            Member::create([
+                'id'    => $user->id,
+                'name'  => $user->name,
+                'email' => $user->email,
+                'mobile'=> $user->phone
+            ]);
         }
     }
 

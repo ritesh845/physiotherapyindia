@@ -10884,3 +10884,38 @@ a.text-dark:focus {
   }
 }
 
+.dot {
+  height: 2rem;
+  width: 2rem;
+  background-color: #f0f0f0 !important; 
+  padding: 5px;
+  display: inline-block;
+  /*color:steelblue;*/
+}
+.btn-theme:hover{
+      color: #fff;
+    background-color: #227dc7;
+    border-color: #2176bd;
+}
+.btn-theme{
+  color: #fff;
+  background-color: #365dcd;
+  border-color: #365dcd;
+  /*background-color: #365dcd;*/
+
+}
+.treegrid-indent {
+  width: 0px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+}
+
+.treegrid-expander {
+  width: 0px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  left:-17px;
+  cursor: pointer;
+}

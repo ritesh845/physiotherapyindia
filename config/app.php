@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
         Nexmo\Laravel\NexmoServiceProvider::class,
-
+        Collective\Html\HtmlServiceProvider::class
     ],
 
     /*
@@ -229,6 +229,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
     ],
 
 ];

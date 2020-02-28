@@ -20,8 +20,16 @@ class MasterTables extends Migration
             $table->string('meta')->nullable();
             $table->unsignedTinyInteger('indent');
             $table->timestamps();
+            $table->softDeletes();
         });
 
+        Schema::create('specializations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('shrt_desc',10)->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -32,5 +40,6 @@ class MasterTables extends Migration
     public function down()
     {
         Schema::dropIfExists('global_tags');
+        Schema::dropIfExists('specializations');
     }
 }
