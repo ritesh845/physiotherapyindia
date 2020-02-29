@@ -42,7 +42,7 @@ class CategoryController extends Controller
         $data = $this->validation($request);
 
         if($request->hasfile('image')){
-              $file = $request->file('image');
+            $file = $request->file('image');
             $filename =  time().'_'.$file->getClientOriginalName();
             $path = $file->storeAs('public/'.date('Y').'/abstractimages', $filename);
             $url = Storage::url(date('Y').'/abstractimages/'.$filename);

@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Member\Entities\Member;
 use Auth;
 use App\Models\Country;
-
+use Illuminate\Support\Facades\Storage;
 class MemberController extends Controller
 {
     /**
@@ -17,10 +17,11 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $countries = Country::all();
+        $countries = Country::pluck('country_name','country_code');
+        // return $countries;
         // $countries->prepend(['id'=>'0']);
         $member = Member::find(Auth::user()->id);
-        return view('member::member.index',compact('member'));
+        return view('member::member.index',compact('member','countries'));
     }
 
     /**
@@ -70,7 +71,54 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+        // return $request->all();
+        $member = Member::find($id);
+        $data = $request->validate([
+            'name'          => 'required|max:255|min:4|string',
+            'mobile1'       => 'nullable|max:10|min:10|string',
+            'iap_no'        => 'required|max:8|min:8',
+            'clinic_name'   => 'nullable|max:255',
+            'www'           => 'nullable',
+            'address'       => 'nullable',
+            'country_code'  => 'required',
+            'state_code'    => 'required',
+            'city_code'     => 'required',
+            'zip_code'      => 'required',
+            'address1'      => 'required',
+            'country_code1' => 'sometimes|required',
+            'state_code1'   => 'sometimes|required',
+            'city_code1'    => 'sometimes|required',
+            'zip_code1'     => 'required',
+            'same_as'       => 'nullable',
+            'about'         => 'nullable',
+
+        ]);
+        if($request->same_as !='0'){
+            $data['country_code1']  = $request->country_code;
+            $data['state_code1']    = $request->state_code;
+            $data['city_code1']     = $request->city_code;
+
+        }
+
+        if($request->has('file')){
+            $oldphoto = $member->image_url;
+            if($oldphoto != ''){
+                $image_name = explode('/', $oldphoto);
+                Storage::delete('public/2020/memberimages/'.$image_name[4]);
+            }
+            $file = $request->file('file');
+
+            $filename =  time().'_'.$file->getClientOriginalName();
+
+            $path = $file->storeAs('public/'.date('Y').'/memberimages', $filename);
+            $url = Storage::url(date('Y').'/memberimages/'.$filename);
+
+            $data['image_url'] = $url;
+
+        }
+       
+        $member->update($data);
+        return redirect()->back()->with('success','Profile Updated Successfully');
     }
 
     /**
@@ -83,6 +131,6 @@ class MemberController extends Controller
         //
     }
     public function member_photo(Request $request){
-
+        return $request->all();
     }
 }
