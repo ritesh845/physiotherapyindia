@@ -66,6 +66,24 @@
 		                        @enderror
 							</div>
 							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('name', 'Name:')}}
+								{{ Form::text('name',old('name') ?? $member->name,['class' => 'form-control name readonly','readonly'=>'true'])}}
+								@error('name')
+	                                <span class="text-danger" role="alert">
+	                                    <strong>{{ $message }}</strong>
+	                                </span>
+		                        @enderror
+							</div>
+							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('gender', 'Gender:')}}
+								{{ Form::select('gender',array('' => 'Select Gender','M' => 'Male','F'=>'Female', 'o' => 'Other'), old('gender') ?? $member->gender,['class'=>'form-control gender disabled','disabled'=>'true'])}}
+								@error('gender')
+							        <span class="text-danger" role="alert">
+							            <strong>{{ $message }}</strong>
+							        </span>
+							    @enderror	
+							</div>
+							<div class="col-md-6 from-group mt-3">
 								{{ Form::label('mobile', 'Mobile Number:')}}
 								{{ Form::text('mobile',old('mobile') ?? $member->mobile,['class' => 'form-control mobile','readonly'=>'true'])}}
 								@error('mobile')

@@ -14,5 +14,6 @@
 // Route::prefix('member')->group(function() {
     Route::resource('/member', 'MemberController');
     Route::resource('/qualification', 'QualificationController');
+    Route::resource('/specialization', 'SpecializationController');
     Route::post('/member_photo', 'MemberController@member_photo');
 // });

@@ -54,6 +54,7 @@
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
   <script src="https://cdn.tiny.cloud/1/rm186r4v9y3hadsuta5582e02kzms2295eavbfpuiii26jkv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+ <script src="{{asset('js/parts-selector.js')}}"></script>
 
   <!-- Page level plugins -->
   {{-- <script src="vendor/chart.js/Chart.min.js"></script> --}}

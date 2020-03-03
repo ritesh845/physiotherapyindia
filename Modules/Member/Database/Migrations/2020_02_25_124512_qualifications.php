@@ -39,7 +39,18 @@ class Qualifications extends Migration
             $table->tinyInteger('pass_year')->nullable();
             $table->decimal('pass_perc',4,2)->nullable();
             $table->smallInteger('pass_division')->nullable();
-
+        });
+        Schema::create('member_qual', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->tinyInteger('qual_catg_code')->nullable();
+            $table->string('qual_catg_desc',50)->nullable();
+            $table->string('location')->nullable();
+            $table->string('board',100)->nullable();
+            $table->decimal('pass_marks',4,2)->nullable();
+            $table->tinyInteger('pass_year')->nullable();
+            $table->string('pass_division',1)->nullable();
+            $table->timestamps();
         });
     }
 

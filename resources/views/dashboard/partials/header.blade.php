@@ -21,6 +21,8 @@
   <!-- Custom styles for this template-->
   <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet">
   <link href="{{asset('css/app.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('css/parts-selector.css')}}">
+  
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   {{-- <script src="{{asset('js/app.js')}}"></script>  --}}
 </head>
@@ -82,7 +84,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{url('/specialization')}}">
           <i class="fa fa-medkit"></i>
           <span>Specialization</span>
         </a>

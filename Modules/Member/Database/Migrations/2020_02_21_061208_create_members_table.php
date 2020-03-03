@@ -17,6 +17,7 @@ class CreateMembersTable extends Migration
             $table->integer('id');
             $table->string('name');
             $table->string('email')->nullable();
+            $table->string('gender',1)->nullable();
             $table->string('iap_no',8)->nullable();
             $table->string('member_type',1)->nullable();
             $table->string('clinic_name',100)->nullable();

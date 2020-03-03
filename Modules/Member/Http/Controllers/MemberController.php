@@ -75,6 +75,7 @@ class MemberController extends Controller
         $member = Member::find($id);
         $data = $request->validate([
             'name'          => 'required|max:255|min:4|string',
+            'gender'        => 'required|not_in:""',
             'mobile1'       => 'nullable|max:10|min:10|string',
             'iap_no'        => 'required|max:8|min:8',
             'clinic_name'   => 'nullable|max:255',

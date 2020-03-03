@@ -8,7 +8,8 @@ use Illuminate\Routing\Controller;
 use Modules\Member\Entities\UserQual;
 use Modules\Member\Entities\QualMast;
 use Modules\Member\Entities\QualCatgMast;
-
+use Modules\Member\Entities\MemberQual;
+use Auth;
 class QualificationController extends Controller
 {
     /**
@@ -16,8 +17,9 @@ class QualificationController extends Controller
      * @return Response
      */
     public function index()
-    {
-        return view('member::qualification.index');
+    {   
+        $qualifications = MemberQual::where('user_id',Auth::user()->id)->get();
+        return view('member::qualification.index',compact('qualifications'));
     }
 
     /**
@@ -26,7 +28,9 @@ class QualificationController extends Controller
      */
     public function create()
     {
-        return view('member::create');
+        $qual_catgs = QualCatgMast::all();
+
+        return view('member::qualification.create',compact('qual_catgs'));
     }
 
     /**
@@ -36,7 +40,15 @@ class QualificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request);
+        $member_qual = MemberQual::where('qual_catg_code', $request->qual_catg_code)->where('user_id',Auth::user()->id)->first();
+        if($member_qual){
+            return back()->with('warning','Qualification already added');
+        }else{
+            MemberQual::create($data);
+            return redirect('/qualification')->with('success','Qualification added successfully');
+        }
+
     }
 
     /**
@@ -46,6 +58,7 @@ class QualificationController extends Controller
      */
     public function show($id)
     {
+        return $id;
         return view('member::show');
     }
 
@@ -56,7 +69,12 @@ class QualificationController extends Controller
      */
     public function edit($id)
     {
-        return view('member::edit');
+      
+        $qual_catgs = QualCatgMast::all();
+
+        $qualification = MemberQual::find($id);
+
+        return view('member::qualification.edit',compact('qual_catgs','qualification'));
     }
 
     /**
@@ -67,7 +85,18 @@ class QualificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->validate($request);
+        
+        $member_qual = MemberQual::where('qual_catg_code', $request->qual_catg_code)->where('user_id',Auth::user()->id)->where('id', '!=' ,$id)->first();
+
+        if($member_qual){
+            return back()->with('warning','Qualification already added');
+        }else{
+            MemberQual::find($id)->update($data);
+            return redirect('/qualification')->with('success','Qualification updated successfully');
+        }
+
+
     }
 
     /**
@@ -78,5 +107,19 @@ class QualificationController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function validate($request){
+        $data =  $request->validate([
+            'qual_catg_code' => 'required',
+            'location' => 'required|min:4|max:191',
+            'board' =>  'required|min:3|max:100',
+            'pass_marks'   => 'required',
+            'pass_year'     => 'required|integer|min:1900|max:'.date('Y'),
+            'pass_division' => 'required|not_in:""'
+        ]);
+        $qual_catg = QualCatgMast::where('qual_catg_code',$request->qual_catg_code)->first(); 
+        $data['user_id'] = Auth::user()->id;
+        $data['qual_catg_desc'] = $qual_catg->qual_catg_desc;
+        return $data;
     }
 }
