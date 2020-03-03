@@ -46,7 +46,9 @@
 				<h5 class="card-title">Your Specializations</h5>
 			</div>
 			<div class="card-body">
-
+				@foreach($userSpec as $spec)
+					<li>{{$spec->specializations->name}}</li>
+				@endforeach 
 			</div>
 		</div>
 	</div>
@@ -56,36 +58,36 @@ $(document).ready(function() {
 	$(function() {
 		$( "#parts-selector-1").partsSelector();
 	});
-
+  
 	$('#submit').on('click',function(e){
         e.preventDefault();
-        var id = $("#uspec input[name='valuSpeci[]']")
+        var spec_id = $("#uspec input[name='valuSpeci[]']")
               .map(function(){
                 return $(this).val();
               }).get();   
-     
-        if(specc != ''){
+     	
+        if(spec_id != ''){
         	$.ajax({
         		type:'POST',
         		url:"{{url('/specialization')}}",
-        		data: {specc_code:specc, specc_name:specc_name},
+        		data: {spec_id:spec_id},
         		success:function(data){
+        			console.log(data);
+        		// swal({
+	         //        text: data,
+	         //        icon : 'success',
+          //     	});
 
-        		swal({
-                text: data,
-                icon : 'success',
-              });
-
-               setTimeout(function(){ 
-                  location.reload(); 
-               }, 3000); 
+          //      	setTimeout(function(){ 
+          //         location.reload(); 
+          //      	}, 3000); 
 
         		}
         	});
         }
         else{
             swal({
-              text: 'Add Specialization',
+              text: 'First Add Specialization',
               icon: 'warning',
             });
       

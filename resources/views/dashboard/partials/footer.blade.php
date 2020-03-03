@@ -55,7 +55,7 @@
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
   <script src="https://cdn.tiny.cloud/1/rm186r4v9y3hadsuta5582e02kzms2295eavbfpuiii26jkv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
  <script src="{{asset('js/parts-selector.js')}}"></script>
-
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Page level plugins -->
   {{-- <script src="vendor/chart.js/Chart.min.js"></script> --}}
 
@@ -65,14 +65,21 @@
  --}}
 
  <script >
-tinymce.init({
-  selector: '#mytextarea',
-  plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-  imagetools_cors_hosts: ['picsum.photos'],
-  menubar: '',
-  toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-  
-  height: 300,
+  $(document).ready(function() {
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    tinymce.init({
+      selector: '#mytextarea',
+      plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+      imagetools_cors_hosts: ['picsum.photos'],
+      menubar: '',
+      toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+      
+      height: 300,
+    });
 });
  </script>
 </body>

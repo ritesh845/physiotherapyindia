@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Member\Entities\UserSpec;
 use App\Models\Specialization;
 use Auth;
+use App\User;
 class SpecializationController extends Controller
 {
    
@@ -31,8 +32,14 @@ class SpecializationController extends Controller
 
     
     public function store(Request $request)
-    {
-        //
+    {        
+        $spec_id = $request->spec_id;
+
+        $user =User::find(Auth::user()->id);
+
+        $user->specializations()->sync($spec_id);
+
+        return 'Specialization updated successfully';
     }
 
    

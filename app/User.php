@@ -41,6 +41,6 @@ class User extends Authenticatable
     ];
 
     public function specializations(){
-        return $this->belongsToMany('Modules\Member\Entities\UserSpec\Specialization', 'user_specialization','user_id','catg_code');
+        return $this->belongsToMany('Modules\Member\Entities\UserSpec', 'user_specializations','user_id','specialization_id');
     }
 }

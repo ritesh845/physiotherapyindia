@@ -16,6 +16,6 @@ class UserSpec extends Model
  	// 	return $this->belongsToMany('App\User','user_specializations','specialization_id','user_id');
  	// }
  	public function specializations(){
- 		return $this->belongsTo('App\Models\Specialization','specliazation_id');
+ 		return $this->belongsTo('App\Models\Specialization','specialization_id','id');
  	}
 }
