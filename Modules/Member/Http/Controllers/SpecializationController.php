@@ -13,7 +13,11 @@ use App\User;
 class SpecializationController extends Controller
 {
    
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $specialization_ids = UserSpec::select('specialization_id')->where('user_id',Auth::user()->id)->get();

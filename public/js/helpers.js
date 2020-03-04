@@ -3,8 +3,6 @@ function states(country_code,state_id,state_code =null){
 		type:'GET',
 		url:'/states/'+country_code,
 		success:function(res){
-			console.log('#'+state_id);
-
 			if(res){
 				$('#'+state_id).empty();
 				$.each(res,function(i,v){
@@ -23,8 +21,6 @@ function cities(state_code,city_id,city_code=null){
 		type:'GET',
 		url:'/cities/'+state_code,
 		success:function(res){
-			console.log('#'+city_id);
-
 			if(res){
 				$('#'+city_id).empty();
 				$.each(res,function(i,v){

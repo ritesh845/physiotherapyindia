@@ -10,10 +10,11 @@ use Modules\Category\Entities\Category;
 use Illuminate\Support\Facades\Storage;
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
 

@@ -50,6 +50,7 @@
   <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('js/sb-admin.js')}}"></script>
   <script src="{{asset('js/helpers.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
@@ -65,7 +66,7 @@
  --}}
 
  <script >
-  $(document).ready(function() {
+  // $(document).ready(function() {
     $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -80,7 +81,7 @@
       
       height: 300,
     });
-});
+// });
  </script>
 </body>
 

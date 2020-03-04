@@ -73,14 +73,14 @@ $(document).ready(function() {
         		data: {spec_id:spec_id},
         		success:function(data){
         			console.log(data);
-        		// swal({
-	         //        text: data,
-	         //        icon : 'success',
-          //     	});
+        		swal({
+	                text: data,
+	                icon : 'success',
+              	});
 
-          //      	setTimeout(function(){ 
-          //         location.reload(); 
-          //      	}, 3000); 
+               	setTimeout(function(){ 
+                  location.reload(); 
+               	}, 3000); 
 
         		}
         	});

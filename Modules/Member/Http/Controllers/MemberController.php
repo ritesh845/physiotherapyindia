@@ -9,17 +9,18 @@ use Modules\Member\Entities\Member;
 use Auth;
 use App\Models\Country;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 class MemberController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $countries = Country::pluck('country_name','country_code');
-        // return $countries;
-        // $countries->prepend(['id'=>'0']);
+     
         $member = Member::find(Auth::user()->id);
         return view('member::member.index',compact('member','countries'));
     }
@@ -50,6 +51,7 @@ class MemberController extends Controller
      */
     public function show($id)
     {
+        return "sdaasd";
         return view('member::member.show');
     }
 
@@ -76,6 +78,7 @@ class MemberController extends Controller
         $data = $request->validate([
             'name'          => 'required|max:255|min:4|string',
             'gender'        => 'required|not_in:""',
+            'dob'           => 'required|before:9 years ago|date_format:Y-m-d',
             'mobile1'       => 'nullable|max:10|min:10|string',
             'iap_no'        => 'required|max:8|min:8',
             'clinic_name'   => 'nullable|max:255',

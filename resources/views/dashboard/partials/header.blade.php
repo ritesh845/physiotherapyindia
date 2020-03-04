@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="{{asset('css/parts-selector.css')}}">
   
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+   
   {{-- <script src="{{asset('js/app.js')}}"></script>  --}}
 </head>
 
@@ -68,6 +70,12 @@
           <span>Users</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url('/admin/service')}}">
+          <i class="fa fa-cogs"></i>
+          <span>Services</span>
+        </a>
+      </li>
       @endrole
 
       @role('member')
@@ -90,7 +98,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{url('members/service')}}">
           <i class="fa fa-cogs"></i>
           <span>Services</span>
         </a>

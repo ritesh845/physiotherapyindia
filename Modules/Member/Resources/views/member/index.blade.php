@@ -13,8 +13,9 @@
 					  	<div class="text-center">
 					        <img src="{{asset($member->image_url !='' ? $member->image_url : 'images/default.png' )}}" class="avatar rounded-circle img-thumbnail mb-2" alt="member" style="width: 150px;height: 150px;">
 					        <h6>Upload a different photo...</h6>
-					    {{ Form::open(array('url' => 'member/'.$member->id,'method' => 'post','enctype'=>'multipart/form-data'))}}
+					    {{ Form::open(array('url' => '/member/'.$member->id,'method' => 'post','enctype'=>'multipart/form-data'))}}
 						@method('patch')
+						
 					        {{ Form::file('file',['class' => 'form-control disabled','style' => 'padding:0px !important','accept'=>"image/*",'disabled'=>true])}}
 
 					    </div><hr><br>
@@ -65,19 +66,20 @@
 	                                </span>
 		                        @enderror
 							</div>
-							<div class="col-md-6 from-group mt-3">
-								{{ Form::label('name', 'Name:')}}
-								{{ Form::text('name',old('name') ?? $member->name,['class' => 'form-control name readonly','readonly'=>'true'])}}
-								@error('name')
-	                                <span class="text-danger" role="alert">
-	                                    <strong>{{ $message }}</strong>
-	                                </span>
-		                        @enderror
-							</div>
+							
 							<div class="col-md-6 from-group mt-3">
 								{{ Form::label('gender', 'Gender:')}}
 								{{ Form::select('gender',array('' => 'Select Gender','M' => 'Male','F'=>'Female', 'o' => 'Other'), old('gender') ?? $member->gender,['class'=>'form-control gender disabled','disabled'=>'true'])}}
 								@error('gender')
+							        <span class="text-danger" role="alert">
+							            <strong>{{ $message }}</strong>
+							        </span>
+							    @enderror	
+							</div>
+							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('dob', 'Date of Birth:')}}
+								{{ Form::text('dob',old('dob') ?? $member->dob,['class' => 'form-control datepicker dob disabled', 'disabled' => 'true' ])}}
+								@error('dob')
 							        <span class="text-danger" role="alert">
 							            <strong>{{ $message }}</strong>
 							        </span>
@@ -281,6 +283,12 @@
 @endif
 
 	$(document).ready(function(){
+		 $(function() {
+		   $('.dob').datepicker({
+		   	format:'yyyy-mm-dd'
+		   });
+		 });
+
 		var state_id = 'state';
 		var state_id1 = 'state1';
 		var city_id = 'city';
@@ -344,7 +352,7 @@
 		$('#country, #country1').on('change',function(e){	
 			e.preventDefault();
 			var country_id = $(this).attr('id');
-			console.log(country_id);
+			// console.log(country_id);
 			var country_code = $(this).val();
 			if(country_id == 'country'){
 				states(country_code,state_id);

@@ -12,8 +12,12 @@
 */
 
 // Route::prefix('member')->group(function() {
+Route::group(['middleware' => ['role:member']], function() {
     Route::resource('/member', 'MemberController');
     Route::resource('/qualification', 'QualificationController');
     Route::resource('/specialization', 'SpecializationController');
-    Route::post('/member_photo', 'MemberController@member_photo');
-// });
+ });
+
+Route::group(['prefix' => 'members', 'middleware' => ['role:member']], function() {
+    Route::resource('/service', 'ServiceController');
+});

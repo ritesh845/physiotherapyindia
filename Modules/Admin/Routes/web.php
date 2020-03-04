@@ -11,6 +11,11 @@
 |
 */
 
-Route::prefix('admin')->group(function() {
-    Route::get('/', 'AdminController@index');
-});
+// Route::prefix('admin')->group(function() {
+	Route::group(['prefix' => 'admin', 'middleware' => ['role:super_admin']], function() {
+	    Route::resource('/', 'AdminController');
+	    Route::resource('/service', 'ServiceController');
+	    Route::get('/services_docs/{id}', 'ServiceController@services_docs');
+	});
+
+ // });

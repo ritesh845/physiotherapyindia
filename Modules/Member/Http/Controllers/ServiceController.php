@@ -1,21 +1,20 @@
 <?php
 
-namespace Modules\Admin\Http\Controllers;
+namespace Modules\Member\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class AdminController extends Controller
+class ServiceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
+    /**
+     * Display a listing of the resource.
+     * @return Response
+     */
     public function index()
     {
-        return view('admin::index');
+        return view('member::services.index');
     }
 
     /**
@@ -24,8 +23,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-      
-        return view('admin::create');
+        return view('member::create');
     }
 
     /**
@@ -45,7 +43,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        return view('admin::show');
+        return view('member::show');
     }
 
     /**
@@ -55,7 +53,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        return view('member::edit');
     }
 
     /**
