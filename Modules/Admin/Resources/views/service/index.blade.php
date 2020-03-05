@@ -9,8 +9,7 @@
 			<div class="card-header">
 				<h5 class="card-title">Serivces 
 					@role('super_admin') 
-					{{link_to('/service/create', $title = 'Add Service', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}					
-						
+						{{link_to('/service/create', $title = 'Add Service', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}
 					@endrole
 				</h5>
 			</div>

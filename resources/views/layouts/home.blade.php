@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
-
 @include('layouts.slider')
+
 <main id="main">
 
     <!-- ======= About Us Section ======= -->
@@ -38,5 +38,7 @@
 
       </div>
     </section><!-- End About Us Section -->
+
+    
 </main>
 @endsection

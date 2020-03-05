@@ -40,11 +40,17 @@
 									<div class="form-group row">
 										<div class="col-md-6">
 											{{Form::label('file','Attachment Submit here...')}}
-											{{Form::file('file',['class' => 'form-control', 'accept' => 'application/pdf,application/vnd.ms-excel'])}}
+											{{Form::file('file',['class' => 'form-control', 'accept' => 'application/pdf,application/*'])}}
+											@error('file')
+												<span class="text-danger" role="alert">
+						                            <strong>{{ $message }}</strong>
+						                        </span>
+											@enderror
 										</div>
 									</div>
 									<div class="form-group row mt-2">
 										<div class="col-md-6">
+											{{Form::hidden('service_id',$service->id)}}
 											{{Form::submit('Submit',['class' => 'btn btn-sm btn-primary'])}}
 										</div>
 									</div>

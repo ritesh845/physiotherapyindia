@@ -7,7 +7,9 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
-				<h5 class="card-title">Edit Serivce <a href="{{url('/service')}}" class="btn btn-sm btn-primary pull-right">Back</a></h5>
+				<h5 class="card-title">Edit Serivce 
+					{{link_to('/service', $title = 'Back', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}
+				</h5>
 			</div>
 			{{Form::open(array('url' => '/service/'.$service->id,'method' => 'POST', 'enctype'=> 'multipart/form-data'))}}
 			@method('patch')
@@ -82,17 +84,19 @@
 					</div>
 					<div class="col-md-6 from-group mt-3 ">
 						{{Form::label('file','Service Document:')}}
-						{{ Form::file('file',['class' => 'form-control','accept'=>"application/pdf,application/vnd.ms-excel"])}}
+						{{ Form::file('file',['class' => 'form-control','accept'=>"application/pdf,application/*"])}}
 						@error('file')
                             <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
 					</div>
+					@if($service->doc_url !=null)
 					<div class="col-md-6 form-group mt-3">	
 						{{Form::label('file','Old Service Document:')}}	
 						<a href="{{url('/services_docs/'.$service->id)}}" class="text-primary form-control" style="overflow: hidden;">Download application form for {{$service->name}}</a>						
 					</div>
+					@endif
 				</div>
 			</div>
 			

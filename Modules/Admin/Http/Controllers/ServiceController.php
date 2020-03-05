@@ -46,7 +46,7 @@ class ServiceController extends Controller
         $data['doc_url'] = $this->document_store($request);
 
         Service::create($data);
-        return redirect('/admin/service')->with('success','Service added successfully');
+        return redirect('/service')->with('success','Service added successfully');
     }
 
     /**
@@ -93,7 +93,7 @@ class ServiceController extends Controller
         }
 
         $service->update($data);
-        return redirect('/admin/service')->with('success','Service updated successfully');
+        return redirect('/service')->with('success','Service updated successfully');
     }
 
     /**
@@ -146,12 +146,12 @@ class ServiceController extends Controller
     }
     public function services_docs($id){
         $service = Service::find($id);      
-         return  Storage::download('public/'.$service->doc_url);
+        return  Storage::download('public/'.$service->doc_url);
     }
 
     public function member_document(Request $request){
         $request->validate([
-            'file' => 'required|'
+            'file' => 'required'
         ]);
         if($request->has('file')){
 
