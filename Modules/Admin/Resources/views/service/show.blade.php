@@ -7,7 +7,10 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
-				<h5 class="card-title">Serivce <a href="{{url('/admin/service')}}" class="btn btn-sm btn-primary pull-right">Back</a></h5>
+				<h5 class="card-title">Serivce 
+					{{link_to('/service', $title = 'Back', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}					
+				</h5>
+					
 			</div>
 			<div class="card-body">
 				<div class="col-md-10">
@@ -23,10 +26,37 @@
 				@if($service->doc_url !=null)
 					<div class="col-md-12 mt-4">
 						<h4 class="font-weight-bold">Attachments</h4>
-						<a href="{{url('admin/services_docs/'.$service->id)}}" class="text-primary">Download application form for {{$service->name}}</a>
+						<a href="{{url('services_docs/'.$service->id)}}" class="text-primary">Download application form for {{$service->name}}</a>
 					</div>
+
+					@role('member')
+						<div class="col-md-12 mt-4">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Attachment Submit</h5>
+								</div>
+								<div class="card-body">
+									{{Form::open(array('url' => '/member_document','method' => 'post' , 'enctype' => 'multipart/form-data'))}}
+									<div class="form-group row">
+										<div class="col-md-6">
+											{{Form::label('file','Attachment Submit here...')}}
+											{{Form::file('file',['class' => 'form-control', 'accept' => 'application/pdf,application/vnd.ms-excel'])}}
+										</div>
+									</div>
+									<div class="form-group row mt-2">
+										<div class="col-md-6">
+											{{Form::submit('Submit',['class' => 'btn btn-sm btn-primary'])}}
+										</div>
+									</div>
+									{{Form::close()}}
+								</div>
+							</div>
+						</div>
+					@endrole
 				@endif
 			</div> 
+
+
 		</div>
 	</div>
 </div>

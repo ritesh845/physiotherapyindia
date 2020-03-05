@@ -109,7 +109,7 @@ class ServiceController extends Controller
     public function validation($request){
         $data =$request->validate([
             'name' => 'required|string|max:191|min:4',
-            'charges'=>  'required|string|min:1|max:6',
+            'charges'=>  'nullable|string|min:1|max:6',
             'url'    =>  'nullable|string|min:5|max:50',
             'from'   =>  'required|date_format:Y-m-d|after_or_equal:'.date('Y-m-d'),
             'to'     =>  'sometimes|nullable|date_format:Y-m-d|after_or_equal:from',
@@ -147,5 +147,14 @@ class ServiceController extends Controller
     public function services_docs($id){
         $service = Service::find($id);      
          return  Storage::download('public/'.$service->doc_url);
+    }
+
+    public function member_document(Request $request){
+        $request->validate([
+            'file' => 'required|'
+        ]);
+        if($request->has('file')){
+
+        }
     }
 }

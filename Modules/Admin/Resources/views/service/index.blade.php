@@ -7,7 +7,12 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
-				<h5 class="card-title">Serivces <a href="{{url('/admin/service/create')}}" class="btn btn-sm btn-primary pull-right">Add Service</a></h5>
+				<h5 class="card-title">Serivces 
+					@role('super_admin') 
+					{{link_to('/service/create', $title = 'Add Service', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}					
+						
+					@endrole
+				</h5>
 			</div>
 			<div class="card-body">
 				@if($message = Session::get('success'))
@@ -31,10 +36,12 @@
 							<td>{{$service->id}}</td>
 							<td>{{$service->name}}</td>
 							<td>{{$service->service_type == 'L' ? 'Long Time' : 'Short Time'}}</td>
-							<td>{{$service->charges}}</td>
+							<td><i class="fa fa-rupee"></i> {{$service->charges != null ? $service->charges : '0' }}</td>
 							<td>
-								<a href="{{url('/admin/service/'.$service->id.'/edit')}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
-								<a href="{{url('/admin/service/'.$service->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+								@role('super_admin')
+								<a href="{{url('/service/'.$service->id.'/edit')}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+								@endrole
+								<a href="{{url('/service/'.$service->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
 							</td>											
 						</tr>
 						@endforeach

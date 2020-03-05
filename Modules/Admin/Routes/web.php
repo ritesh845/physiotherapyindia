@@ -14,8 +14,13 @@
 // Route::prefix('admin')->group(function() {
 	Route::group(['prefix' => 'admin', 'middleware' => ['role:super_admin']], function() {
 	    Route::resource('/', 'AdminController');
-	    Route::resource('/service', 'ServiceController');
-	    Route::get('/services_docs/{id}', 'ServiceController@services_docs');
+	   
 	});
+	Route::group(['middleware' => ['role:super_admin|member']], function() {
+		Route::resource('/service', 'ServiceController');
+	    Route::get('/services_docs/{id}', 'ServiceController@services_docs');
+	    Route::post('/member_document', 'ServiceController@member_document');
+	});
+
 
  // });

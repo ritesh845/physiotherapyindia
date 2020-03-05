@@ -17,7 +17,3 @@ Route::group(['middleware' => ['role:member']], function() {
     Route::resource('/qualification', 'QualificationController');
     Route::resource('/specialization', 'SpecializationController');
  });
-
-Route::group(['prefix' => 'members', 'middleware' => ['role:member']], function() {
-    Route::resource('/service', 'ServiceController');
-});

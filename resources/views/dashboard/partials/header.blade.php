@@ -38,7 +38,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
         <div class="sidebar-brand-icon rotate-n-15">
           PH
         </div>
@@ -59,50 +59,47 @@
       <hr class="sidebar-divider">
 
       @role('super_admin')
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('/category')}}">
-          <i class="fa fa-list-alt"></i>
-          <span>Categories</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fa fa-users"></i>
-          <span>Users</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('/admin/service')}}">
-          <i class="fa fa-cogs"></i>
-          <span>Services</span>
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/category')}}">
+            <i class="fa fa-list-alt"></i>
+            <span>Categories</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <i class="fa fa-users"></i>
+            <span>Users</span>
+          </a>
+        </li>
+    
+      @endrole
+      @role('member')
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/member')}}">
+            <i class="fa fa-users"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/qualification')}}">
+            <i class="fa fa-graduation-cap"></i>
+            <span>Qualification</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/specialization')}}">
+            <i class="fa fa-medkit"></i>
+            <span>Specialization</span>
+          </a>
+        </li>        
       @endrole
 
-      @role('member')
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('/member')}}">
-          <i class="fa fa-users"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('/qualification')}}">
-          <i class="fa fa-graduation-cap"></i>
-          <span>Qualification</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('/specialization')}}">
-          <i class="fa fa-medkit"></i>
-          <span>Specialization</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url('members/service')}}">
-          <i class="fa fa-cogs"></i>
-          <span>Services</span>
-        </a>
-      </li>
+       @role('super_admin|member')
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/service')}}">
+            <i class="fa fa-cogs"></i>
+            <span>Services</span>
+          </a>
+        </li>
       @endrole
 
       <!-- Heading -->

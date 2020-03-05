@@ -7,9 +7,9 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">
-				<h5 class="card-title">Edit Serivce <a href="{{url('/admin/service')}}" class="btn btn-sm btn-primary pull-right">Back</a></h5>
+				<h5 class="card-title">Edit Serivce <a href="{{url('/service')}}" class="btn btn-sm btn-primary pull-right">Back</a></h5>
 			</div>
-			{{Form::open(array('url' => '/admin/service/'.$service->id,'method' => 'POST', 'enctype'=> 'multipart/form-data'))}}
+			{{Form::open(array('url' => '/service/'.$service->id,'method' => 'POST', 'enctype'=> 'multipart/form-data'))}}
 			@method('patch')
 			<div class="card-body">
 				<div class="row">
@@ -82,7 +82,7 @@
 					</div>
 					<div class="col-md-6 from-group mt-3 ">
 						{{Form::label('file','Service Document:')}}
-						{{ Form::file('file',['class' => 'form-control','accept'=>"application/pdf"])}}
+						{{ Form::file('file',['class' => 'form-control','accept'=>"application/pdf,application/vnd.ms-excel"])}}
 						@error('file')
                             <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -91,7 +91,7 @@
 					</div>
 					<div class="col-md-6 form-group mt-3">	
 						{{Form::label('file','Old Service Document:')}}	
-						<a href="{{url('admin/services_docs/'.$service->id)}}" class="text-primary form-control">Download application form for {{$service->name}}</a>						
+						<a href="{{url('/services_docs/'.$service->id)}}" class="text-primary form-control" style="overflow: hidden;">Download application form for {{$service->name}}</a>						
 					</div>
 				</div>
 			</div>
