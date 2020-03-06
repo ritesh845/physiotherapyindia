@@ -14,14 +14,16 @@
 				 <table id="tree-table" class="table table-hover table-bordered">
                     <tbody>
                     <th>Categories </th>
+                    <tr id="page_list">
                             @foreach($parentCategories as $category)
-                                <tr data-id="{{$category->id}}" data-parent="0" data-level="1">
-                                    <td data-column="name">{{$category->category_name}} <a href="{{url('/category/'.$category->sefriendly.'/edit')}}" class="btn btn-sm btn-success pull-right ">Edit</a></td>
+                                <tr data-id="{{$category->id}}" data-parent="0" data-level="1" >
+                                    <td data-column="name" class="{{$category->view_subcat != '0' ? '' : 'text-muted'}}"> {{$category->category_name}} <a href="{{url('/category/'.$category->sefriendly.'/edit')}}" class="btn btn-sm btn-success pull-right ">Edit</a></td>
                                 </tr>
                                 @if(count($category->subcategory))
-                                    @include('category::category.subCategoryView',['subcategories' => $category->subcategory, 'dataParent' => $category->id , 'dataLevel' => 1])
+                                    @include('category::category.subCategoryView',['subcategories' => $category->subcategory, 'dataParent' => $category->id , 'dataLevel' => 1, 'dataSpace' => 2])
                                 @endif      
 				            @endforeach
+				            </tr>
                         </tbody>
                     
                     </table>
@@ -49,7 +51,7 @@
 	            var expander = $columnName.prepend('' +
 	                '<span class="treegrid-expander fa fa-chevron-down"></span>' +
 	                '');
-	            // children.hide();
+	             // children.hide();
 
 	            expander.on('click', function (e) {
 	                var $target = $(e.target);
@@ -74,7 +76,7 @@
 	            });
 	        }
 	        $columnName.prepend('' +
-	            '<span class="treegrid-indent" style="width:' + 15 * (level =='' ? 0 : level)  + 'px"></span>' +
+	            '' +
 	            '');
 	    });
 

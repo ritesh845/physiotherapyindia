@@ -11,7 +11,11 @@
 				
 			</div>
 			<div class="card-body">
-				
+				@if($message = Session::get('success'))
+				    <div class="alert alert-success">
+				        {{$message}}
+				    </div>
+				@endif
 				<div class="col-md-10 m-auto">
 					{{ Form::open(array('url' => 'category','method' => 'post','enctype' => 'multipart/form-data')) }}
 					{{-- {{ Form::token() }} --}}
@@ -45,7 +49,7 @@
 								@foreach($parentCategories as $category)
 								<option class="root" value="{{$category->id}}" {{old('parent_cat') == $category->id ? 'selected' : ''}} >{{$category->category_name}}</option>
 									@if(count($category->subcategory))
-										@include('category::category.subCategoryList',['subcategories' => $category->subcategory])
+										@include('category::category.subCategoryList',['subcategories' => $category->subcategory, 'dataSpace' => 2])
 									@endif
 								@endforeach
 

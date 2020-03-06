@@ -14,15 +14,15 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> --}}
 
   <!-- Google Fonts -->
-  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
 
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
 
 
   <!-- Vendor CSS Files -->
-  {{-- <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet"> --}}
+  <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="{{asset('vendor/icofont/icofont.min.css')}}" rel="stylesheet">
 
   <link href="{{asset('vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -34,12 +34,7 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('css/style.css')}}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Mamba - v2.0.1
-  * Template URL: https://bootstrapmade.com/mamba-one-page-bootstrap-template-free/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+ 
 </head>
 
 <body>
@@ -57,11 +52,22 @@
 		  	</nav>   
 		  </div>
 		  <div class="social-links float-right">
-		    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-		    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-		    <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-		    <a href="#" class="skype"><i class="fa fa-skype"></i></a>
-		    <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+        <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+        <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+        <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+        <a href="#" class="skype"><i class="icofont-skype"></i></a>
+        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+       {{--  <nav class="nav-menu float-right d-none d-lg-block">
+          <ul>
+            @guest
+              <li class="mr-4">{{Form::text('email','',['class' => 'form-control p-2', 'placeholder' => 'Email or Mobile number'])}}</li>
+              <li class="mr-4">{{Form::input('password', 'password','',['class' => 'form-control p-2', 'placeholder' => 'Password'])}}
+              </li>
+              <li class="">{{Form::submit('Login',['class' => 'btn btn-sm btn-secondary p-2'])}}</li>
+            @endguest          
+        </ul>
+        </nav>   
+		   --}}
 		  </div>
 		</div>
 	</section>
@@ -82,14 +88,14 @@
           <li><a href="#about">About</a></li>
           <li><a href="#services">Branches</a></li>
           <li><a href="#portfolio">News & Events</a></li>
-          <li><a href="#team">Notices</a></li>
+          {{-- <li><a href="#team">Notices</a></li> --}}
           <li><a href="">Blogs</a>
           <li><a href="">E-Journal</a>
-          <li><a href="">Education</a>
-          <li class="drop-down"><a href="#">FAQ &nbsp;<i class="fa fa-angle-down"></i></a>
+          {{-- <li><a href="">Education</a> --}}
+           <li class="drop-down"><a href="">Drop Down</a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
-              <li class="drop-down"><a href="#"> Drop Down 2 &nbsp;<i class="fa fa-angle-left"></i></a>
+              <li class="drop-down"><a href="#">Drop Down 2</a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
                   <li><a href="#">Deep Drop Down 2</a></li>
@@ -104,7 +110,30 @@
             </ul>
           </li>
           <li><a href="#contact">Contact Us</a></li>
+           @guest
+            <li><a href="{{ route('login') }}">Login</a></li>
+             @if (Route::has('register'))
+               <li>
+                  <a href="{{ route('register') }}">Register</a>
+               </li>
+             @endif
+          
+           @else
+           <li class="drop-down">
+              <a href="">{{ Auth::user()->name }} </a>
+              <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+              </ul>
+            </li>
+           @endguest
         </ul>
+         
       </nav><!-- .nav-menu -->
 
     </div>

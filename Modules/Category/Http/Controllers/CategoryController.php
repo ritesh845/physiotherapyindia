@@ -104,7 +104,7 @@ class CategoryController extends Controller
 
     public function validation($request){
         return $request->validate([
-            'category_name'     => 'required|min:4|max:50|string',
+            'category_name'     => 'required|min:2|max:50|string',
             'sefriendly'        => 'required|string',
             'parent_cat'        => 'nullable',
             'article_num'       => 'nullable|min:1|max:4|string',
