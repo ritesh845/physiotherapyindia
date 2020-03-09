@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
 
         $parentCategories =  Category::whereNull('parent_cat')->get();
-        return view('category::category.index',compact('parentCategories'));
+        return view('category::category.index1',compact('parentCategories'));
     }
 
     /**
@@ -115,4 +115,21 @@ class CategoryController extends Controller
             'image'             => 'nullable|mimes:jpeg,jpg,png'
         ]);               
     }
+    public function categoriesPosition(Request $request){
+        $page_id = $request->page_id;
+        foreach ($page_id as $key => $value) {
+            
+                $category =  Category::find($value);
+                if($category->parent_cat !=null){
+
+                    print_r('parent Hai');
+                    echo "<br>";
+                }else{
+                    print_r('parent nhi hai');
+                    echo "<br>";
+                }
+            
+        }
+    }
+
 }

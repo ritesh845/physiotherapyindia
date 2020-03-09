@@ -27,17 +27,15 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
    
   {{-- <script src="{{asset('js/app.js')}}"></script>  --}}
+
 </head>
 
 <body id="page-top">
 
-  <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
         <div class="sidebar-brand-icon rotate-n-15">
           PH
@@ -45,32 +43,42 @@
         <div class="sidebar-brand-text mx-3">Physiotherapy</div>
       </a>
 
-      <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{route('home')}}">
           <i class="fa fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
 
-      <!-- Divider -->
+     
       <hr class="sidebar-divider">
 
       @role('super_admin')
-        <li class="nav-item">
-          <a class="nav-link" href="{{url('/category')}}">
-            <i class="fa fa-list-alt"></i>
-            <span>Categories</span></a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="">
             <i class="fa fa-users"></i>
             <span>Users</span>
           </a>
         </li>
-    
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/category')}}">
+            <i class="fa fa-list-alt"></i>
+            <span>Categories</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fa fa-list-alt"></i>
+            <span>Content</span>
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="">Articles</a>
+              <a class="collapse-item" href="">Comments</a>
+              <a class="collapse-item" href="">Pages</a>
+            </div>
+          </div>
+        </li>
       @endrole
       @role('member')
         <li class="nav-item">
@@ -123,21 +131,7 @@
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fa fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
+      
  --}}
       <!-- Divider -->
       <hr class="sidebar-divider">

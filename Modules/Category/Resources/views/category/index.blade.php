@@ -12,18 +12,24 @@
 			</div>
 			<div class="card-body">
 				 <table id="tree-table" class="table table-hover table-bordered">
-                    <tbody>
-                    <th>Categories </th>
-                    <tr id="page_list">
+				 	<thead>
+				 		<th>Categories 
+
+				 			{{-- {{link_to('#',$title='Update',$attribute =['class' => 'btn btn-sm btn-success pull-right update',$secure=null])}} --}}
+
+				 		</th>
+				 	</thead>
+                    <tbody class="row_position">
+              			
                             @foreach($parentCategories as $category)
                                 <tr data-id="{{$category->id}}" data-parent="0" data-level="1" >
                                     <td data-column="name" class="{{$category->view_subcat != '0' ? '' : 'text-muted'}}"> {{$category->category_name}} <a href="{{url('/category/'.$category->sefriendly.'/edit')}}" class="btn btn-sm btn-success pull-right ">Edit</a></td>
                                 </tr>
                                 @if(count($category->subcategory))
-                                    @include('category::category.subCategoryView',['subcategories' => $category->subcategory, 'dataParent' => $category->id , 'dataLevel' => 1, 'dataSpace' => 2])
+                                    @include('category::category.subCategoryView',['subcategories' => $category->subcategory, 'dataParent' => $category->id , 'dataLevel' => 1+1, 'dataSpace' => 2])
                                 @endif      
 				            @endforeach
-				            </tr>
+				          
                         </tbody>
                     
                     </table>
@@ -33,6 +39,8 @@
 		
 	</div>
 </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>     
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">   
 <script>
 	$(function () {
     var
@@ -102,5 +110,50 @@
 	        }
 	    };
 });
+
+	$(document).ready(function(){
+		 $('tbody').sortable({
+	 	    delay: 150,
+	        stop: function() {
+	            var page_id = new Array();
+	            var parent_id = new Array();
+
+	            $('.row_position>tr').each(function() {
+
+	                page_id.push($(this).attr("data-id"));
+
+	            });
+	            $('.row_position>tr').each(function() {
+
+	                parent_id.push($(this).attr("data-level"));
+
+	            });
+
+	            console.log(parent_id);
+	            // updatePageOrder(page_id,parent_id);
+
+	        }
+		 });
+		 function updatePageOrder(page_id,parent_id){
+		 	console.log(page_id);
+		 	$.ajax({
+		 		type:'post',
+		 		url: '{{url('/categoriesPosition')}}',
+		 		data:{page_id:page_id},
+		 		success:function(res){
+		 			console.log(res);
+		 		}
+		 	})
+		 }
+
+		 // $('.update').on('click',function(){
+		 // 	var page_id = new Array();
+		 //    $('.row_position>tr').each(function() {
+		 //        page_id.push($(this).attr("data-id"));
+		 //    });
+		 //    console.log(page_id);
+		 // })
+
+	})
 </script>
 @endsection
