@@ -18,14 +18,14 @@
                         <ol class="dd-list">
                             @foreach($parentCategories as $category)
                                 @if(count($category->subcategory))
-                                    <li class="dd-item" data-id="{{$category->id}}">
+                                    <li class="dd-item" data-id="{{$category->id}}" data-parent="{{$category->parent_cat}}">
                                        <div class="dd-handle"> {{$category->category_name}} <a href="{{url('category/create')}}" class="pull-right">Edit</a></div>
-                                        <ol id="{{$category->id}}">
+                                        <ol id="{{$category->parent_cat}}">
                                             @include('category::category.subCategoryList1',['subcategories' => $category->subcategory])
                                         </ol>
                                     </li>
                                 @else
-                                    <li class="dd-item" data-id="{{$category->id}}">
+                                    <li class="dd-item" data-id="{{$category->id}}" data-parent="{{$category->parent_cat}}">
                                         <div class="dd-handle">{{$category->category_name}}</div>
                                     </li>
                                 @endif
@@ -44,17 +44,27 @@
 $(document).ready(function()
 {
 
- 
- $('.dd').nestable().on('change', function() {
-    var data = new Array();
-    $('.dd li').each(function() {
 
-        data.push({
-            page_id: $(this).attr("data-id"),
-            parent_id:$(this).parent() 
+
+
+ $('.dd').nestable().on('change', function() {
+     var data = $('.dd').nestable('serialise');
+
+     $.each(data,function(i,v){
+        $.each(data,function(j,k){
+
         });
-    });
-    console.log(data);
+     })
+    // var data = new Array();
+    // $('.dd li').each(function() {
+
+    //     data.push({
+    //         page_id: $(this).attr("data-id"),
+    //         // parent_id:$(this).prev(), 
+    //         parent:$(this).parent() 
+    //     });
+    // });
+    //console.log(data);
 });
 
    
