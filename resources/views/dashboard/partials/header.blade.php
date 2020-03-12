@@ -73,7 +73,7 @@
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="">Articles</a>
+              <a class="collapse-item" href="{{url('/article')}}">Articles</a>
               <a class="collapse-item" href="">Comments</a>
               <a class="collapse-item" href="">Pages</a>
             </div>

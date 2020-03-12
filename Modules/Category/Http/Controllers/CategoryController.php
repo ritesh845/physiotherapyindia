@@ -17,8 +17,8 @@ class CategoryController extends Controller
     
     public function index()
     {
-
-        $parentCategories =  Category::whereNull('parent_cat')->get();
+        $parentCategories =  Category::whereNull('parent_cat')->orderBy('order_num','ASC')->get();
+     
         return view('category::category.index1',compact('parentCategories'));
     }
 
@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $parentCategories =  Category::whereNull('parent_cat')->get();
+        $parentCategories =  Category::whereNull('parent_cat')->orderBy('order_num','ASC')->get();
         $categoryInfo = null;
         return view('category::category.create',compact('parentCategories','categoryInfo'));
     }
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         $categoryInfo = Category::where('sefriendly', $id)->first();
 
 
-        $parentCategories =  Category::whereNull('parent_cat')->get();
+        $parentCategories =  Category::whereNull('parent_cat')->orderBy('order_num','ASC')->get();
         return view('category::category.edit',compact('parentCategories','categoryInfo'));
     }
 
@@ -116,20 +116,51 @@ class CategoryController extends Controller
         ]);               
     }
     public function categoriesPosition(Request $request){
-        $page_id = $request->page_id;
-        foreach ($page_id as $key => $value) {
-            
-                $category =  Category::find($value);
-                if($category->parent_cat !=null){
+        $data = $request->data;
+        $ids = $request->ids;
 
-                    print_r('parent Hai');
-                    echo "<br>";
-                }else{
-                    print_r('parent nhi hai');
-                    echo "<br>";
-                }
-            
+        foreach ($ids as $key => $id) {
+            Category::find($id)->update(['order_num' => $key]);
+        }
+
+        $parent_id = null;
+        
+        $i = 0;
+
+        foreach ($data as $key => $value) {
+            if(count($value) == '2'){
+                $this->updateFunction($value['id'],$parent_id);
+                $parent_id = $value['id'];
+
+                $this->loop($value,$parent_id);
+            }else{
+                $parent_id = null;
+              $this->updateFunction($value['id'],$parent_id);  
+            }  
+            $parent_id =null; 
+         }
+       return "success";
+
+
+    }
+    public function loop($value,$parent_id){
+        $p = $parent_id ;
+        foreach ($value['children'] as $k => $v) {
+            if(count($v) == '2'){
+                $this->updateFunction($v['id'],$parent_id);
+                $parent_id = $v['id'];
+                $this->loop($v,$parent_id);
+               
+            }else{
+               $parent_id = $p ;
+               $this->updateFunction($v['id'],$parent_id); 
+            }
+
         }
     }
+    public function updateFunction($id,$parent_id){
 
+        Category::find($id)->update(['parent_cat' => $parent_id]);
+
+    }
 }

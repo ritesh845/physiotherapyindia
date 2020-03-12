@@ -42,7 +42,7 @@
                             @enderror
 						</div>
 					</div>
-					<div class="from-group row mb-4">
+					{{-- <div class="from-group row mb-4">
 						{{ Form::label('name', 'Parent Category:',['class'=>'control-label col-md-4 text-right'])}}
 						<div class="col-md-8 ">
 							<select class="form-control" name="parent_cat">
@@ -61,7 +61,7 @@
                                 </span>
                             @enderror
 						</div>
-					</div>				
+					</div>			 --}}	
 					<a href="javascript:void(0)" class="text-arimary advance"><i class="fa fa-arrow-up arrow"></i> <b>Advanced Options</b></a>
 					<hr>
 					<div class="advanced_form">

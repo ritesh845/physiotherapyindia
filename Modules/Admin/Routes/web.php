@@ -20,6 +20,7 @@
 		Route::resource('/service', 'ServiceController');
 	    Route::get('/services_docs/{id}', 'ServiceController@services_docs');
 	    Route::post('/member_document', 'ServiceController@member_document');
+		Route::resource('/article', 'ArticleController');
 	});
 
 

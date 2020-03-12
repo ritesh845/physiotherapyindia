@@ -13,4 +13,5 @@
 // Route::group(['prefix' => 'category'] ,function(){
     Route::resource('/category', 'CategoryController');
     Route::post('/categoriesPosition', 'CategoryController@categoriesPosition');
+    Route::resource('/tags', 'TagsController');
 // });

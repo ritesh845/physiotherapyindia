@@ -33,7 +33,9 @@
 
   <!-- Template Main CSS File -->
   <link href="{{asset('css/style.css')}}" rel="stylesheet">
-
+  @php
+     $categories = Modules\Category\Entities\Category::whereNull('parent_cat')->orderBy('order_num','ASC')->get();
+  @endphp
  
 </head>
 
@@ -84,33 +86,22 @@
 
       <nav class="nav-menu float-right d-none d-lg-block">
         <ul>
-          <li class="active"><a href="#header">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Branches</a></li>
-          <li><a href="#portfolio">News & Events</a></li>
-          {{-- <li><a href="#team">Notices</a></li> --}}
-          <li><a href="">Blogs</a>
-          <li><a href="">E-Journal</a>
-          {{-- <li><a href="">Education</a> --}}
-           <li class="drop-down"><a href="">Drop Down</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="drop-down"><a href="#">Drop Down 2</a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
+            <li class="active"><a href="#home">{{__('Home')}}</a></li>
+          @foreach($categories as $category)
+            @if(count($category->subcategory))
+              @if($category->view_subcat =='1')
+              <li class="drop-down"><a href="">{{$category->category_name}}</a>
+              @endif
+                  @include('partials.navbarSubList',['subcategories' => $category->subcategory])
               </li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact Us</a></li>
-           @guest
+            @else
+               @if($category->view_subcat =='1')
+                <li><a href="#header">{{$category->category_name}}</a></li>
+              @endif
+            @endif
+          @endforeach
+        
+          @guest
             <li><a href="{{ route('login') }}">Login</a></li>
              @if (Route::has('register'))
                <li>
@@ -118,11 +109,11 @@
                </li>
              @endif
           
-           @else
+          @else
            <li class="drop-down">
               <a href="">{{ Auth::user()->name }} </a>
               <ul>
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="{{route('home')}}">Dashboard</a></li>
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

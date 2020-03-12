@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Admin\Http\Controllers;
+namespace Modules\Category\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class ArticleController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('admin::articles.index');
+        return view('category::tags.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('admin::articles.create');
+        return view('category::create');
     }
 
     /**
@@ -43,7 +43,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        return view('admin::articles.show');
+        return view('category::show');
     }
 
     /**
@@ -53,7 +53,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::articles.edit');
+        return view('category::edit');
     }
 
     /**

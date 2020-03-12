@@ -8,25 +8,33 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Categories <a href="{{url('category/create')}}" class="btn btn-sm btn-primary pull-right">Add Category</a></h4>
+                <h4 class="card-title">Categories 
+                    @include('category::partials.buttonDropdown')
+                </h4>
                 
             </div>
             <div class="card-body">
                 <div class="cf nestable-lists">
 
-                    <div class="dd" id="nestable">
+                    <div class="dd" id="nestable" style="width: 100%">
                         <ol class="dd-list">
                             @foreach($parentCategories as $category)
                                 @if(count($category->subcategory))
-                                    <li class="dd-item" data-id="{{$category->id}}" data-parent="{{$category->parent_cat}}">
-                                       <div class="dd-handle"> {{$category->category_name}} <a href="{{url('category/create')}}" class="pull-right">Edit</a></div>
-                                        <ol id="{{$category->parent_cat}}">
+                                    <li class="dd-item" data-id="{{$category->id}}">
+                                       <div class="dd-handle"> 
+                                        <span id="category-item" class="{{$category->view_subcat != '0' ? '' : 'text-muted'}}">{{$category->category_name}}</span>
+                                        <a href="{{url('/category/'.$category->sefriendly.'/edit')}}" class="close close-assoc-file"><i class="fa fa-edit text-success "></i></a>
+                                         </div>
+                                        <ol >
                                             @include('category::category.subCategoryList1',['subcategories' => $category->subcategory])
                                         </ol>
                                     </li>
                                 @else
-                                    <li class="dd-item" data-id="{{$category->id}}" data-parent="{{$category->parent_cat}}">
-                                        <div class="dd-handle">{{$category->category_name}}</div>
+                                    <li class="dd-item" data-id="{{$category->id}}" >
+                                        <div class="dd-handle">
+                                            <span id="category-item" class="{{$category->view_subcat != '0' ? '' : 'text-muted'}}"> {{$category->category_name}}</span>
+                                            <a href="{{url('/category/'.$category->sefriendly.'/edit')}}" class="close close-assoc-file"><i class="fa fa-edit text-success"></i></a>
+                                        </div>
                                     </li>
                                 @endif
                             @endforeach
@@ -44,27 +52,23 @@
 $(document).ready(function()
 {
 
-
-
-
  $('.dd').nestable().on('change', function() {
      var data = $('.dd').nestable('serialise');
+     // console.log(data);
+    var ids = new Array();
+    $('.dd li').each(function() {
+        ids.push($(this).attr("data-id"));
+    });
 
-     $.each(data,function(i,v){
-        $.each(data,function(j,k){
-
-        });
-     })
-    // var data = new Array();
-    // $('.dd li').each(function() {
-
-    //     data.push({
-    //         page_id: $(this).attr("data-id"),
-    //         // parent_id:$(this).prev(), 
-    //         parent:$(this).parent() 
-    //     });
-    // });
-    //console.log(data);
+     $.ajax({
+        type:'post',
+        url: '{{url('/categoriesPosition')}}',
+        data:{data:data,ids:ids},
+        success:function(res){
+            console.log(res);
+            location.reload();
+        }
+    });
 });
 
    
