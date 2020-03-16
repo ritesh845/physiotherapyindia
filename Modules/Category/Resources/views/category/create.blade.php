@@ -170,10 +170,10 @@
 </div>
 <script >
 	$(document).ready(function(){
-		 $('.advance').on('click',function(){
-		 	$('.arrow').toggleClass("fa-arrow-up fa-arrow-down");
-		 	$('.advanced_form').toggle();
-		 });
+		$('.advance').on('click',function(){
+			$('.arrow').toggleClass("fa-arrow-up fa-arrow-down");
+			$('.advanced_form').toggle();
+		});
 
 		$('.category_name').blur(function(e){
 			var Text = $(this).val();

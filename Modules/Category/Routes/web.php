@@ -14,4 +14,5 @@
     Route::resource('/category', 'CategoryController');
     Route::post('/categoriesPosition', 'CategoryController@categoriesPosition');
     Route::resource('/tags', 'TagsController');
+    Route::post('/topics_store', 'TagsController@topicsStore');
 // });

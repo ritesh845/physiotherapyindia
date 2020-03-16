@@ -200,7 +200,7 @@
 							<div class="col-md-12 from-group  mt-3">
 								<div class="card">
 									<div class="card-header p-2">
-										<h5>Local Address:</h5>
+										<h5>Correspondence Address:</h5>
 									</div>
 									<div class="card-body">	
 										<div class="row">

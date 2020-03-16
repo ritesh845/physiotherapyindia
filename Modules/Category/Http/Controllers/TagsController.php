@@ -5,7 +5,9 @@ namespace Modules\Category\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
+use Modules\Category\Entities\TagsGroups;
+use Modules\Category\Entities\Tags;
+use Modules\Category\Entities\TagsToGroups;
 class TagsController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return view('category::tags.index');
+        $topics = TagsGroups::all();
+        return view('category::tags.index',compact('topics'));
     }
 
     /**
@@ -33,7 +36,18 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $names = explode(',',$request->name);
+        if(count($names) !=0){
+            foreach ($names as $name) {
+                if($name !=''){
+                   Tags::create(['name' => $name,'tags_group_id' => $request->tags_group_id]);
+                }
+            }
+        }
+        $tags = Tags::where('tags_group_id',$request->tags_group_id)->get();
+        return view('category::tags.tagsList',compact('tags'));
+
     }
 
     /**
@@ -43,7 +57,11 @@ class TagsController extends Controller
      */
     public function show($id)
     {
-        return view('category::show');
+
+        $topic = TagsGroups::find($id);
+        $tags = Tags::where('tags_group_id',$id)->get();
+        return view('category::tags.tagsShow',compact('tags','topic'));
+
     }
 
     /**
@@ -75,5 +93,15 @@ class TagsController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function topicsStore(Request $request){
+
+        $data =  $request->validate([
+            'name' => 'required|max:191|min:2|string',
+            'url'  => 'nullable|string|max:191|min:3'
+        ]);
+        TagsGroups::create($data);
+        return redirect()->back()->with('success','Topics added successfully');
+
     }
 }

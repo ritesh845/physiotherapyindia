@@ -8,7 +8,7 @@
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title">Articles 
-					{{link_to('/article/create', $title = 'Add Service', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}
+					{{link_to('/article/create', $title = 'Add Article', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}
 				</h5>
 			</div>
 			<div class="card-body">
