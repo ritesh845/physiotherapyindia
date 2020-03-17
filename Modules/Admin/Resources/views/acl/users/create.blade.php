@@ -16,8 +16,7 @@
 				    </div>
 				@endif
 				<div class="col-md-10 m-auto">
-					{{ Form::open(array('url' => 'member','method' => 'post')) }}
-					{{-- {{ Form::token() }} --}}
+					{{ Form::open(array('url' => '/acl/user','method' => 'post')) }}
 					<div class="from-group row mb-4">
 						{{ Form::label('name', 'Name:',['class'=>'col-md-4 text-right'])}}
 						<div class="col-md-8 ">
@@ -41,15 +40,21 @@
 						</div>
 					</div>
 					<div class="from-group row mb-4">
-						{{ Form::label('mobile', 'Mobile Address:',['class'=>'control-label col-md-4 text-right'])}}
+						{{ Form::label('phone', 'Mobile Address:',['class'=>'control-label col-md-4 text-right'])}}
 						<div class="col-md-8">
-							{{ Form::text('mobile',old('mobile'),['class' => 'form-control mobile', 'oninput' =>"this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"])}}
+							{{ Form::text('phone',old('phone'),['class' => 'form-control phone', 'oninput' =>"this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"])}}
+
+							@error('phone')
+                                <span class="text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 						</div>
 					</div>
 					<div class="from-group row mb-4">
-						{{ Form::label('member_type', 'Member Type:',['class'=>'control-label col-md-4 text-right'])}}
+						{{ Form::label('role', 'User Type',['class'=>'control-label col-md-4 text-right'])}}
 						<div class="col-md-8 ">
-							{{ Form::select('member_type',array('L' => 'Life Time', 'S' => 'Short Time'), '',['class'=>'form-control'])}}	
+							{{ Form::select('role',$roles->pluck('display_name','id'), '',['class'=>'form-control'])}}	
 						</div>
 					</div>		
 				</div>

@@ -46,9 +46,25 @@
 				<h5 class="card-title">Your Specializations</h5>
 			</div>
 			<div class="card-body">
-				@foreach($userSpec as $spec)
-					<li>{{$spec->specializations->name}}</li>
-				@endforeach 
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Specialization</th>
+							<th>Verify for approval</th>
+						</tr>
+					</thead>
+					<tbody>
+					@foreach($userSpec as $spec)
+						<tr>
+							<td>{{$spec->specializations->name}}</td>
+							<td>{{$spec->status == 'P' ? 'Pending' : ($spec->status == 'A' ? 'Approved' : 'Declined')}}</td>
+						</tr>
+					@endforeach 
+					</tbody>
+				</table>
+				{{-- @foreach($userSpec as $spec)
+					<li>{{$spec->specializations->name}} <span class="pull-right">{{$spec->status == 'P' ? 'Pending' : ''}}</span></li>
+				@endforeach  --}}
 			</div>
 		</div>
 	</div>

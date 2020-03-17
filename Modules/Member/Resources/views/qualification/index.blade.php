@@ -27,7 +27,8 @@
 									<th>Board/University/Other</th>
 									<th>Pass Year (In %)</th>
 									<th>Pass Marks</th>
-									<th>Pass Division</th>
+									<th>Pass Division</th>	
+									<th>Verify for approval</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -44,10 +45,18 @@
 									<td>{{$qualification->pass_year}}</td>
 									<td>{{$qualification->pass_marks}}</td>
 									<td>{{$qualification->pass_division == '1' ? '1st' : ($qualification->pass_division == '2' ? '2nd' : '3rd')}}</td>
+
+									<td>{{$qualification->status == 'P' ? 'Pending' : ($qualification->pass_division == 'A' ? 'Approved' : 'Declined')}}</td>
+
 									<td>
-										<a href="{{url('/qualification/'.$qualification->id.'/edit')}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+										<a href="{{url('/qualification/'.$qualification->id.'/edit')}}" class="mr-2"><i class="fa fa-edit text-success"></i></a>
+
+										<a href="{{url('/doc_download/'.$qualification->file->id)}}" class="mr-2"><i class="fa fa-download text-info"></i></a>
+
+										<a href="{{asset('storage/'.$qualification->file->disk.'/'.$qualification->file->file_name)}}" ><i class="fa fa-eye text-info"></i></a>
 									</td>
 								</tr>
+								@php $count++; @endphp
 								@endforeach
 							</tbody>
 						</table>

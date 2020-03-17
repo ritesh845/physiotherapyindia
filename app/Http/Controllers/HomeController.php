@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
+use App\Models\Documents;
+use Illuminate\Support\Facades\Storage;
 class HomeController extends Controller
 {
     /**
@@ -35,5 +37,11 @@ class HomeController extends Controller
     public function cities($state_code){
         $cities = City::where('state_code',$state_code)->get();
         return response()->json($cities);
+    }
+
+    public function doc_download($id){
+        $document = Documents::find($id);
+ 
+        return Storage::download('public/'.$document->disk.'/'.$document->file_name);
     }
 }

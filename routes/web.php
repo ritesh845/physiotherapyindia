@@ -29,4 +29,5 @@ Route::get('/verify/{token}', 'VerifyController@verifyUser')->name('verifyUser')
 //Common Function Use
 Route::get('/states/{country_code}', 'HomeController@states');
 Route::get('/cities/{state_code}', 'HomeController@cities');
+Route::get('/doc_download/{id}', 'HomeController@doc_download');
 

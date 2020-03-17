@@ -94,14 +94,7 @@ class RegisterController extends Controller
             $user->remember_token = Str::random(40);
             $user->save();
             Mail::to($user->email)->send(new VerifyMail($user));
-            Member::create([
-                'id'        => $user->id,
-                'name'      => $user->name,
-                'email'     => $user->email,
-                'mobile'    => $user->phone,
-                'regn_date' => date('Y-m-d', strtotime($user->created_at)),
-
-            ]);
+            member_create($user);
         }
     }
 

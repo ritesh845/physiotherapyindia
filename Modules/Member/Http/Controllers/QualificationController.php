@@ -10,6 +10,8 @@ use Modules\Member\Entities\QualMast;
 use Modules\Member\Entities\QualCatgMast;
 use Modules\Member\Entities\MemberQual;
 use Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Documents;
 class QualificationController extends Controller
 {
     public function __construct()
@@ -19,7 +21,8 @@ class QualificationController extends Controller
     
     public function index()
     {   
-        $qualifications = MemberQual::where('user_id',Auth::user()->id)->get();
+        $qualifications = MemberQual::with('file')->where('user_id',Auth::user()->id)->get();
+       
         return view('member::qualification.index',compact('qualifications'));
     }
 
@@ -41,12 +44,25 @@ class QualificationController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $this->validate($request);
+
+        $request->validate([
+            'qual_doc'  => 'required|max:5120|mimes:jpeg,png,jpg,pdf'
+        ]);
+
+
         $member_qual = MemberQual::where('qual_catg_code', $request->qual_catg_code)->where('user_id',Auth::user()->id)->first();
+
+        // return $member_qual;
+
         if($member_qual){
             return back()->with('warning','Qualification already added');
         }else{
-            MemberQual::create($data);
+            $member =  MemberQual::create($data);
+            if($request->has('qual_doc')){
+              document_save($request,$member,Auth::user()->id,'/qual_docs');
+            }
             return redirect('/qualification')->with('success','Qualification added successfully');
         }
 
@@ -73,7 +89,7 @@ class QualificationController extends Controller
       
         $qual_catgs = QualCatgMast::all();
 
-        $qualification = MemberQual::find($id);
+        $qualification = MemberQual::with('file')->where('id',$id)->first();
 
         return view('member::qualification.edit',compact('qual_catgs','qualification'));
     }
@@ -93,7 +109,18 @@ class QualificationController extends Controller
         if($member_qual){
             return back()->with('warning','Qualification already added');
         }else{
-            MemberQual::find($id)->update($data);
+            $member = MemberQual::find($id);
+            $member->update($data);
+
+            $qualification = MemberQual::with('file')->where('id',$id)->first();
+
+            if($request->has('qual_doc')){
+               if($qualification->file){                           
+                    Storage::delete('public/'.$qualification->file->disk.'/'.$qualification->file->file_name);
+                    Documents::find($qualification->file->id)->delete();
+               }
+               document_save($request,$member,Auth::user()->id,'/qual_docs');               
+            }
             return redirect('/qualification')->with('success','Qualification updated successfully');
         }
 
@@ -116,11 +143,13 @@ class QualificationController extends Controller
             'board' =>  'required|min:3|max:100',
             'pass_marks'   => 'required',
             'pass_year'     => 'required|integer|min:1900|max:'.date('Y'),
-            'pass_division' => 'required|not_in:""'
+            'pass_division' => 'required|not_in:""',
         ]);
+
         $qual_catg = QualCatgMast::where('qual_catg_code',$request->qual_catg_code)->first(); 
         $data['user_id'] = Auth::user()->id;
         $data['qual_catg_desc'] = $qual_catg->qual_catg_desc;
         return $data;
     }
+
 }

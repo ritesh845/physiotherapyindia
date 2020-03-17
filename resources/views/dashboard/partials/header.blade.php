@@ -55,12 +55,20 @@
       <hr class="sidebar-divider">
 
       @role('super_admin')
-        <li class="nav-item">
-          <a class="nav-link" href="">
-            <i class="fa fa-users"></i>
-            <span>Users</span>
+       <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fa fa-list-alt"></i>
+            <span>ACL</span>
           </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/acl/user')}}">Users</a>
+              <a class="collapse-item" href="">Roles</a>
+              <a class="collapse-item" href="">Permissions</a>
+            </div>
+          </div>
         </li>
+       
         <li class="nav-item">
           <a class="nav-link" href="{{url('/category')}}">
             <i class="fa fa-list-alt"></i>
@@ -80,6 +88,7 @@
           </div>
         </li>
       @endrole
+
       @role('member')
         <li class="nav-item">
           <a class="nav-link" href="{{url('/member')}}">
@@ -110,6 +119,21 @@
         </li>
       @endrole
 
+      @role('member-admin')
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fa fa-list-alt"></i>
+            <span>Members</span>
+          </a>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="">Qualifications</a>
+              <a class="collapse-item" href="">Profile</a>
+              <a class="collapse-item" href="">Services</a>
+            </div>
+          </div>
+        </li>
+      @endrole
       <!-- Heading -->
      {{--  <div class="sidebar-heading">
         Interface

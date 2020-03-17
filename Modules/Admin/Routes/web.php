@@ -12,8 +12,12 @@
 */
 
 // Route::prefix('admin')->group(function() {
-	Route::group(['prefix' => 'admin', 'middleware' => ['role:super_admin']], function() {
-	    Route::resource('/', 'AdminController');
+	Route::group(['middleware' => ['role:super_admin']], function() {
+	    Route::resource('/admin', 'AdminController');
+
+	   	Route::resource('/acl/user', 'ACL\UserController');
+	   	Route::resource('/acl/role', 'ACL\RoleController');
+	   	Route::resource('/acl/permission', 'ACL\PermissionController');
 	   
 	});
 	Route::group(['middleware' => ['role:super_admin|member']], function() {
