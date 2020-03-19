@@ -31,3 +31,5 @@ Route::get('/states/{country_code}', 'HomeController@states');
 Route::get('/cities/{state_code}', 'HomeController@cities');
 Route::get('/doc_download/{id}', 'HomeController@doc_download');
 
+Route::get('/notification_read/{id}', 'HomeController@notification_read')->name('notification_read');
+

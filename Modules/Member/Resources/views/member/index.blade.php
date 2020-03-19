@@ -18,8 +18,14 @@
 						
 					        {{ Form::file('file',['class' => 'form-control disabled','style' => 'padding:0px !important','accept'=>"image/*",'disabled'=>true])}}
 
-					    </div><hr><br>
-					    <div class="card">
+					    </div><hr>
+					     <div class="card mb-4">
+					        <div class="card-header">Profile Verified </div>
+					        <div class="card-body">
+					        	{{$member->status == 'P' ? 'Pending' : ($member->status == 'A' ? 'Verified' : 'Suspended')}}
+					        </div>
+					    </div>
+					    <div class="card mb-4">
 					        <div class="card-header">Website <i class="fa fa-link fa-1x"></i></div>
 					        <div class="card-body">
 					        	<a href="#">{{$member->www}}</a>
@@ -58,9 +64,27 @@
 		                        @enderror
 							</div>
 							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('iap_no', 'IAP Number:')}}
+								{{ Form::text('iap_no',old('iap_no') ?? $member->iap_no,['class' => 'form-control iap_no','readonly'=>'true'])}}
+								@error('iap_no')
+	                                <span class="text-danger" role="alert">
+	                                    <strong>{{ $message }}</strong>
+	                                </span>
+		                        @enderror
+							</div>
+							<div class="col-md-6 from-group mt-3">
 								{{ Form::label('email', 'Email Address:')}}
 								{{ Form::text('email',old('email') ?? $member->email,['class' => 'form-control email','readonly'=>'true'])}}
 								@error('email')
+	                                <span class="text-danger" role="alert">
+	                                    <strong>{{ $message }}</strong>
+	                                </span>
+		                        @enderror
+							</div>
+							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('mobile', 'Mobile Number:')}}
+								{{ Form::text('mobile',old('mobile') ?? $member->mobile,['class' => 'form-control mobile','readonly'=>'true'])}}
+								@error('mobile')
 	                                <span class="text-danger" role="alert">
 	                                    <strong>{{ $message }}</strong>
 	                                </span>
@@ -85,15 +109,7 @@
 							        </span>
 							    @enderror	
 							</div>
-							<div class="col-md-6 from-group mt-3">
-								{{ Form::label('mobile', 'Mobile Number:')}}
-								{{ Form::text('mobile',old('mobile') ?? $member->mobile,['class' => 'form-control mobile','readonly'=>'true'])}}
-								@error('mobile')
-	                                <span class="text-danger" role="alert">
-	                                    <strong>{{ $message }}</strong>
-	                                </span>
-		                        @enderror
-							</div>
+							
 							<div class="col-md-6 from-group mt-3">
 								{{ Form::label('mobile1', 'Alternate Mobile Number:')}}
 								{{ Form::text('mobile1',old('mobile1') ?? $member->mobile1,['class' => 'form-control mobile1 readonly','readonly'=>'true', 'oninput' =>"this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"])}}
@@ -103,15 +119,7 @@
 	                                </span>
 		                        @enderror
 							</div>
-							<div class="col-md-6 from-group mt-3">
-								{{ Form::label('iap_no', 'IAP Number:')}}
-								{{ Form::text('iap_no',old('iap_no') ?? $member->iap_no,['class' => 'form-control iap_no readonly','readonly'=>'true'])}}
-								@error('iap_no')
-	                                <span class="text-danger" role="alert">
-	                                    <strong>{{ $message }}</strong>
-	                                </span>
-		                        @enderror
-							</div>
+							
 							<div class="col-md-6 from-group mt-3">
 								{{ Form::label('clinic_name', 'Clinic Name:')}}
 								{{ Form::text('clinic_name',old('clinic_name') ?? $member->clinic_name,['class' => 'form-control clinic_name readonly','readonly'=>'true'])}}
@@ -133,13 +141,42 @@
 
 							<div class="col-md-6 from-group mt-3">
 								{{ Form::label('regn_date', 'Registration Date:')}}
-								{{ Form::text('regn_date',old('regn_date') ?? $member->regn_date,['class' => 'form-control regn_date','readonly'=>'true'])}}
+								{{ Form::text('regn_date',old('regn_date') ?? $member->regn_date,['class' => 'form-control regn_date disabled','disabled'=>'true'])}}
 								@error('regn_date')
 	                                <span class="text-danger" role="alert">
 	                                    <strong>{{ $message }}</strong>
 	                                </span>
 		                        @enderror
 							</div>
+							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('father_name', 'Father Full Name:')}}
+								{{ Form::text('father_name',old('father_name') ?? $member->father_name,['class' => 'form-control father_name readonly','readonly'=>'true'])}}
+								@error('father_name')
+	                                <span class="text-danger" role="alert">
+	                                    <strong>{{ $message }}</strong>
+	                                </span>
+		                        @enderror
+							</div>
+							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('mother_name', 'Mother Full Name:')}}
+								{{ Form::text('mother_name',old('mother_name') ?? $member->mother_name,['class' => 'form-control mother_name readonly','readonly'=>'true'])}}
+								@error('mother_name')
+	                                <span class="text-danger" role="alert">
+	                                    <strong>{{ $message }}</strong>
+	                                </span>
+		                        @enderror
+							</div>
+							<div class="col-md-6 from-group mt-3">
+								{{ Form::label('marital_status', 'Marital Status:')}}
+								{{ Form::select('marital_status',array('' => 'Select marital status','S' => 'Single', 'M' => 'Married','W' => 'Widowed', 'D' => 'Divorced'),old('marital_status') ?? $member->marital_status,['class'=>'form-control marital_status disabled','disabled'=>'true'])}}
+								@error('marital_status')
+	                                <span class="text-danger" role="alert">
+	                                    <strong>{{ $message }}</strong>
+	                                </span>
+		                        @enderror
+							</div>
+
+
 							<div class="col-md-12 from-group  mt-3">
 								<div class="card">
 									<div class="card-header p-2">
@@ -284,7 +321,7 @@
 
 	$(document).ready(function(){
 		 $(function() {
-		   $('.dob').datepicker({
+		   $('.dob, .regn_date').datepicker({
 		   	format:'yyyy-mm-dd'
 		   });
 		 });

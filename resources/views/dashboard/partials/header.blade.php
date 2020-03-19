@@ -26,7 +26,9 @@
   <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
    
-  {{-- <script src="{{asset('js/app.js')}}"></script>  --}}
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+
 
 </head>
 
@@ -56,15 +58,15 @@
 
       @role('super_admin')
        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#aclNav" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-list-alt"></i>
             <span>ACL</span>
           </a>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div id="aclNav" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="{{url('/acl/user')}}">Users</a>
-              <a class="collapse-item" href="">Roles</a>
-              <a class="collapse-item" href="">Permissions</a>
+              <a class="collapse-item" href="{{url('/acl/role')}}">Roles</a>
+              <a class="collapse-item" href="{{url('/acl/permission')}}">Permissions</a>
             </div>
           </div>
         </li>
@@ -75,11 +77,11 @@
             <span>Categories</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#contentNav" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-list-alt"></i>
             <span>Content</span>
           </a>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div id="contentNav" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="{{url('/article')}}">Articles</a>
               <a class="collapse-item" href="">Comments</a>
@@ -119,16 +121,15 @@
         </li>
       @endrole
 
-      @role('member-admin')
+      @role('member_admin')
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-list-alt"></i>
-            <span>Members</span>
+            <span>Approval</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="">Qualifications</a>
-              <a class="collapse-item" href="">Profile</a>
+              <a class="collapse-item" href="{{url('approval/qualification')}}">Qualifications</a>
               <a class="collapse-item" href="">Services</a>
             </div>
           </div>
@@ -264,48 +265,36 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                @if(count(Auth::user()->unreadNotifications) !=0)
+                  <span class="badge badge-danger badge-counter">{{count(Auth::user()->unreadNotifications)}}</span>
+                @endif
               </a>
               <!-- Dropdown - Alerts -->
-        {{-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated-grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fa fa-file-alt text-white"></i>
+              @if(count(Auth::user()->unreadNotifications) !=0)
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated-grow-in" aria-labelledby="alertsDropdown" >
+                  <h6 class="dropdown-header">
+                    Alerts Center
+                  </h6>
+                  <div style="height: 250px; overflow-y: scroll;">
+                  @foreach(Auth::user()->unreadNotifications as $notification)
+                  <a class="dropdown-item d-flex align-items-center" href="{{route('notification_read',$notification['id'])}}">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-primary">
+                        <i class="fa fa-file text-white"></i>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fa fa-donate text-white"></i>
+                    <div>
+                      <div class="small text-gray-500">{{$notification['created_at']->diffForHumans()}}</div>
+                      <span class="font-weight-bold">{{$notification['data']['title']}}</span>
+                      <br>
+                      <span>{{$notification['data']['message']}}</span>
                     </div>
+                  </a>
+                  @endforeach
                   </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fa fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div> --}}
+                  <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                </div>
+                @endif
             </li>
 
             <!-- Nav Item - Messages -->

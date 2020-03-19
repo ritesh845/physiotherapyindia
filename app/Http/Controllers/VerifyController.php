@@ -22,8 +22,9 @@ class VerifyController extends Controller
     }
     public function verifyUser($token)
     {
-      	$user = User::where('remember_token',$token)->first();
 
+      	$user = User::where('remember_token',$token)->first();
+       
         if($user->email_verified_at == null){
         	$user->email_verified_at = date('Y-m-d h:i:s');
         	$user->save();

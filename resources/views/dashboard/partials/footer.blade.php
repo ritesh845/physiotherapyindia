@@ -47,6 +47,8 @@
   {{-- <script src="{{asset('js/jquery.easing.min.js')}}"></script> --}}
 
     <!-- Custom scripts for all pages-->
+
+     {{-- <script src="{{asset('js/app.js')}}"></script>  --}}                                                          
   <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('js/sb-admin.js')}}"></script>
   <script src="{{asset('js/helpers.js')}}"></script>
@@ -57,6 +59,7 @@
   <script src="https://cdn.tiny.cloud/1/rm186r4v9y3hadsuta5582e02kzms2295eavbfpuiii26jkv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
  <script src="{{asset('js/parts-selector.js')}}"></script>
  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
   <!-- Page level plugins -->
   {{-- <script src="vendor/chart.js/Chart.min.js"></script> --}}
 
@@ -66,6 +69,7 @@
  --}}
 
  <script >
+
   // $(document).ready(function() {
     $.ajaxSetup({
       headers: {
@@ -83,6 +87,7 @@
     });
 // });
  </script>
+
 </body>
 
 

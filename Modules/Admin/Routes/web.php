@@ -16,8 +16,15 @@
 	    Route::resource('/admin', 'AdminController');
 
 	   	Route::resource('/acl/user', 'ACL\UserController');
+	   	Route::get('/acl/user/role/{id}','ACL\UserController@role');
+	   	Route::post('/acl/user/role_assign','ACL\UserController@role_assign');
+	   	Route::get('/acl/user/permission/{id}','ACL\UserController@permission');
+	   	Route::post('/acl/user/permission_assign','ACL\UserController@permission_assign');
 	   	Route::resource('/acl/role', 'ACL\RoleController');
 	   	Route::resource('/acl/permission', 'ACL\PermissionController');
+
+	   	Route::get('approval/qualification','ApprovalController@qualifications');
+	   	Route::get('approval/qualification/{$id}','ApprovalController@qualification_show');
 	   
 	});
 	Route::group(['middleware' => ['role:super_admin|member']], function() {

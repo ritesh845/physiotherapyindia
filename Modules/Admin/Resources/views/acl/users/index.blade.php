@@ -10,6 +10,12 @@
 				<h4 class="card-title">Users <a href="{{url('acl/user/create')}}" class="btn btn-sm btn-primary pull-right">Add User</a></h4>
 			</div>
 			<div class="card-body">
+				@if($message = Session::get('success'))
+				    <div class="alert alert-success">
+				        {{$message}}
+				    </div>
+				@endif
+
 				<table class="table table-bordered table-striped" id="myTable">
 					<thead>
 						<tr>
@@ -36,14 +42,14 @@
 								</td>
 								<td>{{date('Y-m-d',strtotime($user->created_at))}}</td>
 								<td>
-									<a href="" class="mr-2"> <i class="fa fa-edit text-success"></i> </a>
+									<a href="{{url('/acl/user/'.$user->id.'/edit')}}" class="mr-2"> <i class="fa fa-edit text-success"></i> </a>
 									<div class="dropdown pull-right">
 										<button class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<i class="fa fa-gear"></i>
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">Assign Role</a>
-										<a class="dropdown-item" href="">Assign Permission</a>
+										<a class="dropdown-item" href="{{url('/acl/user/role/'.$user->id)}}">Assign Role</a>
+										<a class="dropdown-item" href="{{url('/acl/user/permission/'.$user->id)}}">Assign Permission</a>
 										</div>
 									</div>
 									{{-- <ul class="dropdown" style="float: right;" >

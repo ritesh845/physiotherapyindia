@@ -43,4 +43,12 @@ class User extends Authenticatable
     public function specializations(){
         return $this->belongsToMany('Modules\Member\Entities\UserSpec', 'user_specializations','user_id','specialization_id');
     }
+    
+    public function roles(){
+      return $this->belongsToMany('App\Role');
+    }
+
+    public function permissions() {
+      return $this->belongsToMany('App\Permission');
+    }
 }

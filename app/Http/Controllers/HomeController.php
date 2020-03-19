@@ -44,4 +44,12 @@ class HomeController extends Controller
  
         return Storage::download('public/'.$document->disk.'/'.$document->file_name);
     }
+
+    public function notification_read($id){
+      $notification = auth()->user()->unreadNotifications->where('id',$id)->first();
+       $notification->markAsRead();
+       // return "sdfsdf";
+       return redirect($notification->data['link']);
+
+    }
 }

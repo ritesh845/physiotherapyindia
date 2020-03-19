@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
+use App\Permission;
 use App\Mail\UserMail;
 use Mail;
 use Illuminate\Support\Str;
@@ -49,18 +50,18 @@ class UserController extends Controller
         $password  = str_limit($data['name'],3,'@123');
         $data['password'] = Hash::Make($password);        
         $user = User::create($data);
-        $user->attachRole($request->role);
+        //$user->attachRole($request->role);
         $user->remember_token = Str::random(40);
         $user->save();
 
         $user['password'] = $password;
 
-        if($request->role == '3'){
-           member_create($user);
-        }
+        // if($request->role == '3'){
+        //    member_create($user);
+        // }
         
         Mail::to($user->email)->send(new UserMail($user));
-        return $data;
+        return redirect('/acl/user')->with('success','User Created Successfully');
     }
 
     /**
@@ -70,7 +71,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('admin::show');
+        return view('admin::acl.users.show');
     }
 
     /**
@@ -80,7 +81,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        $user = User::find($id);
+        return view('admin::acl.users.edit',compact('user'));
     }
 
     /**
@@ -91,7 +93,34 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data =  $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
+            'phone' => ['required','string','max:11','min:10', 'unique:users,phone,'.$id],
+        ]); 
+
+        $user = User::find($id);
+        $email = $user->email;
+        $phone = $user->phone;
+        $user->update($data);
+        if($phone != $user->phone || $email != $user->email){
+            $password  = str_limit($data['name'],3,'@123');
+            $user->password = Hash::Make($password);
+            if($phone != $user->phone){
+                $user->phone_verified_at = null;
+                $user->code = null;
+                $user->save();
+            }
+            if($email != $user->email){
+                $user->email_verified_at = null;
+                $user->remember_token = Str::random(40);
+                $user->save();
+                $user['password'] = $password;
+                Mail::to($user->email)->send(new UserMail($user));   
+            }            
+        }
+
+        return redirect('/acl/user')->with('success','User Updated Successfully');
     }
 
     /**
@@ -103,5 +132,29 @@ class UserController extends Controller
     {
         //
     }
+
+    public function role($id){
+        $user = User::with('roles')->where('id',$id)->first();
+        $roles = Role::all();
+        return view('admin::acl.users.role',compact('user','roles'));
+    }
+
+    public function role_assign(Request $request){
+       $user = User::find($request->user_id);
+       $user->syncRoles($request->roles); 
+       return redirect()->back()->with('success','Roles Updated Successfully');
+    }
+    public function permission($id){
+        $user = $user = User::with('permissions')->where('id',$id)->first();
+        $permissions = Permission::all();
+        return view('admin::acl.users.permission',compact('user','permissions'));
+    }
+
+    public function permission_assign(Request $request){
+       $user = User::find($request->user_id);
+       $user->syncPermissions($request->permissions);
+       return redirect()->back()->with('success','Permissions Updated Successfully');
+    }
+
 
 }

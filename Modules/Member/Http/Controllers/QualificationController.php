@@ -10,8 +10,11 @@ use Modules\Member\Entities\QualMast;
 use Modules\Member\Entities\QualCatgMast;
 use Modules\Member\Entities\MemberQual;
 use Auth;
+use App\User;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Documents;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NotifyMessage;
 class QualificationController extends Controller
 {
     public function __construct()
@@ -60,10 +63,24 @@ class QualificationController extends Controller
             return back()->with('warning','Qualification already added');
         }else{
             $member =  MemberQual::create($data);
+
             if($request->has('qual_doc')){
               document_save($request,$member,Auth::user()->id,'/qual_docs');
             }
+
+            $message = [
+                'id'     => Auth::user()->id,
+                'title'  => 'Member added qualifications.',
+                'message'=> Auth::user()->name.' added qualification.',
+                'link'   => 'approval/qualification/'.Auth::user()->id,
+            ];
+           
+            $users = User::whereRoleIs('member_admin')->get();
+            Notification::send($users, new NotifyMessage($message));
+           
+
             return redirect('/qualification')->with('success','Qualification added successfully');
+            
         }
 
     }
@@ -102,26 +119,40 @@ class QualificationController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $data = $this->validate($request);
         
         $member_qual = MemberQual::where('qual_catg_code', $request->qual_catg_code)->where('user_id',Auth::user()->id)->where('id', '!=' ,$id)->first();
-
+      
         if($member_qual){
+
             return back()->with('warning','Qualification already added');
+           
         }else{
             $member = MemberQual::find($id);
             $member->update($data);
 
             $qualification = MemberQual::with('file')->where('id',$id)->first();
-
             if($request->has('qual_doc')){
-               if($qualification->file){                           
+                if($qualification->file){                           
                     Storage::delete('public/'.$qualification->file->disk.'/'.$qualification->file->file_name);
                     Documents::find($qualification->file->id)->delete();
-               }
-               document_save($request,$member,Auth::user()->id,'/qual_docs');               
+                }
+
+                document_save($request,$member,Auth::user()->id,'/qual_docs');
+                $message = [
+                    'id'     => Auth::user()->id,
+                    'title'  => 'Member updated qualifications.',
+                    'message'=> Auth::user()->name.' updated qualification.',
+                    'link'   => 'approval/qualification/'.Auth::user()->id,
+                ];
+                $member->status = 'P';
+                $member->save();
+                $users = User::whereRoleIs('member_admin')->get();
+                Notification::send($users, new NotifyMessage($message));              
             }
             return redirect('/qualification')->with('success','Qualification updated successfully');
+            
         }
 
 

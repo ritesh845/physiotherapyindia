@@ -5,7 +5,8 @@ namespace Modules\Admin\Http\Controllers\ACL;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
+use App\Role;
+use App\Permission;
 class RoleController extends Controller
 {
     /**
@@ -14,7 +15,14 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('admin::index');
+        $roles = Role::all();
+        // foreach ($roles as $key => $value) {
+        //     echo "<pre>";
+        //     print_r(count($value->permissions) !=0 ? $value->permissions : '');
+        //     echo "</pre>";
+        // }
+        // die;
+        return view('admin::acl.roles.index',compact('roles'));
     }
 
     /**
@@ -23,7 +31,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin::create');
+        $permissions = Permission::all();
+        return view('admin::acl.roles.create',compact('permissions'));
     }
 
     /**
@@ -33,7 +42,20 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name'          => 'required|string|min:4|max:100|unique:roles',
+            'display_name'  => 'required|string|min:4|max:100|unique:roles',
+            'description'   => 'required|string|min:6|max:150'
+        ]);
+
+        $role = Role::create($data);
+        if(count($request->permissions) !=0){
+            $role->syncPermissions($request->permissions);
+        }
+
+
+
+        return redirect('/acl/role/')->with('success','Role Created Successfully');
     }
 
     /**
@@ -53,7 +75,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        $role = Role::find($id);
+        $permissions = Permission::all();
+        return view('admin::acl.roles.edit',compact('role','permissions'));
     }
 
     /**
@@ -64,7 +88,19 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name'          => 'required|string|min:4|max:100|unique:roles,name,'.$id,
+            'display_name'  => 'required|string|min:4|max:100|unique:roles,display_name,'.$id,
+            'description'   => 'required|string|min:6|max:150'
+        ]);
+        $role = Role::find($id);
+        $role->update($data);
+
+        if($request->permissions !=null){
+            $role->syncPermissions($request->permissions);
+        }
+
+        return redirect('/acl/role/')->with('success','Role Updated Successfully');
     }
 
     /**

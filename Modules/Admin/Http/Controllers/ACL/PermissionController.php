@@ -5,7 +5,7 @@ namespace Modules\Admin\Http\Controllers\ACL;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
+use App\Permission;
 class PermissionController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('admin::index');
+        $permissions = Permission::all();
+        return view('admin::acl.permissions.index',compact('permissions'));
     }
 
     /**
@@ -23,7 +24,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('admin::create');
+        return view('admin::acl.permissions.create');
     }
 
     /**
@@ -33,7 +34,14 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name'          => 'required|string|min:4|max:100|unique:permissions',
+            'display_name'  => 'required|string|min:4|max:100|unique:permissions',
+            'description'   => 'required|string|min:6|max:150'
+        ]);
+
+        $permission = Permission::create($data);
+        return redirect('/acl/permission/')->with('success','Permission Created Successfully');
     }
 
     /**
@@ -53,7 +61,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+        $permission = Permission::find($id);        
+        return view('admin::acl.permissions.edit',compact('permission'));
     }
 
     /**
@@ -64,7 +73,14 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name'          => 'required|string|min:4|max:100|unique:permissions,name,'.$id,
+            'display_name'  => 'required|string|min:4|max:100|unique:permissions,display_name,'.$id,
+            'description'   => 'required|string|min:6|max:150'
+        ]);
+
+        Permission::find($id)->update($data);
+        return redirect('/acl/permission/')->with('success','Permission Updated Successfully');
     }
 
     /**

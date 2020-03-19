@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Member\Entities\Member;
+use Carbon\Carbon;
 use Auth;
+use App\User;
 use App\Models\Country;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NotifyMessage;
+
 class MemberController extends Controller
 {
     public function __construct()
@@ -73,6 +77,7 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         // return $request->all();
         $member = Member::find($id);
         $data = $request->validate([
@@ -80,7 +85,7 @@ class MemberController extends Controller
             'gender'        => 'required|not_in:""',
             'dob'           => 'required|before:9 years ago|date_format:Y-m-d',
             'mobile1'       => 'nullable|max:10|min:10|string',
-            'iap_no'        => 'required|max:8|min:8',
+            'iap_no'        => 'nullable',
             'clinic_name'   => 'nullable|max:255',
             'www'           => 'nullable',
             'address'       => 'nullable',
@@ -95,7 +100,9 @@ class MemberController extends Controller
             'zip_code1'     => 'required',
             'same_as'       => 'nullable',
             'about'         => 'nullable',
-
+            'father_name'   => 'required|max:255|min:4|string',
+            'mother_name'   => 'required|max:255|min:4|string',
+            'marital_status'=> 'required|not_in:""',
         ]);
         if($request->same_as !='0'){
             $data['country_code1']  = $request->country_code;
@@ -116,12 +123,23 @@ class MemberController extends Controller
 
             $path = $file->storeAs('public/'.date('Y').'/memberimages', $filename);
             $url = Storage::url(date('Y').'/memberimages/'.$filename);
-
             $data['image_url'] = $url;
 
+
         }
-       
+
+        $data['status'] = 'P';        
         $member->update($data);
+
+        $message = [
+            'id'     => $member->id,
+            'title'  => 'Member update profile.',
+            'message'=> $member->name.'user update profile.',
+            'link'   => '',
+        ];
+
+        // Notification::send($users, new NotifyMessage($message));
+       
         return redirect()->back()->with('success','Profile Updated Successfully');
     }
 
