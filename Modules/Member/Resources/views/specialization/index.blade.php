@@ -57,15 +57,36 @@
 					@foreach($userSpec as $spec)
 						<tr>
 							<td>{{$spec->specializations->name}}</td>
-							<td>{{$spec->status == 'P' ? 'Pending' : ($spec->status == 'A' ? 'Approved' : 'Declined')}}</td>
+							<td>{{$spec->status == 'P' ? 'Pending' : ($spec->status == 'A' ? 'Approved' : 'Declined')}}
+								@if($spec->reason !=null && $spec->status == 'D')
+									<a href="javascript:void(0)" class="btn btn-sm btn-primary reasonBtn" id="{{$spec->specialization_id}}" data-id="{{$spec->user_id}}">Reason</a>
+								@endif
+							</td>
+							
 						</tr>
 					@endforeach 
 					</tbody>
 				</table>
-				{{-- @foreach($userSpec as $spec)
-					<li>{{$spec->specializations->name}} <span class="pull-right">{{$spec->status == 'P' ? 'Pending' : ''}}</span></li>
-				@endforeach  --}}
 			</div>
+			<div class="modal" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">							
+							<div class="modal-header">
+								<h4 class="modal-title">Show Decline Reason</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<p class="reason_text"></p>
+								
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
 		</div>
 	</div>
 </div>
@@ -109,7 +130,25 @@ $(document).ready(function() {
       
         }
 
-      });
+    });
+
+
+    $('.reasonBtn').on('click',function(e){
+		e.preventDefault();
+		var id = $(this).attr('id');                                                 
+		var user_id = $(this).attr('data-id');                                                 
+		$.ajax({
+			type:'POST',
+			url:'{{url('specialization_reason')}}',
+			data:{id:id,user_id:user_id},
+			success:function(res){
+				$('#myModal').modal('show');	
+				$('.reason_text').empty().html(res.reason);
+			
+			}
+		});
+
+	});
 });
 </script>
 @endsection

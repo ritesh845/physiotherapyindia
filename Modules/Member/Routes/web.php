@@ -15,5 +15,7 @@
 Route::group(['middleware' => ['role:member']], function() {
     Route::resource('/member', 'MemberController');
     Route::resource('/qualification', 'QualificationController');
+    Route::get('/qualification_reason/{id}', 'QualificationController@qualification_reason');
     Route::resource('/specialization', 'SpecializationController');
+    Route::post('/specialization_reason', 'SpecializationController@specialization_reason');
  });

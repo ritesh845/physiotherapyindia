@@ -10882,3 +10882,13 @@ a.text-dark:focus {
   }
 }
 
+.notify_orange_btn{
+  color: #e3342f !important;
+  background-color: bisque;
+  padding: 0px 4px 0px 4px;
+}
+.notify_mistyrose_btn{
+  color: #e3342f !important;
+  background-color: mistyrose;
+  padding: 0px 4px 0px 4px;
+}

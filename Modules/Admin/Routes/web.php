@@ -23,8 +23,24 @@
 	   	Route::resource('/acl/role', 'ACL\RoleController');
 	   	Route::resource('/acl/permission', 'ACL\PermissionController');
 
-	   	Route::get('approval/qualification','ApprovalController@qualifications');
-	   	Route::get('approval/qualification/{$id}','ApprovalController@qualification_show');
+
+		Route::group(['prefix' => 'approval'], function(){
+			Route::get('qualification','ApprovalController@qualifications');
+		   	Route::get('qualification/{id}','ApprovalController@qualification_show');
+		   	Route::get('qualification_approve/{id}','ApprovalController@qualification_approve');
+		   	Route::post('qualification_approve_all','ApprovalController@qualification_approve_all');
+		   	
+		   	Route::post('qualification_decline','ApprovalController@qualification_decline');
+		   	Route::post('qualification_decline_all','ApprovalController@qualification_decline_all');
+
+		   	Route::get('specialization','ApprovalController@specialization');
+		   	Route::get('specialization/{id}','ApprovalController@specialization_show');
+		   	Route::get('specialization_approve/{id}','ApprovalController@specialization_approve');
+		   	Route::post('specialization_approve_all','ApprovalController@specialization_approve_all');
+
+		   	Route::post('specialization_decline','ApprovalController@specialization_decline');
+		   	Route::post('specialization_decline_all','ApprovalController@specialization_decline_all');
+		});
 	   
 	});
 	Route::group(['middleware' => ['role:super_admin|member']], function() {

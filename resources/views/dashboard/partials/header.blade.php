@@ -27,14 +27,17 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
    
    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-
-
-
 </head>
 
 <body id="page-top">
 
   <div id="wrapper">
+    @role('member_admin')
+      @php 
+         $pen_quals = \Modules\Member\Entities\MemberQual::where('status','P')->distinct()->pluck('user_id');
+         $pen_specs = \Modules\Member\Entities\UserSpec::where('status','P')->distinct()->pluck('user_id');
+      @endphp
+    @endrole
 
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -125,12 +128,12 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-list-alt"></i>
-            <span>Approval</span>
+            <span>Approval @if(count($pen_quals) !=0 || count($pen_specs) !=0)<span class="pull-right notify_orange_btn">{{count($pen_quals) + count($pen_specs)}}</span> @endif</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{url('approval/qualification')}}">Qualifications</a>
-              <a class="collapse-item" href="">Services</a>
+              <a class="collapse-item" href="{{url('approval/qualification')}}">Qualifications @if(count($pen_quals) !=0) <span class="pull-right notify_orange_btn">{{count($pen_quals)}}</span> @endif</a> 
+              <a class="collapse-item" href="{{url('approval/specialization')}}">Specializations @if(count($pen_specs) !=0) <span class="pull-right notify_orange_btn">{{count($pen_specs)}}</span> @endif</a>
             </div>
           </div>
         </li>

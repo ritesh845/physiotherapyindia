@@ -76,6 +76,7 @@ class QualificationController extends Controller
             ];
            
             $users = User::whereRoleIs('member_admin')->get();
+
             Notification::send($users, new NotifyMessage($message));
            
 
@@ -158,11 +159,7 @@ class QualificationController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
+    
     public function destroy($id)
     {
         //
@@ -181,6 +178,10 @@ class QualificationController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['qual_catg_desc'] = $qual_catg->qual_catg_desc;
         return $data;
+    }
+
+    public function qualification_reason($id){
+        return MemberQual::find($id);
     }
 
 }

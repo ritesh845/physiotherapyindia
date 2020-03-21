@@ -69,4 +69,8 @@ class SpecializationController extends Controller
     {
         //
     }
+
+    public function specialization_reason(Request $request){
+       return UserSpec::where('user_id',$request->user_id)->where('specialization_id',$request->id)->first();
+    }
 }

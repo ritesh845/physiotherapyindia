@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.master')
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800">Qualification Approval</h1>
+	<h1 class="h3 mb-0 text-gray-800">Specialization Approval</h1>
 </div>
 <div class="row">
 	<div class="col-md-12">
@@ -20,7 +20,7 @@
 							<th>Email</th>
 							<th>Mobile</th>
 							<th>IAP Number</th>
-							<th>Pending Qualifications for approval</th>
+							<th>Pending Specilizations for approval</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -33,7 +33,7 @@
 								<td>{{$member->mobile}}</td>
 								<td>{{$member->iap_no}}</td>
 								<td>
-									<a href="{{url('approval/qualification/'.$member->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Show</a>
+									<a href="{{url('approval/specialization/'.$member->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Show</a>
 								</td>
 							</tr>
 						@endforeach

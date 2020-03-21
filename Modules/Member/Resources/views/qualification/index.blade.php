@@ -46,7 +46,12 @@
 									<td>{{$qualification->pass_marks}}</td>
 									<td>{{$qualification->pass_division == '1' ? '1st' : ($qualification->pass_division == '2' ? '2nd' : '3rd')}}</td>
 
-									<td>{{$qualification->status == 'P' ? 'Pending' : ($qualification->pass_division == 'A' ? 'Approved' : 'Declined')}}</td>
+									<td>
+										{{$qualification->status == 'P' ? 'Pending' : ($qualification->status == 'A' ? 'Approved' : 'Declined')}}
+										@if($qualification->reason != null)
+											<a href="javascript:void(0)" class="btn btn-sm btn-primary reasonBtn" id="{{$qualification->id}}">reason</a>
+										@endif
+									</td>
 
 									<td>
 										<a href="{{url('/qualification/'.$qualification->id.'/edit')}}" class="mr-2"><i class="fa fa-edit text-success"></i></a>
@@ -62,6 +67,25 @@
 						</table>
 					</div>
 				</div>
+				<div class="modal" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">							
+							<div class="modal-header">
+								<h4 class="modal-title">Show Decline Reason</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<p class="reason_text"></p>
+								
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -69,6 +93,22 @@
 <script >
 	$(document).ready(function () {
     	$('.mytable').DataTable();
+
+    	$('.reasonBtn').on('click',function(e){
+    		e.preventDefault();
+    		var id = $(this).attr('id');                                                 
+    		$.ajax({
+    			type:'GET',
+    			url:'{{url('qualification_reason')}}/'+id,
+    			success:function(res){
+    				$('#myModal').modal('show');	
+    				$('.reason_text').empty().html(res.reason);
+    			
+    			}
+    		})
+
+    	});
+
 	});
 </script>
 @endsection
