@@ -37,8 +37,8 @@
 							<td>{{$service->service_type == 'L' ? 'Long Time' : 'Short Time'}}</td>
 							<td><i class="fa fa-rupee"></i> {{$service->charges != null ? $service->charges : '0' }}</td>
 							<td>
-								@role('super_admin')
-								<a href="{{url('/service/'.$service->id.'/edit')}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+								@role('super_admin|member_admin|admin')
+									<a href="{{url('/service/'.$service->id.'/edit')}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
 								@endrole
 								<a href="{{url('/service/'.$service->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
 							</td>											

@@ -22,7 +22,8 @@
 	   	Route::post('/acl/user/permission_assign','ACL\UserController@permission_assign');
 	   	Route::resource('/acl/role', 'ACL\RoleController');
 	   	Route::resource('/acl/permission', 'ACL\PermissionController');
-
+	});
+	Route::group(['middleware' => ['role:super_admin|admin|member|member_admin']], function() {
 
 		Route::group(['prefix' => 'approval'], function(){
 			Route::get('qualification','ApprovalController@qualifications');
@@ -41,12 +42,14 @@
 		   	Route::post('specialization_decline','ApprovalController@specialization_decline');
 		   	Route::post('specialization_decline_all','ApprovalController@specialization_decline_all');
 		});
-	   
-	});
-	Route::group(['middleware' => ['role:super_admin|member']], function() {
+
 		Route::resource('/service', 'ServiceController');
 	    Route::get('/services_docs/{id}', 'ServiceController@services_docs');
 	    Route::post('/member_document', 'ServiceController@member_document');
+	    
+	});
+
+	Route::group(['middleware' => ['role:super_admin|admin']], function() {
 		Route::resource('/article', 'ArticleController');
 	});
 

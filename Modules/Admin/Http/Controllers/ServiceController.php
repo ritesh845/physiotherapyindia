@@ -150,11 +150,12 @@ class ServiceController extends Controller
     }
 
     public function member_document(Request $request){
+
         $request->validate([
             'file' => 'required'
         ]);
         if($request->has('file')){
-
+            return $request->file;
         }
     }
 }
