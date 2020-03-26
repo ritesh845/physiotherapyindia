@@ -58,7 +58,7 @@
             </div>
             <div class="card-body">
             	<h5 class="font-weight-bold text-captitalize">Governing Body</h5>
-            	<p class="text-justify" style="font-size: 16px;">
+            	<p class="text-justify" style="font-size: 15px;">
             		Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
             	</p>            	
           
@@ -69,11 +69,11 @@
         <div class="col-md-3">
           <div class="card border-0">
             <div class="card-header bg-white border-0">
-              <img src="{{asset('images/governing_body_964532547.jpg')}}" style="width: 100%;height: 100%">
+              <img src="{{asset('images/team.jpg')}}" style="width: 100%;height: 100%">
             </div>
             <div class="card-body">
-              <h5 class="font-weight-bold text-captitalize">Governing Body</h5>
-              <p class="text-justify" style="font-size: 16px;">
+              <h5 class="font-weight-bold text-captitalize">IAP Legacy</h5>
+              <p class="text-justify" style="font-size: 15px;">
                 Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
               </p>              
           
@@ -88,7 +88,7 @@
             </div>
             <div class="card-body">
               <h5 class="font-weight-bold text-captitalize">Governing Body</h5>
-              <p class="text-justify" style="font-size: 16px;">
+              <p class="text-justify" style="font-size: 15px;">
                 Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
               </p>              
           
@@ -99,11 +99,11 @@
         <div class="col-md-3">
           <div class="card border-0">
             <div class="card-header bg-white border-0">
-              <img src="{{asset('images/governing_body_964532547.jpg')}}" style="width: 100%;height: 100%">
+               <img src="{{asset('images/team.jpg')}}" style="width: 100%;height: 100%">
             </div>
             <div class="card-body">
-              <h5 class="font-weight-bold text-captitalize">Governing Body</h5>
-              <p class="text-justify" style="font-size: 16px;">
+              <h5 class="font-weight-bold text-captitalize">IAP Legacy</h5>
+              <p class="text-justify" style="font-size: 15px;">
                 Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
               </p>              
           
@@ -183,6 +183,260 @@
         </div>
     </div>
   </section>
-    
+  <section class="section-services section-t8">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-6" style="">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+             <div class="col-md-6">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-6" style="">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+             <div class="col-md-6">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+        </div>
+    </div>
+  </section>
+<section class="section-services section-t8" style="background-color: aliceblue ">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6" >
+            <div class="card border-0" style="background-color: aliceblue ">
+              <div class="card-header border-0 p-0"  style="background-color: aliceblue ">
+                <div class="card-title">
+                  <h4 class="font-weight-bold text-primary">Notices</h4>
+                </div>
+              </div>
+              <div class="card-body p-0" >
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                  <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                  <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                  <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                </div>
+              </div>
+            </div>             
+          </div>
+          <div class="col-md-6 ">
+            <div class="card border-0" style="background-color: aliceblue ">
+              <div class="card-header border-0 p-0" style="background-color: aliceblue ">
+                <div class="card-title">
+                  <h4 class="font-weight-bold text-primary">News & Events</h4>
+                </div>
+              </div>
+              <div class="card-body p-0">
+                <div class="row">
+                   <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                  <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                  <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                  <div class="col-md-6 pr-1">
+                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
+                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
+                  </div>
+                </div>
+              </div>
+            </div>             
+          </div>
+        </div>
+    </div>
+  </section>
+  <section class="section-services section-t8">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-header p-0 border-0 bg-white">
+                    <div class="card-title">
+                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
+                    <h6>President</h6>
+                    <p class="text-justify" style="font-size: 14px;">
+                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
+                    </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-header p-0 border-0 bg-white">
+                    <div class="card-title">
+                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
+                    <h6>President</h6>
+                    <p class="text-justify" style="font-size: 14px;">
+                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
+                    </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-header p-0 border-0 bg-white">
+                    <div class="card-title">
+                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
+                    <h6>President</h6>
+                    <p class="text-justify" style="font-size: 14px;">
+                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
+                    </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-header p-0 border-0 bg-white">
+                    <div class="card-title">
+                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
+                    <h6>President</h6>
+                    <p class="text-justify" style="font-size: 14px;">
+                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
+                    </p>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <section class="section-services section-t8">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-md-12 p-0">
+            <img src="{{asset('images/single_slider.jpg')}}" style="width: 100%;height: 300px;">
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section-services section-t8">
+    <div class="container">
+      <div class="row ">
+          <div class="col-md-12 mb-2">
+              <h4 class="font-weight-bold text-primary">Physio Blogs</h4>  
+          </div>
+          <div class="col-md-12">
+             <div class="row">
+               <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-header p-0 border-0 bg-white">
+                        <div class="card-title">
+                            <img src="{{asset('images/blog4.jpeg')}}" style="width: 100%" >
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="font-weight-bold text-captitalize">Identifying and testing pain from nerve tension</h6>
+                        <p class="text-justify" style="font-size: 13px;">
+                           If your neural tissue is impeded then pain or restriction of your nerve movement is a common result.  The adverse neural tension can result in nerve pain and limited motion. This is what is commonly referred to as a trapped nerve.
+                        </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-header p-0 border-0 bg-white">
+                        <div class="card-title">
+                            <img src="{{asset('images/blog1.jpeg')}}" style="width: 100%" >
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="font-weight-bold text-captitalize">Identifying and testing pain from nerve tension</h6>
+                        <p class="text-justify" style="font-size: 13px;">
+                           If your neural tissue is impeded then pain or restriction of your nerve movement is a common result.  The adverse neural tension can result in nerve pain and limited motion. This is what is commonly referred to as a trapped nerve.
+                        </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-header p-0 border-0 bg-white">
+                        <div class="card-title">
+                            <img src="{{asset('images/blog.jpeg')}}" style="width: 100%" >
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="font-weight-bold text-captitalize">Identifying and testing pain from nerve tension</h6>
+                        <p class="text-justify" style="font-size: 13px;">
+                           If your neural tissue is impeded then pain or restriction of your nerve movement is a common result.  The adverse neural tension can result in nerve pain and limited motion. This is what is commonly referred to as a trapped nerve.
+                        </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-header p-0 border-0 bg-white">
+                        <div class="card-title">
+                            <img src="{{asset('images/blog2.jpeg')}}" style="width: 100%" >
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="font-weight-bold text-captitalize">Identifying and testing pain from nerve tension</h6>
+                        <p class="text-justify" style="font-size: 13px;">
+                           If your neural tissue is impeded then pain or restriction of your nerve movement is a common result.  The adverse neural tension can result in nerve pain and limited motion. This is what is commonly referred to as a trapped nerve.
+                        </p>
+                    </div>
+                  </div>
+                </div>
+
+             </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  <section class="section-services section-t8">
+    <div class="container">
+      <div class="row ">
+          <div class="col-md-3">
+              <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+          </div>
+           <div class="col-md-3">
+              <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+          </div>
+           <div class="col-md-3">
+              <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+          </div>
+           <div class="col-md-3">
+              <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+          </div>
+      </div>
+    </div>
+  </section>
 </main>
 @endsection
