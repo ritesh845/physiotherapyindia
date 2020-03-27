@@ -13,6 +13,11 @@ use App\User;
 use Modules\Member\Entities\UserSpec;
 class ApprovalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function qualifications(){
     	$member_ids = MemberQual::where('status','P')->distinct()->pluck('user_id');
     	$members = Member::whereIn('id',$member_ids)->get(); 

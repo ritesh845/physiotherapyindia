@@ -50,7 +50,7 @@
 	});
 
 	Route::group(['middleware' => ['role:super_admin|admin']], function() {
-		Route::resource('/article', 'ArticleController');
+		Route::resource('/article', 'Content\ArticleController');
 	});
 
 

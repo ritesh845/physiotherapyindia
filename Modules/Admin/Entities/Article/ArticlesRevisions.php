@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Admin\Entities;
+namespace Modules\Admin\Entities\Article;
 
 use Illuminate\Database\Eloquent\Model;
 
 class ArticlesRevisions extends Model
 {
-    protected $table = 'tblarticels_revisions';
+    protected $table = ' articles_revisions';
     protected $guarded = [];
-    public $timestamps = false;
+   
 }

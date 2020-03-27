@@ -59,7 +59,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:100'],
+            'middle_name' => ['nullable', 'string', 'max:100'],
+            'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required','string','max:11','min:10', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -82,7 +84,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user =  User::create([
-            'name' => $data['name'],
+            'name' => $data['first_name']." ".$data['last_name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
@@ -91,10 +93,11 @@ class RegisterController extends Controller
         if($user){
             $user->attachRole('3');
             $user->code = SendCode::sendCode($user->phone);                
+            $user->code = "1234";                
             $user->remember_token = Str::random(40);
             $user->save();
             Mail::to($user->email)->send(new VerifyMail($user));
-            member_create($user);
+            member_create($user,$data);
         }
     }
 

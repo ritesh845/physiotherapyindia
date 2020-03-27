@@ -34,7 +34,7 @@
 						<tr>
 							<td>{{$service->id}}</td>
 							<td>{{$service->name}}</td>
-							<td>{{$service->service_type == 'L' ? 'Long Time' : 'Short Time'}}</td>
+							<td>{{$service->service_type == 'L' ? 'Life Time' : 'Short Time'}}</td>
 							<td><i class="fa fa-rupee"></i> {{$service->charges != null ? $service->charges : '0' }}</td>
 							<td>
 								@role('super_admin|member_admin|admin')

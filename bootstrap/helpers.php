@@ -28,10 +28,12 @@ if (!function_exists('document_save')) {
 }
 
 if (!function_exists('member_create')) {
-    function member_create($user){
+    function member_create($user,$data){
         Member::create([
             'id'        => $user->id,
-            'name'      => $user->name,
+            'first_name'=> $data['first_name'],
+            'middle_name'=> $data['middle_name'],
+            'last_name' => $data['last_name'],
             'email'     => $user->email,
             'mobile'    => $user->phone,
             'regn_date' => date('Y-m-d', strtotime($user->created_at)),

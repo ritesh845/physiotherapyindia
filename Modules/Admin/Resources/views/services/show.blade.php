@@ -23,7 +23,9 @@
 						echo $service->description;
 					@endphp</p>
 				</div>
-				@if($service->doc_url !=null)
+
+				
+				{{-- @if($service->doc_url !=null)
 					<div class="col-md-12 mt-4">
 						<h4 class="font-weight-bold">Attachments</h4>
 						<a href="{{url('services_docs/'.$service->id)}}" class="text-primary">Download application form for {{$service->name}}</a>
@@ -59,7 +61,7 @@
 							</div>
 						</div>
 					@endrole
-				@endif
+				@endif --}}
 			</div> 
 
 
