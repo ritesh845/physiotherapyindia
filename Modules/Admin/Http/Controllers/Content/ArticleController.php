@@ -58,37 +58,23 @@ class ArticleController extends Controller
         $data = $this->validation($request);
         
         if($request->hasfile('abstract_image')){
-            $abstract_file = $request->file('abstract_image');
-            $abstract_filename =  time().'_'.$abstract_file->getClientOriginalName();
-            $abstract_path = $abstract_file->storeAs('public/'.date('Y').'/article/images', $abstract_filename);
-            $abstract_url = Storage::url(date('Y').'/articles/images/'.$abstract_filename);
-            $data['image'] = $abstract_url;
+           $data['image'] = $this->abstract_image($request);
         }
+
         if($request->hasfile('slider_image')){
-            $slider_file = $request->file('slider_image');
-            $slider_filename =  time().'_'.$slider_file->getClientOriginalName();
-            $slider_path = $slider_file->storeAs('public/'.date('Y').'/article/sliderimages', $slider_filename);
-            $slider_url = Storage::url(date('Y').'/articles/sliderimages/'.$slider_filename);
-            $data['slider_image'] = $slider_url;
+           $data['slider_image'] =  $this->slider_image($request);
         }
 
         if($request->hasfile('video_attachment')){
-            $video_file = $request->file('video_attachment');
-            $video_filename =  time().'_'.$video_file->getClientOriginalName();
-            $video_path = $video_file->storeAs('public/'.date('Y').'/article/sliderimages', $video_filename);
-            $video_url = Storage::url(date('Y').'/articles/video/'.$video_filename);
-            $data['video_attachment'] = $video_url;
+           $data['video_attachment'] = $this->video_attachment($request);
         }
 
         if($request->hasfile('swl_file')){
-            $swl_file = $request->file('swl_file');
-            $swl_filename =  time().'_'.$swl_file->getClientOriginalName();
-            $swl_path = $swl_file->storeAs('public/'.date('Y').'/article/sliderimages', $swl_filename);
-            $swl_url = Storage::url(date('Y').'/articles/swf_file/'.$swl_filename);
-            $data['swl_file'] = $swl_url;
+           $data['swl_file'] = $this->swl_file($request);
         }
 
         $articles = Articles::orderBy('order_num','asc')->get();
+
         if(count($articles) !=0){
             $data['order_num'] = $articles[count($articles)-1]['order_num'] +1; 
         }else{
@@ -139,9 +125,42 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validation($request);
-        Articles::find($id)->update($data);
+        $article = Articles::find($id);
+
+        if($request->hasfile('abstract_image')){
+           if($article->image !=''){
+                Storage::delete($article->image);
+           } 
+           $data['image'] = $this->abstract_image($request);
+        }
+
+        if($request->hasfile('slider_image')){
+            if($article->slider_image !=''){
+                Storage::delete($article->image);
+            } 
+            $data['slider_image'] =  $this->slider_image($request);
+        }
+
+        if($request->hasfile('video_attachment')){
+            if($article->video_attachment !=''){
+                Storage::delete($article->image);
+            } 
+            $data['video_attachment'] = $this->video_attachment($request);
+        }
+
+        if($request->hasfile('swl_file')){
+            if($article->swl_file !=''){
+                Storage::delete($article->image);
+            } 
+            $data['swl_file'] = $this->swl_file($request);
+        }
+
+        $article->update($data);
+
         ArticlesTags::where('article_id',$id)->delete();
         $this->tags_store($id,$request);
+
+
         return redirect()->back()->with('success','Article updated successfully');;
     }
 
@@ -217,5 +236,33 @@ class ArticleController extends Controller
                 $tags->save();
             }
         }
+    }
+
+    public function abstract_image($request){
+        $abstract_file = $request->file('abstract_image');
+        $abstract_filename =  time().'_'.$abstract_file->getClientOriginalName();
+        $abstract_path = $abstract_file->storeAs('public/'.date('Y').'/article/images', $abstract_filename);
+        return  $abstract_path;
+    }
+    public function slider_image($request){
+        $slider_file = $request->file('slider_image');
+        $slider_filename =  time().'_'.$slider_file->getClientOriginalName();
+        $slider_path = $slider_file->storeAs('public/'.date('Y').'/article/sliderimages', $slider_filename);
+       return $slider_path;
+    }
+
+    public function video_attachment($request){
+        $video_file = $request->file('video_attachment');
+        $video_filename =  time().'_'.$video_file->getClientOriginalName();
+        $video_path = $video_file->storeAs('public/'.date('Y').'/article/sliderimages', $video_filename);
+       
+        return $video_path;
+    }
+    public function swl_file($request){
+        $swl_file = $request->file('swl_file');
+        $swl_filename =  time().'_'.$swl_file->getClientOriginalName();
+        $swl_path = $swl_file->storeAs('public/'.date('Y').'/article/sliderimages', $swl_filename);
+        
+        return $swl_path;
     }
 }
