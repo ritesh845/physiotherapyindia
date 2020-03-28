@@ -12,18 +12,22 @@
 				</h5>
 			</div>
 			<div class="card-body">
-				<table>
+				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th></th>
-							<th></th>
+							<th>Title</th>
+							<th>Action</th>
 						</tr>						
 					</thead>
 					<tbody>
+						@foreach($articles as $article)
 						<tr>
-							<td></td>
-							<td></td>
+							<td>{{$article->title}}</td>
+							<td>
+								<a href="{{url('article/'.$article->id.'/edit')}}"><i class="fa fa-edit text-success"></i></a>
+							</td>
 						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>
