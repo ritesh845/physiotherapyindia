@@ -86,7 +86,7 @@
 
       <nav class="nav-menu float-right d-none d-lg-block">
         <ul>
-            <li class="active"><a href="#home">{{__('Home')}}</a></li>
+            {{-- <li class="active"><a href="#home">{{__('Home')}}</a></li> --}}
           @foreach($categories as $category)
             @if(count($category->subcategory))
               @if($category->view_subcat =='1')
@@ -103,11 +103,11 @@
         
           @guest
             <li><a href="{{ route('login') }}">Login</a></li>
-             @if (Route::has('register'))
+            {{--  @if (Route::has('register'))
                <li>
                   <a href="{{ route('register') }}">Register</a>
                </li>
-             @endif
+             @endif --}}
           
           @else
            <li class="drop-down">
