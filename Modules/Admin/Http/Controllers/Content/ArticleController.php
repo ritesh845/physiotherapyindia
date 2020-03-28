@@ -97,7 +97,7 @@ class ArticleController extends Controller
 
         $article = Articles::create($data);
         $this->tags_store($article->id,$request);
-        return redirect('article/'.$article->id.'/edit');
+        return redirect('article/'.$article->id.'/edit')->with('success','Article created successfully');
 
     }
 
@@ -142,7 +142,7 @@ class ArticleController extends Controller
         Articles::find($id)->update($data);
         ArticlesTags::where('article_id',$id)->delete();
         $this->tags_store($id,$request);
-        return $request->all();
+        return redirect()->back()->with('success','Article updated successfully');;
     }
 
     /**
@@ -150,9 +150,13 @@ class ArticleController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        // return $id;
+        $article = Articles::find($id);
+        $article->delete();
+        ArticlesTags::where('article_id',$id)->delete();
+        return redirect()->back()->with('success','Article deleted successfully');
     }
     public function validation($request){
         $request->validate([

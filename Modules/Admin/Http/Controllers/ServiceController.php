@@ -101,9 +101,17 @@ class ServiceController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $service = Service::find($id);
+        $olddoc_url = $service->doc_url;
+        if($olddoc_url != ''){
+            $doc_url = explode('/', $olddoc_url);
+            Storage::delete('public/2020/services_docs/'.$doc_url[2]);
+        }
+        $service->delete();
+        return redirect('/service')->with('success','Service deleted successfully');
+
     }
 
     public function validation($request){
@@ -111,26 +119,22 @@ class ServiceController extends Controller
             'name' => 'required|string|max:191|min:4',
             'charges'=>  'nullable|string|min:1|max:6',
             'url'    =>  'nullable|string|min:5|max:50',
-            'from'   =>  'required|date_format:Y-m-d|after_or_equal:'.date('Y-m-d'),
-            'to'     =>  'sometimes|nullable|date_format:Y-m-d|after_or_equal:from',
             'description' => 'nullable',
             'service_type'=> 'required|not_in:""'
-        ],
-        [
-            'from.required'  =>  'The start date field is required.',
-            'to.after_or_equal' => 'The end date must be a date after or equal to start date.',
+           
         ]);
+ // 'from'   =>  'required|date_format:Y-m-d|after_or_equal:'.date('Y-m-d'),
+ //            'to'     =>  'sometimes|nullable|date_format:Y-m-d|after_or_equal:from',
 
-
-        if($request->service_type == 'S'){
-            $request->validate([
-                'to' => 'required',
-            ],
-            [
-                'to.required' => 'The end date field is required.'
-            ]
-            );
-        }
+        // if($request->service_type == 'S'){
+        //     $request->validate([
+        //         'to' => 'required',
+        //     ],
+        //     [
+        //         'to.required' => 'The end date field is required.'
+        //     ]
+        //     );
+        // }
 
         return $data;
     }

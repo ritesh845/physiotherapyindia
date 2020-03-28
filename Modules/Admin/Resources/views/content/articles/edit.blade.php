@@ -28,6 +28,13 @@
 			{{Form::open(array('url' => '/article/'.$article->id, 'method' => 'post','enctype' => 'multipart/form-data'))}}
 			@method('patch')
 			<div class="card-body">	
+				@if($message = Session::get('success'))
+					<div class="row">
+						<div class="col-md-12">
+							<h5 class="bg-success text-center">{{$message}}</h5>
+						</div>
+					</div>
+				@endif
 				<div class="row">
 					<div class="col-md-12 mb-2">
 		    			{{ Form::label('title', 'Title:')}}

@@ -44,6 +44,7 @@
 		});
 
 		Route::resource('/service', 'ServiceController');
+		Route::get('/service/destroy/{id}', 'ServiceController@delete');
 	    Route::get('/services_docs/{id}', 'ServiceController@services_docs');
 	    Route::post('/member_document', 'ServiceController@member_document');
 	    
@@ -51,6 +52,7 @@
 
 	Route::group(['middleware' => ['role:super_admin|admin']], function() {
 		Route::resource('/article', 'Content\ArticleController');
+		Route::get('/article/destroy/{id}', 'Content\ArticleController@delete');
 	});
 
 

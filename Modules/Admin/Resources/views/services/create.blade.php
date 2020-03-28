@@ -53,7 +53,7 @@
 					        </span>
 					    @enderror							
 					</div>
-					<div class="col-md-6 from-group mt-3">
+					{{-- <div class="col-md-6 from-group mt-3">
 						{{ Form::label('from', 'Service Start Date:')}}
 					
 						{{ Form::text('from',old('from') ?? date('Y-m-d'),['class' => 'form-control from'])}}
@@ -62,8 +62,8 @@
 	                            <strong>{{ $message }}</strong>
 	                        </span>
 	                    @enderror						
-					</div>
-					<div class="col-md-6 from-group mt-3 service_end" style="display: none">
+					</div> --}}
+					{{-- <div class="col-md-6 from-group mt-3 service_end" style="display: none">
 						{{ Form::label('to', 'Service End Date:')}}
 						{{ Form::text('to',old('to'),['class' => 'form-control to','placeholder' => date('Y-m-d')])}}
 						@error('to')
@@ -71,7 +71,7 @@
 	                            <strong>{{ $message }}</strong>
 	                        </span>
 	                    @enderror
-					</div>					
+					</div>		 --}}			
 					<div class="col-md-12 from-group mt-3">
 						{{ Form::label('description', 'Description:')}}
 					
@@ -104,28 +104,28 @@
 </div>'
 <script> 
 	$(document).ready(function(){
-		$(function() {
-		   $('.from, .to').datepicker({
-		   	format:'yyyy-mm-dd'
-		   });
-		});
+		// $(function() {
+		//    $('.from, .to').datepicker({
+		//    	format:'yyyy-mm-dd'
+		//    });
+		// });
 
-		var service_type = "{{old('service_type')}}";
-		serviceChange(service_type);
+		// var service_type = "{{old('service_type')}}";
+		// serviceChange(service_type);
 
-		function serviceChange(service_type){
-			if(service_type == 'S'){
-				$('.service_end').show();
-			}else{
-				$('.service_end').hide();
-				$('.to').val('');
-			}
-		} 
-		$('.service_type').on('change',function(e){
-			e.preventDefault();
-			var service_type = $(this).val();
-			serviceChange(service_type);
-		});
+		// function serviceChange(service_type){
+		// 	if(service_type == 'S'){
+		// 		$('.service_end').show();
+		// 	}else{
+		// 		$('.service_end').hide();
+		// 		$('.to').val('');
+		// 	}
+		// } 
+		// $('.service_type').on('change',function(e){
+		// 	e.preventDefault();
+		// 	var service_type = $(this).val();
+		// 	serviceChange(service_type);
+		// });
 
 	})
 </script>

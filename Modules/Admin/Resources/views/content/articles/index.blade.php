@@ -25,6 +25,7 @@
 							<td>{{$article->title}}</td>
 							<td>
 								<a href="{{url('article/'.$article->id.'/edit')}}"><i class="fa fa-edit text-success"></i></a>
+								<a href="{{url('article/destroy/'.$article->id)}}"><i class="fa fa-trash text-danger"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -34,4 +35,9 @@
 		</div>
 	</div>
 </div>
+<script >
+	@if($message = Session::get('success'))
+  	  alert('{{$message}}');
+	@endif
+</script>
 @endsection
