@@ -12,7 +12,7 @@
 				</h5>
 			</div>
 			<div class="card-body">
-				<table class="table table-bordered table-striped">
+				<table class="table table-bordered table-striped mytable">
 					<thead>
 						<tr>
 							<th>Title</th>
@@ -39,5 +39,9 @@
 	@if($message = Session::get('success'))
   	  alert('{{$message}}');
 	@endif
+
+	$(document).ready(function () {
+    	$('.mytable').DataTable();
+    });
 </script>
 @endsection

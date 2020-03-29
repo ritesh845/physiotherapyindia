@@ -96,9 +96,9 @@
 		                        @enderror
 				    		</div>
 				    		<div class="col-md-6 mb-2">
-				    			{{Form::label('swl_file','Swl File')}}
-				    			{{Form::file('swl_file',['class' => 'form-control'])}}
-				    			@error('swl_file')
+				    			{{Form::label('swf_file','Swf File')}}
+				    			{{Form::file('swf_file',['class' => 'form-control'])}}
+				    			@error('swf_file')
 		                            <span class="text-danger" role="alert">
 		                                <strong>{{ $message }}</strong>
 		                            </span>
@@ -331,7 +331,7 @@
 								<div class="from-group row mb-4">
 									{{ Form::label('status', 'Set Status:',['class'=>'control-label col-md-4 text-right'])}}
 									<div class="col-md-8 ">
-										{{  Form::select('status',array('A' => 'Active', 'P' => 'Pending', 'T' =>'Archived'), old('status') ?? $article->status,['class'=>'form-control status'])}}
+										{{  Form::select('status',array('0' => 'Active', '1' => 'Pending', '2' =>'Archived'), old('status') ?? $article->status,['class'=>'form-control status'])}}
 									</div>
 								</div>
 								<div class="from-group row mb-4">
@@ -469,10 +469,10 @@
 									</div>
 								</div>
 								<div class="row form-group mb-3">
-									{{ Form::label('meta_keywords', 'Meta Keywords:',['class'=>'control-label col-md-4 text-right'])}}
+									{{ Form::label('keywords', 'Meta Keywords:',['class'=>'control-label col-md-4 text-right'])}}
 									<div class="col-md-8 ">
-										{{ Form::text('meta_keywords',old('meta_keywords') ?? $article->meta_keywords,['class' => 'form-control'])}}
-										@error('meta_keywords')
+										{{ Form::text('keywords',old('keywords') ?? $article->keywords,['class' => 'form-control'])}}
+										@error('keywords')
 			                                <span class="text-danger" role="alert">
 			                                    <strong>{{ $message }}</strong>
 			                                </span>
@@ -480,10 +480,10 @@
 									</div>
 								</div>
 								<div class="row form-group mb-3">
-									{{ Form::label('meta_descriptions', 'Meta Descroption:',['class'=>'control-label col-md-4 text-right'])}}
+									{{ Form::label('description', 'Meta Descroption:',['class'=>'control-label col-md-4 text-right'])}}
 									<div class="col-md-8 ">
-										{{ Form::textarea('meta_descriptions',old('meta_descriptions') ?? $article->meta_descriptions,['class' => 'form-control','cols' => '3', 'rows' => '5'])}}
-										@error('meta_descriptions')
+										{{ Form::textarea('description',old('description') ?? $article->description,['class' => 'form-control','cols' => '3', 'rows' => '5'])}}
+										@error('description')
 			                                <span class="text-danger" role="alert">
 			                                    <strong>{{ $message }}</strong>
 			                                </span>

@@ -69,8 +69,8 @@ class ArticleController extends Controller
            $data['video_attachment'] = $this->video_attachment($request);
         }
 
-        if($request->hasfile('swl_file')){
-           $data['swl_file'] = $this->swl_file($request);
+        if($request->hasfile('swf_file')){
+           $data['swf_file'] = $this->swf_file($request);
         }
 
         $articles = Articles::orderBy('order_num','asc')->get();
@@ -148,11 +148,11 @@ class ArticleController extends Controller
             $data['video_attachment'] = $this->video_attachment($request);
         }
 
-        if($request->hasfile('swl_file')){
-            if($article->swl_file !=''){
+        if($request->hasfile('swf_file')){
+            if($article->swf_file !=''){
                 Storage::delete($article->image);
             } 
-            $data['swl_file'] = $this->swl_file($request);
+            $data['swf_file'] = $this->swf_file($request);
         }
 
         $article->update($data);
@@ -199,7 +199,7 @@ class ArticleController extends Controller
             'source_url'            => $request->source_url,
             'abstract'              => $request->abstract,
             'status'                => $request->status,
-            'publish_date'          => $request->publish_date.' '. date('H:i:s'),
+            'created'          => $request->publish_date.' '. date('H:i:s'),
             'show_comment'          => $request->show_comment,
             'show_poll'             => $request->show_poll,
             'rss_feed'              => $request->rss_feed,
@@ -219,8 +219,8 @@ class ArticleController extends Controller
             'directory_website'     => $request->directory_website,
             'sefriendly'            => $request->sefriendly,
             'sef_title'             => $request->sef_title,
-            'meta_keywords'         => $request->meta_keywords,
-            'meta_descriptions'     => $request->meta_descriptions,
+            'keywords'              => $request->keywords,
+            'description'           => $request->description,
         ];
         return $data;
     }
@@ -258,10 +258,10 @@ class ArticleController extends Controller
        
         return $video_path;
     }
-    public function swl_file($request){
-        $swl_file = $request->file('swl_file');
-        $swl_filename =  time().'_'.$swl_file->getClientOriginalName();
-        $swl_path = $swl_file->storeAs('public/'.date('Y').'/article/sliderimages', $swl_filename);
+    public function swf_file($request){
+        $swf_file = $request->file('swf_file');
+        $swf_filename =  time().'_'.$swf_file->getClientOriginalName();
+        $swl_path = $swf_file->storeAs('public/'.date('Y').'/article/sliderimages', $swf_filename);
         
         return $swl_path;
     }
