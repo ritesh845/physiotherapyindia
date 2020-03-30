@@ -163,4 +163,35 @@ class CategoryController extends Controller
         Category::find($id)->update(['parent_cat' => $parent_id]);
 
     }
+
+    public function create_link(){
+        return view('category::links.create');
+    }
+    public function store_link(Request $request){
+        $request->validate([
+            'category_name' => 'required|min:2|max:255',
+            'redirect'      => 'nullable'
+        ]);
+        Category::create([
+            'category_name' => $request->category_name,
+            'redirect' => $request->redirect,
+            'type'     => 'link' 
+        ]);
+        return redirect()->back()->with('success','Link created successfully');
+    }
+    public function edit_link($id){
+        $link =  Category::find($id);
+        return view('category::links.edit',compact('link'));
+        
+    }
+    public function update_link(Request $request, $id){
+        $data = $request->validate([
+            'category_name' => 'required|min:2|max:255',
+            'redirect'      => 'nullable'
+        ]);
+        Category::find($id)->update($data);
+        return redirect()->back()->with('success','Link updated successfully');
+    }
+
+
 }

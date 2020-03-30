@@ -34,7 +34,8 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('css/style.css')}}" rel="stylesheet">
   @php
-     $categories = Modules\Category\Entities\Category::whereNull('parent_cat')->orderBy('order_num','ASC')->get();
+     $categories = Modules\Category\Entities\Category::where('type','category')->whereNull('parent_cat')->orderBy('order_num','ASC')->get();
+     $links = Modules\Category\Entities\Category::where('type','link')->whereNull('parent_cat')->orderBy('order_num','ASC')->get();
   @endphp
  
 </head>
@@ -46,19 +47,43 @@
 		  <div class="contact-info float-left">
 		  	<nav class="nav-menu float-right d-none d-lg-block">
         	<ul>
-			  	<li><a href="" class="font-weight-bold">Email</a></li>
-			  	<li><a href="" class="font-weight-bold">Physio Jobs</a></li>
-			  	<li><a href="" class="font-weight-bold">Colleges</a></li>
-			  	<li><a href="" class="font-weight-bold">IAP Member Forum</a>	</li>	
+          @foreach($links as $link)
+			  	  <li><a href="" class="font-weight-bold">{{$link->category_name}}</a></li>
+          @endforeach
+         
+           @guest
+            <li><a href="{{ route('login') }}" class="font-weight-bold">Login</a></li>
+             @if (Route::has('register'))
+               <li>
+                  <a href="{{ route('register') }}" class="font-weight-bold">Register</a>
+               </li>
+             @endif
+          
+          @else
+           <li class="drop-down">
+              <a href="">{{ Auth::user()->name }} </a>
+              <ul>
+                <li><a href="{{route('home')}}" style="color: #000 !important" >Dashboard</a></li>
+                <li><a href="{{ route('logout') }}" style="color: #000 !important" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+              </ul>
+            </li>
+           @endguest
 		  	</ul>
+
+
 		  	</nav>   
 		  </div>
 		  <div class="social-links float-right">
-        <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+       {{--  <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
         <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
         <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
         <a href="#" class="skype"><i class="icofont-skype"></i></a>
-        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a> --}}
        {{--  <nav class="nav-menu float-right d-none d-lg-block">
           <ul>
             @guest
@@ -79,7 +104,7 @@
     <div class="container">
 
       <div class="logo float-left">
-        <h1 class="text-light"><a href="index.html"><span><img src="{{asset('images/physio.png')}}"></span></a></h1>
+        <h1 class="text-light"><a href="{{url('/')}}"><span><img src="{{asset('images/physio.png')}}"></span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -100,29 +125,6 @@
               @endif
             @endif
           @endforeach
-        
-          @guest
-            <li><a href="{{ route('login') }}">Login</a></li>
-            {{--  @if (Route::has('register'))
-               <li>
-                  <a href="{{ route('register') }}">Register</a>
-               </li>
-             @endif --}}
-          
-          @else
-           <li class="drop-down">
-              <a href="">{{ Auth::user()->name }} </a>
-              <ul>
-                <li><a href="{{route('home')}}">Dashboard</a></li>
-                <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Logout</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </li>
-              </ul>
-            </li>
-           @endguest
         </ul>
          
       </nav><!-- .nav-menu -->

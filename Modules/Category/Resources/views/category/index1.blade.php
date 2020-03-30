@@ -33,7 +33,7 @@
                                     <li class="dd-item" data-id="{{$category->id}}" >
                                         <div class="dd-handle">
                                             <span id="category-item" class="{{$category->view_subcat != '0' ? '' : 'text-muted'}}"> {{$category->category_name}}</span>
-                                            <a href="{{url('/category/'.$category->sefriendly.'/edit')}}" class="close close-assoc-file"><i class="fa fa-edit text-success"></i></a>
+                                            <a @if($category->type == 'category') href="{{url('/category/'.$category->sefriendly.'/edit')}}"  @else href="{{url('/link/'.$category->id.'/edit')}}" @endif class="close close-assoc-file"><i class="fa fa-edit text-success"></i></a>
                                         </div>
                                     </li>
                                 @endif

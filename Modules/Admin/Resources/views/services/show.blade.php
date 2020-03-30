@@ -22,6 +22,7 @@
 					<p>@php
 						echo $service->description;
 					@endphp</p>
+					<a href="{{url($service->url.$service->id)}}" class="btn btn-sm btn-primary">Apply</a>
 				</div>
 
 				

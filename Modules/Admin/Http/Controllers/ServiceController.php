@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Models\Service;
 use Illuminate\Support\Facades\Storage;
+use App\User;
+use App\Models\Country;
+use App\Models\CollegeMast;
 class ServiceController extends Controller
 {
     public function __construct()
@@ -162,4 +165,13 @@ class ServiceController extends Controller
             return $request->file;
         }
     }
+
+    public function iap_membership($id){
+        $colleges = CollegeMast::pluck('college_name','college_code');
+        $colleges->prepend('Select IAP Member College','');
+        $countries = Country::pluck('country_name','country_code');
+        $service = Service::find($id);
+        return view('admin::services.forms.iap_membership',compact('countries','service','colleges'));
+    }
+
 }
