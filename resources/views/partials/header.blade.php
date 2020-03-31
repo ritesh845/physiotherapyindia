@@ -116,13 +116,13 @@
           @foreach($categories as $category)
             @if(count($category->subcategory))
               @if($category->view_subcat =='1')
-              <li class="drop-down"><a href="">{{$category->category_name}}</a>
+              <li class="drop-down"><a href="{{url('category_show/'.$category->sefriendly)}}">{{$category->category_name}}</a>
               @endif
                   @include('partials.navbarSubList',['subcategories' => $category->subcategory])
               </li>
             @else
                @if($category->view_subcat =='1')
-                <li><a href="#header">{{$category->category_name}}</a></li>
+                <li><a href="{{url('category_show/'.$category->sefriendly)}}">{{$category->category_name}}</a></li>
               @endif
             @endif
           @endforeach

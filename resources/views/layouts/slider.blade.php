@@ -8,33 +8,33 @@
         <div class="carousel-inner" role="listbox">
 
           <!-- Slide 1 -->
-          <div class="carousel-item active" style="background-image: url('{{asset('img/slide/slide-1.jpg')}}');">
+          <div class="carousel-item active" style="background-image: url('{{asset('images/slider1.jpg')}}');">
             <div class="carousel-container">
               <div class="carousel-content container">
-                <h2 class="animated fadeInDown">Welcome to <span>Physiotherapy</span></h2>
-                <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <h2 class="animated fadeInDown">{{__('IAP United')}}</h2>
+               {{--  <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> --}}
                 <a href="#about" class="btn-get-started animated fadeInUp scrollto">Read More</a>
               </div>
             </div>
           </div>
 
           <!-- Slide 2 -->
-          <div class="carousel-item" style="background-image: url('{{asset('img/slide/slide-2.jpg')}}');">
+          <div class="carousel-item" style="background-image: url('{{asset('images/slider2.jpg')}}');">
             <div class="carousel-container">
               <div class="carousel-content container">
-                <h2 class="animated fadeInDown">Lorem Ipsum Dolor</h2>
-                <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <h2 class="animated fadeInDown">{{__('IAP Delegation with Hon. Prime Minister Shri Narendra Modi')}}</h2>
+               {{--  <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> --}}
                 <a href="#about" class="btn-get-started animated fadeInUp scrollto">Read More</a>
               </div>
             </div>
           </div>
 
           <!-- Slide 3 -->
-          <div class="carousel-item" style="background-image: url('{{asset('img/slide/slide-3.jpg')}}');">
+          <div class="carousel-item" style="background-image: url('{{asset('images/slider3.jpg')}}');">
             <div class="carousel-container">
               <div class="carousel-content container">
-                <h2 class="animated fadeInDown">Sequi ea ut et est quaerat</h2>
-                <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <h2 class="animated fadeInDown">{{__('Together We Can')}}</h2>
+             {{--    <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> --}}
                 <a href="#about" class="btn-get-started animated fadeInUp scrollto">Read More</a>
               </div>
             </div>

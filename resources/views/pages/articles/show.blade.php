@@ -12,11 +12,11 @@
 				       @if($article->category !=null)
 					       	@if($article->category->parentcategory !=null)
 
-					        	@include('pages.breadcrumb_category',['parentcategory' => $article->category->parentcategory])
-					       		<li class="breadcrumb-item"><a href="#">{{$article->category->parentcategory->category_name}}</a></li>
+					        	@include('pages.breadcrumb_article',['parentcategory' => $article->category->parentcategory])
+					       		<li class="breadcrumb-item"><a href="{{url('category_show/'.$article->category->parentcategory->sefriendly)}}">{{$article->category->parentcategory->category_name}}</a></li>
 					       	@endif
 				        
-				        <li class="breadcrumb-item"><a href="#">{{$article->category->category_name}}</a></li>
+				        <li class="breadcrumb-item"><a href="{{url('category_show/'.$article->category->sefriendly)}}">{{$article->category->category_name}}</a></li>
 				       @endif
 				       <li class="breadcrumb-item active">{{$article->title}}</li>
 				    </ol>

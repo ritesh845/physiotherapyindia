@@ -130,14 +130,19 @@
                 <div class="card-body" style="background-color: aliceblue;">
                     <div class="row">
                       <div class="col-md-5">
-                        
+                        <div class="row">
+                          <div class="col-md-12 mb-2">
+                            <img src="{{asset('images/physiotherapy_mission.jpg')}}" style="width: 100% ; height: 150px" >
+                          </div>
+                          <div class="col-md-12 mb-2">
+                            <img src="{{asset('images/physiotherapy_mission1.jpg')}}" style="width: 100% ; height: 150px" >
+                          </div>
+                        </div>
                       </div>
                       <div class="col-md-7">
-                        <p class="text-justify mb-2"> 
-                            Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-                        </p>
+                        
                         <p class="text-justify mb-2">
-                            Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. 
+                            Our Mission for the future of physiotherapy in India with its strategic plan that enables I.A.P to achieve its mission, assisted by its branches and it members. At I.A.P we are dedicated to making a difference in the lives of our members, student, patients and the communities we serve. 
                         </p>
                       </div>
                     </div>
@@ -244,22 +249,14 @@
               </div>
               <div class="card-body p-0">
                 <div class="row">
+                  @foreach($articles as $article)
+                    @if($article->category_id == '10')
                    <div class="col-md-6 pr-1">
                       <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
                       <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
                   </div>
-                  <div class="col-md-6 pr-1">
-                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
-                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
-                  </div>
-                  <div class="col-md-6 pr-1">
-                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
-                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
-                  </div>
-                  <div class="col-md-6 pr-1">
-                      <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
-                      <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
-                  </div>
+                  @endif
+                  @endforeach
                 </div>
               </div>
             </div>             
@@ -353,28 +350,32 @@
               <h4 class="font-weight-bold text-primary">Physio Blogs</h4>  
           </div>
           <div class="col-md-12">
-             <div class="row">
+            <div class="row">
               @foreach($articles as $article)
               @if($article->category_id == '17')
-               <div class="col-md-3">
-                  <div class="card">
-                    <div class="card-header p-0 border-0 bg-white">
-                        <div class="card-title">
-                            <img src="{{asset('images/blog4.jpeg')}}" style="width: 100%" >
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="font-weight-bold text-captitalize">Identifying and testing pain from nerve tension</h6>
-                        <p class="text-justify" style="font-size: 13px;">
-                           If your neural tissue is impeded then pain or restriction of your nerve movement is a common result.  The adverse neural tension can result in nerve pain and limited motion. This is what is commonly referred to as a trapped nerve.
-                        </p>
+
+                 <div class="col-md-3">
+                    <div class="card">
+                      <div class="card-header p-0 border-0 bg-white">
+                          <div class="card-title">
+                              <img src="{{asset('images/blog_default.png')}}" style="width: 100%" >
+                          </div>
+                      </div>
+                      <div class="card-body" style="height:300px; overflow: hidden;">
+                          <h6 class="font-weight-bold text-captitalize">{{$article->title}}</h6>
+                          <p class="text-justify" style="font-size: 13px; overflow: hidden;">
+                           @php 
+                              echo $article->body;
+                           @endphp
+                            {{-- <a href="{{url('article_show/'.$article->sefriendly)}}" style="font-size:12px;">Read More</a> --}}
+                          </p>
+                      </div>
                     </div>
                   </div>
-                </div>
                 @endif
               @endforeach
-
-             </div>
+            
+            </div>
           </div>
       </div>
     </div>

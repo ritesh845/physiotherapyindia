@@ -39,3 +39,4 @@ Route::get('cancel', 'PayPalController@cancel')->name('payment.cancel');
 Route::get('payment/success', 'PayPalController@success')->name('payment.success');
 
 Route::get('article_show/{id}', 'BasicController@article_show')->name('article_show');
+Route::get('category_show/{id}', 'BasicController@category_show')->name('article_show');
