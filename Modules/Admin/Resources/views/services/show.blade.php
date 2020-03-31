@@ -24,7 +24,7 @@
 						echo $service->description;
 					@endphp</p>
 					
-				 	@if($service->id == '10' || $service->id == '12' || $service->id == '11')
+				 	@if($service->id == '10' || $service->id == '12' || $service->id == '11' || $service->id == '13')
 						<a href="{{url('service/iap_membership/'.$service->id)}}" class="btn btn-sm btn-primary">Apply</a>
 					@endif
 				</div>

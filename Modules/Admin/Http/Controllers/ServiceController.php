@@ -25,7 +25,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services =  Service::all();
+        $services =  Service::where('status','1')->get();
         return view('admin::services.index',compact('services'));
     }
 

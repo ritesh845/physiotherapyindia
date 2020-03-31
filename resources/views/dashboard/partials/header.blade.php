@@ -99,13 +99,13 @@
       @endrole
 
       @role('member')
-        <li class="nav-item">
+       {{--  <li class="nav-item">
           <a class="nav-link" href="{{url('/member')}}">
             <i class="fa fa-users"></i>
             <span>Profile</span>
           </a>
-        </li>
-        <li class="nav-item">
+        </li> --}}
+       {{--  <li class="nav-item">
           <a class="nav-link" href="{{url('/qualification')}}">
             <i class="fa fa-graduation-cap"></i>
             <span>Qualification</span>
@@ -115,7 +115,7 @@
           <a class="nav-link" href="{{url('/specialization')}}">
             <i class="fa fa-medkit"></i>
             <span>Specialization</span>
-          </a>
+          </a> --}}
         </li>        
       @endrole
 
