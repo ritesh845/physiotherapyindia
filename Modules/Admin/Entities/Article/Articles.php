@@ -11,4 +11,7 @@ class Articles extends Model
     public function tags(){
     	return $this->hasMany('Modules\Admin\Entities\Article\ArticlesTags','article_id');
     }
+    public function category(){
+    	return $this->belongsTo('Modules\Category\Entities\Category','category_id');
+    }
 }

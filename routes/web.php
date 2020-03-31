@@ -34,6 +34,8 @@ Route::get('/doc_download/{id}', 'HomeController@doc_download');
 Route::get('/notification_read/{id}', 'HomeController@notification_read')->name('notification_read');
 
 
-Route::get('payment', 'PayPalController@payment')->name('payment');
+Route::post('payment', 'PayPalController@payment')->name('payment');
 Route::get('cancel', 'PayPalController@cancel')->name('payment.cancel');
 Route::get('payment/success', 'PayPalController@success')->name('payment.success');
+
+Route::get('article_show/{id}', 'BasicController@article_show')->name('article_show');

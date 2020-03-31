@@ -177,7 +177,8 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         Nexmo\Laravel\NexmoServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class
     ],
 
     /*
@@ -232,6 +233,7 @@ return [
         'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
     ],
 
 ];

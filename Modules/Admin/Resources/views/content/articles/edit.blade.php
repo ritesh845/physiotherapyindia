@@ -360,7 +360,7 @@
 									<div class="from-group row mb-3">
 										{{ Form::label('publish_date', 'Publish Date:',['class'=>'control-label col-md-4 text-right'])}}
 										<div class="col-md-8 ">
-											{{ Form::text('publish_date',old('publish_date') ?? date('Y-m-d',strtotime($article->publish_date)),['class' => 'form-control datepicker'])}}
+											{{ Form::text('publish_date',old('publish_date') ?? date('Y-m-d',strtotime($article->created)),['class' => 'form-control datepicker'])}}
 											@error('publish_date')
 				                                <span class="text-danger" role="alert">
 				                                    <strong>{{ $message }}</strong>
@@ -505,6 +505,14 @@
 <script>
 	$(document).ready(function() {
 	    $('#tags').select2();
+
+	    $('.title').blur(function(e){
+			var Text = $(this).val();
+			Text = Text.toLowerCase();
+			Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
+			$(".sefriendly").val(Text); 
+		});
+
 	    $(function() {
 			$('.datepicker').datepicker({
 				format:'yyyy-mm-dd'

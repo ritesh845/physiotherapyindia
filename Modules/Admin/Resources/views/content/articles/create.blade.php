@@ -316,7 +316,7 @@
 								<div class="from-group row mb-4">
 									{{ Form::label('status', 'Set Status:',['class'=>'control-label col-md-4 text-right'])}}
 									<div class="col-md-8 ">
-										{{  Form::select('status',array('0' => 'Active', '1' => 'Pending', '2' =>'Archived'), old('status'),['class'=>'form-control status'])}}
+										{{  Form::select('status',array('1' => 'Active', '2' => 'Pending', '3' =>'Archived'), old('status'),['class'=>'form-control status'])}}
 									</div>
 								</div>
 								<div class="from-group row mb-4">
@@ -434,7 +434,7 @@
 								<div class="row form-group mb-3">
 									{{ Form::label('sefriendly', 'SE friendly name:',['class'=>'control-label col-md-4 text-right'])}}
 									<div class="col-md-8 ">
-										{{ Form::text('sefriendly',old('sefriendly'),['class' => 'form-control'])}}
+										{{ Form::text('sefriendly',old('sefriendly'),['class' => 'form-control sefriendly'])}}
 										@error('sefriendly')
 			                                <span class="text-danger" role="alert">
 			                                    <strong>{{ $message }}</strong>
@@ -490,6 +490,14 @@
 <script>
 	$(document).ready(function() {
 	    $('#tags').select2();
+
+	    $('.title').blur(function(e){
+			var Text = $(this).val();
+			Text = Text.toLowerCase();
+			Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
+			$(".sefriendly").val(Text); 
+		});
+	    
 	    $(function() {
 			$('.datepicker').datepicker({
 				format:'yyyy-mm-dd'

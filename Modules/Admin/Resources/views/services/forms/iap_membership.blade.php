@@ -12,18 +12,28 @@
 				</h5>	
 			</div>
 			<div class="card-body">
-				{{Form::open(array('url' => '','method' => 'POST'))}}
+				{{Form::open(array('url' => '/service/iap_membership/store','method' => 'POST'))}}
 
 					<div class="row mt-3">
-						@if($service->id == '1' || $service->id == '3') 
 						<div class="col-md-6 form-group">
-							{{Form::label('college_code','Select IAP Member College Name')}}
-							{{Form::select('college_code',$colleges,'',['class' => 'form-control college_code select2'])}}
+							@if($service->id == '10' || $service->id == '12') 
+								{{Form::label('college_code','Select IAP Member College Name')}}
+								{{Form::select('college_code',$colleges,'',['class' => 'form-control college_code select2'])}}
+								@error('college_code')
+			                        <span class="text-danger" role="alert">
+			                            <strong>{{ $message }}</strong>
+			                        </span>
+			                    @enderror
+							@else
+								{{Form::label('college_name','College Name')}}
+								{{Form::text('college_name',old('college_name'),['class' => 'form-control college_name'])}}
+								@error('college_name')
+			                        <span class="text-danger" role="alert">
+			                            <strong>{{ $message }}</strong>
+			                        </span>
+			                    @enderror
+							@endif
 						</div>
-						@else
-							{{Form::label('college_name','College Name')}}
-							{{Form::text('college_name',old('college_name'),['class' => 'form-control college_name'])}}
-						@endif
 						<div class="col-md-12 form-group">
 							<h6>Fees : <i class="fa fa-rupee"></i> {{$service->charges}}</h6>
 						</div>
@@ -97,7 +107,7 @@
 		                    @enderror
 						</div>
 						<div class="col-md-6 form-group">
-							{{Form::label('blood_group','Relation Type')}}
+							{{Form::label('blood_group','Blood Group')}}
 							{{Form::select('blood_group',array('' => 'Select Blood Group','A+' => 'A+','O+' => 'O+','B+' => 'B+','AB+' => 'AB+','A-' => 'A-','O-'=>'O-','B-'=> 'B-','AB-' => 'AB-'),'',['class' => 'form-control blood_group'])}}
 							@error('blood_group')
 		                        <span class="text-danger" role="alert">
@@ -188,7 +198,7 @@
 							{{Form::select('qualification_type',array('' => 'Select Qualification Name','10th' => '10th', '12th' => '12th','btp' => 'B.P.T.', 'mpt' => 'M.P.T.'),'',['class' => 'form-control'])}}
 						</div>
 						<div class="col-md-6 form-group">
-							{{Form::label('qualification_name','Qualification Name')}}
+							{{Form::label('qualification_name','College/School Name')}}
 							{{Form::text('qualification_name',old('qualification_name'),['class' => 'form-control'])}}
 							@error('qualification_name')
 		                        <span class="text-danger" role="alert">
@@ -197,7 +207,7 @@
 		                    @enderror
 						</div>
 						<div class="col-md-6 form-group">
-							{{Form::label('qualification_university','Qualification University')}}
+							{{Form::label('qualification_university','University/Board Name')}}
 							{{Form::text('qualification_university',old('qualification_university'),['class' => 'form-control'])}}
 							@error('qualification_university')
 		                        <span class="text-danger" role="alert">
@@ -206,7 +216,7 @@
 		                    @enderror
 						</div>
 						<div class="col-md-6 form-group">
-							{{Form::label('qualification_year_pass','Qualification Year Passing')}}
+							{{Form::label('qualification_year_pass','Year of Passing')}}
 							{{Form::text('qualification_year_pass',old('qualification_year_pass'),['class' => 'form-control'])}}
 							@error('qualification_year_pass')
 		                        <span class="text-danger" role="alert">
@@ -233,11 +243,11 @@
 									</div>
 									<div class="col-md-4 from-group">
 										{{ Form::label('p_country', 'Country Name:')}}
-										{{ Form::select('p_country',$countries, old('p_country') ?? '',['class'=>'form-control p_country','id'=>'country'])}}	
+										{{ Form::select('p_country',$countries, old('p_country'),['class'=>'form-control p_country','id'=>'country'])}}	
 										@error('p_country')
-										<span class="text-danger" role="alert">
-										<strong>{{ $message }}</strong>
-										</span>
+											<span class="text-danger" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
 										@enderror		
 									</div>
 									<div class="col-md-4 from-group">
@@ -295,7 +305,7 @@
 									</div>
 									<div class="col-md-4 from-group">
 										{{ Form::label('c_country', 'Country Name:')}}
-										{{ Form::select('c_country',$countries, old('c_country') ?? '',['class'=>'form-control c_country','id'=>'country1'])}}	
+										{{ Form::select('c_country',$countries, old('c_country'),['class'=>'form-control c_country','id'=>'country1'])}}	
 										@error('c_country')
 											<span class="text-danger" role="alert">
 											<strong>{{ $message }}</strong>
@@ -350,7 +360,7 @@
 						<div class="col-md-6 form-group">
 							{{Form::label('address_proof_doc','Address Proof Document')}}
 							{{ Form::file('address_proof_doc',['class' => 'form-control','accept'=>"image/*"])}}
-							@error('address_proof_type')
+							@error('address_proof_doc')
 		                        <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>
 		                        </span>
@@ -430,20 +440,13 @@
 							</table>
 						</div>
 					</div>
-				
-					{{-- 
-						<div class="col-md-12">
 
-							<pre>I agree by the Constituition and Bye-laws of the association and uphold its Ethical principles. <br>I am remitted Rs ........... as registration fee and membership subscription by <br>Cash / D.D./No. .......... Dated ........... of Bank ...................<br>Date: .../.../.....				
-							 </pre>
-						</div> --}}
-					</div>
-					<div class="card-footer">
-					
-						{{Form::submit('Save & Continue',['class' => 'btn btn-sm btn-secondary'])}}
-						
-					{{Form::close()}}
-					</div>
+				</div>
+				<div class="card-footer">
+					{{Form::hidden('service_id',$service->id)}}
+					{{Form::submit('Save & Continue',['class' => 'btn btn-sm btn-secondary'])}}		
+				</div>
+				{{Form::close()}}
 		</div>
 	</div>
 </div>
@@ -455,10 +458,33 @@
 				format:'yyyy-mm-dd'
 			});
 		});
+
 		var state_id = 'state';
 		var state_id1 = 'state1';
 		var city_id = 'city';
 		var city_id1 = 'city1';
+
+
+		var country_code = "{{old('p_country') !='' ? old('p_country') : ''}}";
+		
+		var country_code1 = "{{old('c_country') !='' ? old('c_country') : ''}}";
+		var state_code = "{{old('p_state') !=null ? old('p_state') : ''}}";
+		var city_code = "{{old('p_city') !=null ? old('p_city') : '' }}";		
+		var state_code1 = "{{old('c_state') !=null ? old('c_state') : ''}}";
+		var city_code1 = "{{old('c_city') !=null ? old('c_city') : '' }}";
+
+		if(country_code !='' ){
+			console.log('Asdasd')
+			states(country_code,state_id,state_code);
+			cities(state_code,city_id,city_code1);
+		}
+		if(country_code1 !=''){
+			
+			states(country_code1,state_id1,state_code1);
+			cities(state_code1,city_id1,city_code1);
+		}
+
+
 
 		$('#country, #country1').on('change',function(e){	
 			e.preventDefault();
@@ -487,6 +513,7 @@
 
 		$('#addr_check').on('change',function(){
 			var check = $("[name='same_as1']:checked").val();
+			console.log(check);
 			if(check == 'on'){
 				$('#same_as').val('1');
 				var address = $('#address').val();
@@ -495,6 +522,8 @@
 				var state_code = $('#state').val();
 				var city_code = $('#city').val();
 
+
+				$('#country1').val(country_code);
 				states(country_code,state_id1,state_code);
 				cities(state_code,city_id1,city_code);
 
@@ -507,7 +536,7 @@
 				$('#zip_code1').val('');
 
 				var country_code = '';
-				var state_code = 0;
+				var state_code = '';
 
 				states(country_code,state_id1,state_code);
 				cities(state_code,city_id1,city_code);				

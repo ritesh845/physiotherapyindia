@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Models\Country;
 use App\Models\CollegeMast;
+use App\Models\UserService;
+use Auth;
+use Modules\Member\Entities\Member;
 class ServiceController extends Controller
 {
     public function __construct()
@@ -170,8 +173,107 @@ class ServiceController extends Controller
         $colleges = CollegeMast::pluck('college_name','college_code');
         $colleges->prepend('Select IAP Member College','');
         $countries = Country::pluck('country_name','country_code');
+        $countries->prepend('Select Country','');
         $service = Service::find($id);
         return view('admin::services.forms.iap_membership',compact('countries','service','colleges'));
     }
 
+    public function iap_membership_store(Request $request){
+        
+
+        $data = $request->validate([
+                    'first_name'            => 'required',
+                    'middle_name'           => 'nullable',
+                    'last_name'             => 'required',
+                    'mobile'                => 'required',
+                    'mobile1'               => 'nullable',
+                    'email'                 => 'required',
+                    'email1'                => 'nullable|email',
+                    'relation_type'         => 'nullable',
+                    'gender'                => 'required|not_in:""',
+                    'dob'                   => 'required',
+                    'place_of_birth'        => 'nullable',
+                    'country_of_birth'      => 'nullable',
+                    'dob'                   => 'required',
+                    'blood_group'           => 'nullable',
+                    'rel_f_name'            => 'nullable',
+                    'rel_m_name'            => 'nullable',
+                    'rel_l_name'            => 'nullable',
+                    'p_address'             => 'required',
+                    'p_country'             => 'required',
+                    'p_state'               => 'required',
+                    'p_city'                => 'required',
+                    'p_zip_code'            => 'required',
+                    'same_as'               => 'nullable',
+                    'c_address'             => 'required',
+                    'c_country'             => 'required',
+                    'c_state'               => 'required',
+                    'c_city'                => 'required',
+                    'c_zip_code'            => 'required',
+                    'qualification_type'    => 'nullable',
+                    'qualification_name'    => 'nullable',
+                    'qualification_university'=> 'nullable',
+                    'qualification_year_pass' => 'nullable',
+        ]);
+
+        if($request->service_id == '10' || $request->service_id == '12'){
+            $request->validate([
+                'college_code' => 'required|not_in:""'
+            ]);
+            $data['college_code'] = $request->college_code;
+        }else{
+            $request->validate([
+                'college_name' => 'required'
+            ]);
+            $data['college_name'] = $request->college_name;
+        }
+
+
+
+
+        if($request->address_proof_type !=''){
+            $request->validate([
+                'address_proof_doc' => 'required|mimes:jpeg,jpg,png,pdf'
+            ]);
+        }
+
+        if($request->hasfile('address_proof_doc')){
+            $request->validate([
+                'address_proof_type' => 'required|not_in:""'
+            ]);
+            // $file = $request->file('address_proof_doc');
+            // $filename =  time().'_'.$file->getClientOriginalName();
+            // $path = $file->storeAs('public/'.date('Y').'/members', $filename);
+            // $url = Storage::url(date('Y').'/abstractimages/'.$filename);
+            // $data['image'] = $url;
+        }
+
+        $data['user_id'] = Auth::user()->id;
+        $member = Member::create($data);
+        $this->service_payment($request,$member);
+
+        $service = Service::find($request->service_id);
+        return view('admin::payments.form_payment',compact('service','member'));
+        
+    }
+
+    public function service_payment($request,$member){
+    
+        $data = [
+        
+                'name'  => "IAP Physiotherapy",
+                'price' => $service->charges,
+                'desc'  => $service->name,
+                'qty'   => 1
+            
+        ];
+        // return $data;
+
+        // $data['invoice_id'] = 1;
+        // $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
+        // $data['return_url'] = route('payment.success');
+        // $data['cancel_url'] = route('payment.cancel');
+        // $data['total'] = 100;
+    }
+ 
 }

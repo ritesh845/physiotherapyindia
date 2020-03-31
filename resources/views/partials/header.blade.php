@@ -36,6 +36,7 @@
   @php
      $categories = Modules\Category\Entities\Category::where('type','category')->whereNull('parent_cat')->orderBy('order_num','ASC')->get();
      $links = Modules\Category\Entities\Category::where('type','link')->whereNull('parent_cat')->orderBy('order_num','ASC')->get();
+     
   @endphp
  
 </head>
@@ -100,7 +101,7 @@
 	</section>
 
 	<!-- ======= Header ======= -->
-	<header id="header">
+	<header id="header" style="border-bottom: 1px solid rgb(230, 230, 230);">
     <div class="container">
 
       <div class="logo float-left">

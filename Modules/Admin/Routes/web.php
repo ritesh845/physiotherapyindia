@@ -49,6 +49,7 @@
 	    Route::post('/member_document', 'ServiceController@member_document');
 	    
 		Route::get('/service/iap_membership/{id}', 'ServiceController@iap_membership');
+		Route::post('/service/iap_membership/store', 'ServiceController@iap_membership_store');
 	});
 
 	Route::group(['middleware' => ['role:super_admin|admin']], function() {

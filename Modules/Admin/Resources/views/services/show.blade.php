@@ -18,11 +18,15 @@
 					<p class="font-weight-bold">Service Start Date: {{date('d-m-Y',strtotime($service->from))}} @if($service->service_type == 'S')<span class="font-weight-bold pull-right text-right">Service End Date: {{date('d-m-Y',strtotime($service->from))}}</span> @endif</p>
 					<h6 class="font-weight-bold">Service Charges <i class="fa fa-rupee"></i>{{$service->charges}}</h6>
 				</div>
+
 				<div class="col-md-12">
 					<p>@php
 						echo $service->description;
 					@endphp</p>
-					<a href="{{url('service/iap_membership/'.$service->id)}}" class="btn btn-sm btn-primary">Apply</a>
+					
+				 	@if($service->id == '10' || $service->id == '12' || $service->id == '11')
+						<a href="{{url('service/iap_membership/'.$service->id)}}" class="btn btn-sm btn-primary">Apply</a>
+					@endif
 				</div>
 
 				
