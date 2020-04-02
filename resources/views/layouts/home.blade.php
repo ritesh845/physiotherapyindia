@@ -66,11 +66,13 @@
                       @php
                         echo str_limit($article->body,100,'...');
                       @endphp
-                    </p>        
+                    </p>      
+                     {{link_to('article_show/'.$article->sefriendly,$title = 'Find out more >> ', $attributes = ['class' => 'font-weight-bold'] , $secure =null)}}  
                   @endforeach
               </div>
               <br>
-              {{link_to('#',$title = 'Find out more >> ', $attributes = ['class' => 'font-weight-bold'] , $secure =null)}}
+
+             
             </div>
           </div>
         </div>
@@ -242,70 +244,24 @@
   <section class="section-services section-t8">
     <div class="container">
         <div class="row">
+           @foreach(articles_fetch()->where('category_id',40)->limit(4)->get() as $article)
             <div class="col-md-3">
               <div class="card">
                 <div class="card-header p-0 border-0 bg-white">
                     <div class="card-title">
-                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
+                        <img src="{{asset('images/default_user.jpg')}}" style="width: 100%" >
                     </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
-                    <h6>President</h6>
-                    <p class="text-justify" style="font-size: 14px;">
-                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
+                <div class="card-body" style="height:238px; overflow: hidden;">
+                    <h6 class="font-weight-bold"><a href="{{url('article_show/'.$article->sefriendly)}}" >{{$article->title}}</a></h6>
+                    @php 
+                      echo $article->body; 
+                    @endphp
                     </p>
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="card">
-                <div class="card-header p-0 border-0 bg-white">
-                    <div class="card-title">
-                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
-                    <h6>President</h6>
-                    <p class="text-justify" style="font-size: 14px;">
-                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
-                    </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card">
-                <div class="card-header p-0 border-0 bg-white">
-                    <div class="card-title">
-                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
-                    <h6>President</h6>
-                    <p class="text-justify" style="font-size: 14px;">
-                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
-                    </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card">
-                <div class="card-header p-0 border-0 bg-white">
-                    <div class="card-title">
-                        <img src="{{asset('images/sanjiv.jpeg')}}" style="width: 100%" >
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h5 class="font-weight-bold">Dr. Saniv Jha</h5>
-                    <h6>President</h6>
-                    <p class="text-justify" style="font-size: 14px;">
-                        Wisconsin is a U.S. state located in the north-central, Midwest and Great Lakes regions of the country. It is bordered by Minnesota to the west.
-                    </p>
-                </div>
-              </div>
-            </div>
+          @endforeach
         </div>
     </div>
   </section>
@@ -335,7 +291,7 @@
                           </div>
                       </div>
                       <div class="card-body" style="height:300px; overflow: hidden;">
-                          <h6 class="font-weight-bold text-captitalize">{{$article->title}}</h6>
+                          <h6 class="font-weight-bold text-captitalize"><a href="{{url('article_show/'.$article->sefriendly)}}" >{{$article->title}}</a></h6>
                           <p class="text-justify" style="font-size: 13px; overflow: hidden;">
                            @php 
                               echo $article->body;
