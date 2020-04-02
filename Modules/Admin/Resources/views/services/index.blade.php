@@ -11,6 +11,9 @@
 					@role('super_admin') 
 						{{link_to('/service/create', $title = 'Add Service', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}
 					@endrole
+					@role('member')
+						{{link_to('',$title = 'Service Allocate', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'])}}
+					@endrole
 				</h5>
 			</div>
 			<div class="card-body">
@@ -35,7 +38,7 @@
 							<td>{{$service->name}}</td>							
 							<td><i class="fa fa-rupee"></i> {{$service->charges != null ? $service->charges : '0' }}</td>
 							<td>
-								@role('super_admin|member_admin|admin')
+								@role('super_admin|admin')
 									<a href="{{url('/service/'.$service->id.'/edit')}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
 									<a href="{{url('/service/destroy/'.$service->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash "></i></a>
 								@endrole

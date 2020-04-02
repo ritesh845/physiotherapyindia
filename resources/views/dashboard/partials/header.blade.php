@@ -119,17 +119,30 @@
         </li>        
       @endrole
 
-       @role('super_admin|member')
+       @role('super_admin|member|member_admin')
         <li class="nav-item">
           <a class="nav-link" href="{{url('/service')}}">
             <i class="fa fa-cogs"></i>
             <span>Services</span>
           </a>
         </li>
+      
       @endrole
 
       @role('member_admin')
         <li class="nav-item">
+          <a href="{{url('approval/service_request')}}" class="nav-link">
+            <i class="fa fa-cogs"></i>
+            <span>Services Request</span>
+          </a>
+        </li>
+        {{-- <li class="nav-item">
+          <a class="nav-link" href="">
+            <i class="fa fa-cogs"></i>
+            <span>Services</span>
+          </a>
+        </li> --}}
+       {{--  <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-list-alt"></i>
             <span>Approval @if(count($pen_quals) !=0 || count($pen_specs) !=0)<span class="pull-right notify_orange_btn">{{count($pen_quals) + count($pen_specs)}}</span> @endif</span>
@@ -140,7 +153,7 @@
               <a class="collapse-item" href="{{url('approval/specialization')}}">Specializations @if(count($pen_specs) !=0) <span class="pull-right notify_orange_btn">{{count($pen_specs)}}</span> @endif</a>
             </div>
           </div>
-        </li>
+        </li> --}}
       @endrole
       <!-- Heading -->
      {{--  <div class="sidebar-heading">

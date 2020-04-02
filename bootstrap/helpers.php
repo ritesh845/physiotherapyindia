@@ -2,8 +2,8 @@
  
 use App\Models\Documents;
 use Modules\Member\Entities\Member;
-
-
+use Modules\Admin\Entities\Article\Articles;
+use Modules\Category\Entities\Category;
 if (!function_exists('document_save')) {
     function document_save($request,$model,$user_id,$folder_name){
 
@@ -41,4 +41,18 @@ if (!function_exists('member_create')) {
     }
 }
 
+
+if (!function_exists('articles_fetch')) {
+    function articles_fetch(){
+        $articles = Articles::select('title','id','category_id','created','body','sefriendly')->where('status','1');
+        return $articles;
+    }
+}
+
+if (!function_exists('category_fetch')) {
+    function category_fetch(){
+        $categories = Category::where('type','category')->orderBy('order_num','ASC');
+        return $categories;
+    }
+}
 

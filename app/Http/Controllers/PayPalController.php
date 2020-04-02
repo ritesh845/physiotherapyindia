@@ -14,27 +14,28 @@ class PayPalController extends Controller
      */
     public function payment()
     {
-        $data = [];
-        $data['items'] = [
-            [
-                'name' => 'ItSolutionStuff.com',
-                'price' => 100,
-                'desc'  => 'Description for ItSolutionStuff.com',
-                'qty' => 1
-            ]
-        ];
+        return ;
+        // $data = [];
+        // $data['items'] = [
+        //     [
+        //         'name' => 'ItSolutionStuff.com',
+        //         'price' => 100,
+        //         'desc'  => 'Description for ItSolutionStuff.com',
+        //         'qty' => 1
+        //     ]
+        // ];
 
-        $data['invoice_id'] = 1;
-        $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
-        $data['return_url'] = route('payment.success');
-        $data['cancel_url'] = route('payment.cancel');
-        $data['total'] = 100;
+        // $data['invoice_id'] = 1;
+        // $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
+        // $data['return_url'] = route('payment.success');
+        // $data['cancel_url'] = route('payment.cancel');
+        // $data['total'] = 100;
 
-        $provider = new ExpressCheckout;
+        // $provider = new ExpressCheckout;
 
-        $response = $provider->setExpressCheckout($data);
+        // $response = $provider->setExpressCheckout($data);
 
-        $response = $provider->setExpressCheckout($data, true);
+        // $response = $provider->setExpressCheckout($data, true);
      
         return redirect($response['paypal_link']);
     }

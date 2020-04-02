@@ -41,6 +41,7 @@
 
 		   	Route::post('specialization_decline','ApprovalController@specialization_decline');
 		   	Route::post('specialization_decline_all','ApprovalController@specialization_decline_all');
+		   	Route::get('service_request','ApprovalController@service_request');
 		});
 
 		Route::resource('/service', 'ServiceController');
@@ -50,6 +51,9 @@
 	    
 		Route::get('/service/iap_membership/{id}', 'ServiceController@iap_membership');
 		Route::post('/service/iap_membership/store', 'ServiceController@iap_membership_store');
+
+		Route::get('/service/payment/{id}', 'ServiceController@service_payment');
+		Route::get('/service/payment_now/{id}', 'ServiceController@payment_now');
 	});
 
 	Route::group(['middleware' => ['role:super_admin|admin']], function() {

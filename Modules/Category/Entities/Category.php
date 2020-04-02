@@ -18,4 +18,7 @@ class Category extends Model implements HasMedia
     public function parentcategory(){
     	return $this->belongsTo('Modules\Category\Entities\Category','parent_cat','id')->orderBy('order_num','ASC');
     }
+    public function articles(){
+    	return $this->hasMany('Modules\Admin\Entities\Article\Articles','category_id')->orderBy('order_num','ASC')->limit(1);
+    }
 }

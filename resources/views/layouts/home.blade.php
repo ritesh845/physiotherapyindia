@@ -2,10 +2,7 @@
 @section('content')
 @include('layouts.slider')
 <main id="main">
-@php
-  $articles = Modules\Admin\Entities\Article\Articles::select('title','id','category_id','created','body','sefriendly')->where('status','1')->orderBy('order_num','ASC')->get();
- 
-@endphp
+
     <!-- ======= About Us Section ======= -->
    {{--  <section id="about" class="about">
       <div class="container">
@@ -54,72 +51,46 @@
         </div>
       </div>     
       <div class="row mt-4">
+        @foreach(category_fetch()->where('parent_cat',1)->limit(4)->get() as $category)
         <div class="col-md-3">
           <div class="card border-0">
             <div class="card-header bg-white border-0">
-            	<img src="{{asset('images/governing_body_964532547.jpg')}}" style="width: 100%;height: 100%">
+            	<img src="{{asset('images/about_default.png')}}" style="width: 100%;height: 100%">
             </div>
-            <div class="card-body">
-            	<h5 class="font-weight-bold text-captitalize">Governing Body</h5>
-            	<p class="text-justify" style="font-size: 15px;">
-            		Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-            	</p>            	
-          
+            <div class="card-body" >
+              <div class=""style="height: 200px;">
+                  <h5 class="font-weight-bold text-captitalize">{{$category->category_name}}</h5>
+                  @foreach($category->articles as $article)
+                    <h6 class="font-weight-bold">{{$article->title}}</h6>
+                    <p>
+                      @php
+                        echo str_limit($article->body,100,'...');
+                      @endphp
+                    </p>        
+                  @endforeach
+              </div>
+              <br>
               {{link_to('#',$title = 'Find out more >> ', $attributes = ['class' => 'font-weight-bold'] , $secure =null)}}
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="card border-0">
-            <div class="card-header bg-white border-0">
-              <img src="{{asset('images/team.jpg')}}" style="width: 100%;height: 100%">
-            </div>
-            <div class="card-body">
-              <h5 class="font-weight-bold text-captitalize">IAP Legacy</h5>
-              <p class="text-justify" style="font-size: 15px;">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-              </p>              
-          
-              {{link_to('#',$title = 'Find out more >> ', $attributes = ['class' => 'font-weight-bold'] , $secure =null)}}
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card border-0">
-            <div class="card-header bg-white border-0">
-              <img src="{{asset('images/governing_body_964532547.jpg')}}" style="width: 100%;height: 100%; ">
-            </div>
-            <div class="card-body">
-              <h5 class="font-weight-bold text-captitalize">Governing Body</h5>
-              <p class="text-justify" style="font-size: 15px;">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-              </p>              
-          
-              {{link_to('#',$title = 'Find out more >> ', $attributes = ['class' => 'font-weight-bold'] , $secure =null)}}
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card border-0">
-            <div class="card-header bg-white border-0">
-               <img src="{{asset('images/team.jpg')}}" style="width: 100%;height: 100%">
-            </div>
-            <div class="card-body">
-              <h5 class="font-weight-bold text-captitalize">IAP Legacy</h5>
-              <p class="text-justify" style="font-size: 15px;">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-              </p>              
-          
-              {{link_to('#',$title = 'Find out more >> ', $attributes = ['class' => 'font-weight-bold'] , $secure =null)}}
-            </div>
-          </div>
-        </div>
-
+       @endforeach
       </div> 
     </div>
   </section>
-
-  <section class="section-services section-t8" style="background-color: aliceblue ">
+ <section class="section-services section-t8">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-6" style="">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+             <div class="col-md-6">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-services section-t8" style="background-color: aliceblue ">
     <div class="container">
         <div class="row">
           <div class="col-md-5">
@@ -140,7 +111,6 @@
                         </div>
                       </div>
                       <div class="col-md-7">
-                        
                         <p class="text-justify mb-2">
                             Our Mission for the future of physiotherapy in India with its strategic plan that enables I.A.P to achieve its mission, assisted by its branches and it members. At I.A.P we are dedicated to making a difference in the lives of our members, student, patients and the communities we serve. 
                         </p>
@@ -152,7 +122,7 @@
           <div class="col-md-7">
             <div class="card border-0" >
               <div class="card-header border-0" style="background-color: aliceblue;">
-                  <h3 class="text-primary">Apply For <b>IAP Membership</b></h3>
+                  <h3 class="text-primary">Contact <b>IAP</b></h3>
               </div>
               <div class="card-body" style="background-color: aliceblue;">
                  <div class="card">
@@ -162,7 +132,7 @@
                           {{Form::text('name','',['class' => 'form-control','placeholder' => 'Full Name'])}}
                        </div>
                        <div class="col-md-6 mb-2">
-                          {{Form::text('member_type','',['class' => 'form-control','placeholder' => 'Membership Type'])}}
+                          {{Form::select('contact_subject',array('1' => 'Student','2' => 'College', '3' => 'Physiotherapist','4' => 'Ortho Equipment Manufactures','5' => "Listing on website" , '6' => 'Other'),'',['class' => 'form-control'])}}
                        </div>
                      </div>
                      <div class="row form-group">
@@ -175,7 +145,7 @@
                      </div>
                      <div class="row form-group">                       
                        <div class="col-md-12 mb-2">
-                          {{Form::textarea('description','',['class' => 'form-control','placeholder' => 'Member Text' , 'rows' => '3', 'cols' => '3' ])}}
+                          {{Form::textarea('description','',['class' => 'form-control','placeholder' => 'Description' , 'rows' => '3', 'cols' => '3' ])}}
                        </div>
                      </div>
                      <div class="row form-group">
@@ -194,18 +164,24 @@
   <section class="section-services section-t8">
     <div class="container">
         <div class="row mb-4">
-            <div class="col-md-6" style="">
+            <div class="col-md-4" style="">
                 <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
             </div>
-             <div class="col-md-6">
+             <div class="col-md-4">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+            <div class="col-md-4">
                 <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
             </div>
         </div>
         <div class="row mb-4">
-            <div class="col-md-6" style="">
+            <div class="col-md-4" style="">
                 <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
             </div>
-             <div class="col-md-6">
+            <div class="col-md-4">
+                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+            </div>
+            <div class="col-md-4">
                 <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
             </div>
         </div>
@@ -223,8 +199,7 @@
               </div>
               <div class="card-body p-0" >
                 <div class="row">
-                  @foreach($articles as $article)
-                    @if($article->category_id == '19')
+                  @foreach(articles_fetch()->where('category_id',19)->limit(4)->get() as $article)
                       <div class="col-md-6 pr-2">
                         <p style="font-size:11px;" class="font-weight-bold mb-0" >{{date('Y-m-d',strtotime($article->created))}}</p>
                          <a href="{{url('article_show/'.$article->sefriendly)}}" style="color:black !important"><p class="font-weight-bold mb-0 text-justify" style="font-size:13px;">{{$article->title}}</P> </a>
@@ -234,7 +209,7 @@
                           </p>
                         </a>
                       </div>
-                    @endif
+                  
                   @endforeach
                 </div>
               </div>
@@ -249,13 +224,13 @@
               </div>
               <div class="card-body p-0">
                 <div class="row">
-                  @foreach($articles as $article)
-                    @if($article->category_id == '10')
+                  @foreach(articles_fetch()->where('category_id',10)->limit(4)->get() as $article)
+                    
                    <div class="col-md-6 pr-1">
                       <a href="" style="color:black !important"><p class="font-weight-bold mb-0" style="font-size:13px;">Administrative councile of IAP to submit profile.</P> 
                       <p style="font-size:12px;">All IAP administrative council member to submit their details</p></a>
                   </div>
-                  @endif
+                 
                   @endforeach
                 </div>
               </div>
@@ -351,9 +326,7 @@
           </div>
           <div class="col-md-12">
             <div class="row">
-              @foreach($articles as $article)
-              @if($article->category_id == '17')
-
+              @foreach(articles_fetch()->where('category_id',17)->limit(4)->get() as $article)
                  <div class="col-md-3">
                     <div class="card">
                       <div class="card-header p-0 border-0 bg-white">
@@ -372,7 +345,7 @@
                       </div>
                     </div>
                   </div>
-                @endif
+              
               @endforeach
             
             </div>

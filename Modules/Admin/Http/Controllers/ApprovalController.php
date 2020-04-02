@@ -174,4 +174,8 @@ class ApprovalController extends Controller
             ];
         $user->notify(new NotifyMessage($message));
     }
+    public function service_request(){
+        
+        return view('admin::approval.services.service_request');
+    }
 }

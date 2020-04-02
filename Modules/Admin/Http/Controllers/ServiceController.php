@@ -13,6 +13,7 @@ use App\Models\CollegeMast;
 use App\Models\UserService;
 use Auth;
 use Modules\Member\Entities\Member;
+use Srmklive\PayPal\Services\ExpressCheckout;
 class ServiceController extends Controller
 {
     public function __construct()
@@ -250,23 +251,32 @@ class ServiceController extends Controller
 
         $data['user_id'] = Auth::user()->id;
         $member = Member::create($data);
-        $this->service_payment($request,$member);
-
-        $service = Service::find($request->service_id);
-        return view('admin::payments.form_payment',compact('service','member'));
+        UserService::create([
+            'user_id'   => Auth::user()->id,
+            'member_id' => $member->id,
+            'service_id' => $request->service_id,
+        ]);
+       return redirect('service/payment/'.$member->id);
         
     }
 
-    public function service_payment($request,$member){
+
+    public function service_payment($id){
+      $member =  Member::find($id);
+      $userservice = UserService::where('member_id',$id)->first();
+      $service = Service::find($userservice->service_id);
+
+
+      return view('admin::payments.form_payment',compact('service','member'));
     
-        $data = [
+        // $data = [
         
-                'name'  => "IAP Physiotherapy",
-                'price' => $service->charges,
-                'desc'  => $service->name,
-                'qty'   => 1
+        //         'name'  => "IAP Physiotherapy",
+        //         'price' => $service->charges,
+        //         'desc'  => $service->name,
+        //         'qty'   => 1
             
-        ];
+        // ];
         // return $data;
 
         // $data['invoice_id'] = 1;
@@ -274,6 +284,39 @@ class ServiceController extends Controller
         // $data['return_url'] = route('payment.success');
         // $data['cancel_url'] = route('payment.cancel');
         // $data['total'] = 100;
+    }
+    public function payment_now($id){
+      $userservice = UserService::where('member_id',$id)->first();
+      $service = Service::find($userservice->service_id);
+
+      // return $service;
+       $data = [];
+        $data['items'] = [
+            [
+                'name' => $service->name,
+                'price' => $service->charges,
+                'desc'  => 'Member Service Payment',
+                'qty' => 1
+            ]
+        ];
+
+        $data['invoice_id'] = 1;
+        $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
+        $data['return_url'] = route('payment.success');
+        $data['cancel_url'] = route('payment.cancel');
+        $data['total'] = 100;
+
+        $provider = new ExpressCheckout;
+
+        $response = $provider->setExpressCheckout($data);
+
+        $response = $provider->setExpressCheckout($data, true);
+
+
+        return redirect($response['paypal_link']);
+
+
+      return $userservice;
     }
  
 }
