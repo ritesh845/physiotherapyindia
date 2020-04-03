@@ -17,10 +17,6 @@
 				       @endif
 
 				       <li class="breadcrumb-item active">{{$category->category_name}}</li>
-
-
-
-
 				    </ol>
 				</nav>
 			</div>
@@ -36,7 +32,12 @@
 					<h5 ><a href="{{url('article_show/'.$article->sefriendly)}}">{{$article->title}}</a></h5>
 					<p>
 						@php 
-						   echo str_limit($article->body,140,'...') 
+						if(!preg_match( '@src="([^"]+)"@' , $article->body, $match )){
+						  echo str_limit($article->body,140,'...') ;
+
+						}
+
+
 						@endphp
                        
                      </p>

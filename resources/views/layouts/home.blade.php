@@ -59,12 +59,12 @@
             </div>
             <div class="card-body" >
               <div class=""style="height: 200px;">
-                  <h5 class="font-weight-bold text-captitalize">{{$category->category_name}}</h5>
+                  <h5 class="font-weight-bold text-captitalize"><a href="{{'category_show/'.$category->sefriendly}}">{{$category->category_name}}</a></h5>
                   @foreach($category->articles as $article)
                     <h6 class="font-weight-bold">{{$article->title}}</h6>
                     <p>
                       @php
-                        echo str_limit($article->body,100,'...');
+                        echo str_limit($article->body,90,'...');
                       @endphp
                     </p>      
                      {{link_to('article_show/'.$article->sefriendly,$title = 'Find out more >> ', $attributes = ['class' => 'font-weight-bold'] , $secure =null)}}  
@@ -84,10 +84,10 @@
     <div class="container">
         <div class="row mb-4">
             <div class="col-md-6" style="">
-                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+               <img src="{{asset('images/corono_120546340.jpg')}}" style="width: 100%;height:130px;">
             </div>
              <div class="col-md-6">
-                <img src="{{asset('images/dlife_576025684.jpg')}}" style="width: 100%;height:150px; ">
+                <img src="{{asset('images/corono_120546340.jpg')}}" style="width: 100%;height:130px; ">
             </div>
         </div>
     </div>
@@ -201,15 +201,19 @@
               </div>
               <div class="card-body p-0" >
                 <div class="row">
-                  @foreach(articles_fetch()->where('category_id',19)->limit(4)->get() as $article)
+                  @foreach(articles_fetch()->where('category_id',19)->limit(6)->get() as $article)
                       <div class="col-md-6 pr-2">
                         <p style="font-size:11px;" class="font-weight-bold mb-0" >{{date('Y-m-d',strtotime($article->created))}}</p>
-                         <a href="{{url('article_show/'.$article->sefriendly)}}" style="color:black !important"><p class="font-weight-bold mb-0 text-justify" style="font-size:13px;">{{$article->title}}</P> </a>
-                          <p style="font-size:12px;" class="mb-0 text-muted text-justify">
+                         <a href="{{url('article_show/'.$article->sefriendly)}}" style="">
+
+                          <p class="font-weight-bold text-justify" style="font-size:12px;">{{$article->title}}</P>
+
+                          </a>
+                          {{-- <p style="font-size:12px;" class="mb-0 text-muted text-justify">
                             @php echo str_limit($article->body,140,'...') @endphp
                             <a href="{{url('article_show/'.$article->sefriendly)}}" style="font-size:12px;">Read More</a>
-                          </p>
-                        </a>
+                          </p> --}}
+                        {{-- </a> --}}
                       </div>
                   
                   @endforeach
