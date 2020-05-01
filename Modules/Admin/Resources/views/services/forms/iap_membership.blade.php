@@ -8,16 +8,16 @@
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title">{{$service->name}}
-					{{link_to('/service', $title = 'Back', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}			
+					{{link_to('/service/'.$service->id, $title = 'Back', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}			
 				</h5>	
 			</div>
 			<div class="card-body">
-				{{Form::open(array('url' => '/service/iap_membership/store','method' => 'POST'))}}
+				{{Form::open(array('url' => '/service/iap_membership/store','method' => 'POST','enctype' => 'multipart/form-data'))}}
 
 					<div class="row mt-3">
 						<div class="col-md-6 form-group">
 							@if($service->id == '10' || $service->id == '12') 
-								{{Form::label('college_code','Select IAP Member College Name')}}
+								{{Form::label('college_code','Select IAP Member College Name',['class' => 'required'])}}
 								{{Form::select('college_code',$colleges,'',['class' => 'form-control college_code select2'])}}
 								@error('college_code')
 			                        <span class="text-danger" role="alert">
@@ -25,7 +25,7 @@
 			                        </span>
 			                    @enderror
 							@else
-								{{Form::label('college_name','College Name')}}
+								{{Form::label('college_name','College Name',['class' => 'required'])}}
 								{{Form::text('college_name',old('college_name'),['class' => 'form-control college_name'])}}
 								@error('college_name')
 			                        <span class="text-danger" role="alert">
@@ -44,7 +44,7 @@
 							<h5 class="text-muted">Application Deatils</h5>
 						</div>
 						<div class="col-md-4 form-group">
-							{{Form::label('first_name','First Name')}}
+							{{Form::label('first_name','First Name',['class' => 'required'])}}
 							{{Form::text('first_name',old('first_name'),['class' => 'form-control'])}}
 							@error('first_name')
 		                        <span class="text-danger" role="alert">
@@ -62,7 +62,7 @@
 		                    @enderror
 						</div>
 						<div class="col-md-4 form-group">
-							{{Form::label('last_name','Last Name')}}
+							{{Form::label('last_name','Last Name',['class' => 'required'])}}
 							{{Form::text('last_name',old('last_name'),['class' => 'form-control'])}}
 							@error('last_name')
 		                        <span class="text-danger" role="alert">
@@ -116,7 +116,7 @@
 		                    @enderror
 						</div>
 						<div class="col-md-6 form-group">
-							{{ Form::label('gender', 'Gender:')}}
+							{{ Form::label('gender', 'Gender:',['class' => 'required'])}}
 							{{ Form::select('gender',array('' => 'Select Gender','M' => 'Male','F'=>'Female', 'o' => 'Other'), old('gender'),['class'=>'form-control gender'])}}
 							@error('gender')
 						        <span class="text-danger" role="alert">
@@ -125,7 +125,7 @@
 						    @enderror	
 						</div>
 						<div class="col-md-4 form-group">
-							{{ Form::label('dob', 'Date of Birth:')}}
+							{{ Form::label('dob', 'Date of Birth:',['class' => 'required'])}}
 							{{ Form::text('dob',old('dob'),['class' => 'form-control datepicker dob'])}}
 							@error('dob')
 						        <span class="text-danger" role="alert">
@@ -233,7 +233,7 @@
 							<div class="card-body">	
 								<div class="row">
 									<div class="col-md-4 from-group">
-										{{Form::label('p_address','Address Line')}}
+										{{Form::label('p_address','Address Line',['class' => 'required'])}}
 										{{Form::text('p_address',old('p_address'),['class'=>'form-control p_address','id' => 'address'])}}
 										@error('p_address')
 			                                <span class="text-danger" role="alert">
@@ -242,7 +242,7 @@
 				                        @enderror
 									</div>
 									<div class="col-md-4 from-group">
-										{{ Form::label('p_country', 'Country Name:')}}
+										{{ Form::label('p_country', 'Country Name:',['class' => 'required'])}}
 										{{ Form::select('p_country',$countries, old('p_country'),['class'=>'form-control p_country','id'=>'country'])}}	
 										@error('p_country')
 											<span class="text-danger" role="alert">
@@ -251,7 +251,7 @@
 										@enderror		
 									</div>
 									<div class="col-md-4 from-group">
-										{{ Form::label('p_state', 'State Name:')}}
+										{{ Form::label('p_state', 'State Name:',['class' => 'required'])}}
 										{{ Form::select('p_state',array(),'',['class'=>'form-control p_state','id' => 'state'])}}
 										@error('p_state')
 									        <span class="text-danger" role="alert">
@@ -260,7 +260,7 @@
 									    @enderror	
 									</div>
 									<div class="col-md-4 from-group mt-2">
-										{{ Form::label('p_city', 'City Name:')}}
+										{{ Form::label('p_city', 'City Name:',['class' => 'required'])}}
 										{{ Form::select('p_city',array(),'',['class'=>'form-control p_city','id'=>'city'])}}
 										@error('p_city')
 									        <span class="text-danger" role="alert">
@@ -269,7 +269,7 @@
 									    @enderror	
 									</div>
 									<div class="col-md-4 from-group mt-2">
-										{{ Form::label('p_zip_code', 'Zip Code:')}}
+										{{ Form::label('p_zip_code', 'Zip Code:',['class' => 'required'])}}
 										{{ Form::text('p_zip_code',old('p_zip_code'),['class' => 'form-control zip_code','oninput' =>"this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');",'id' => 'zip_code'])}}
 										@error('p_zip_code')
 										<span class="text-danger" role="alert">
@@ -295,7 +295,7 @@
 										{{Form::label('same_as','Same as Permanent Address(Click to copy permanent address data)')}}
 									</div>
 									<div class="col-md-4 from-group">
-										{{Form::label('c_address','Address Line')}}
+										{{Form::label('c_address','Address Line',['class' => 'required'])}}
 										{{Form::text('c_address',old('c_address'),['class'=>'form-control','id' => 'address1'])}}
 										@error('c_address')
 			                                <span class="text-danger" role="alert">
@@ -304,7 +304,7 @@
 				                        @enderror
 									</div>
 									<div class="col-md-4 from-group">
-										{{ Form::label('c_country', 'Country Name:')}}
+										{{ Form::label('c_country', 'Country Name:',['class' => 'required'])}}
 										{{ Form::select('c_country',$countries, old('c_country'),['class'=>'form-control c_country','id'=>'country1'])}}	
 										@error('c_country')
 											<span class="text-danger" role="alert">
@@ -313,7 +313,7 @@
 										@enderror		
 									</div>
 									<div class="col-md-4 from-group">
-										{{ Form::label('c_state', 'State Name:')}}
+										{{ Form::label('c_state', 'State Name:',['class' => 'required'])}}
 										{{ Form::select('c_state',array(), '',['class'=>'form-control c_state','id'=>'state1'])}}
 										@error('c_state')
 									        <span class="text-danger" role="alert">
@@ -322,7 +322,7 @@
 									    @enderror	
 									</div>
 									<div class="col-md-4 from-group mt-2">
-										{{ Form::label('c_city', 'City Name:')}}
+										{{ Form::label('c_city', 'City Name:',['class' => 'required'])}}
 										{{ Form::select('c_city',array(), '',['class'=>'form-control c_city','id'=>'city1'])}}
 										@error('c_city')
 									        <span class="text-danger" role="alert">
@@ -331,7 +331,7 @@
 									    @enderror	
 									</div>
 									<div class="col-md-4 from-group mt-2">
-										{{ Form::label('c_zip_code', 'Zip Code:')}}
+										{{ Form::label('c_zip_code', 'Zip Code:',['class' => 'required'])}}
 										{{ Form::text('c_zip_code',old('c_zip_code'),['class' => 'form-control c_zip_code','oninput' =>"this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');",'id' => 'zip_code1'])}}
 										@error('c_zip_code')
 											<span class="text-danger" role="alert">
@@ -359,7 +359,7 @@
 						</div>
 						<div class="col-md-6 form-group">
 							{{Form::label('address_proof_doc','Address Proof Document')}}
-							{{ Form::file('address_proof_doc',['class' => 'form-control','accept'=>"image/*"])}}
+							{{ Form::file('address_proof_doc',['class' => 'form-control'])}}
 							@error('address_proof_doc')
 		                        <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>
@@ -381,59 +381,110 @@
 									<tr>
 										<th>{{__('Applicant Signature')}}</th>
 										<th>{{ Form::file('signature',['class' => 'form-control','accept'=>"image/*"])}}
+											@error('signature')
+						                        <span class="text-danger" role="alert">
+						                            <strong>{{ $message }}</strong>
+						                        </span>
+						                    @enderror
 										</th>
+
 									</tr>
 									<tr>
 										<th>{{__('Applicant Photo')}}</th>
 										<th>{{ Form::file('photo',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('photo')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
-										<th>{{__('10th')}}</th>
+										<th>{{__('10th Marksheet')}}</th>
 										<th>
 										{{ Form::file('10th_doc',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('10th_doc')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
-										<th>{{__('12th')}}</th>
+										<th>{{__('12th Marksheet')}}</th>
 										<th>
 										{{ Form::file('12th_doc',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('12th_doc')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
 										<th>{{__('Internship Certificate')}}</th>
 										<th>
 										{{ Form::file('internship_doc',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('internship_doc')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
 										<th>{{__('Bachelor of Physiotherapy (B.P.T.)')}}</th>
 										<th>
 										{{ Form::file('bpt_doc',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('bpt_doc')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
 										<th>{{__('Master of Physiotherapy (M.P.T.)')}}</th>
 										<th>
 										{{ Form::file('mpt_doc',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('mpt_doc')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
 										<th>{{__('Any Goverment Proof')}}</th>
 										<th>
 										{{ Form::file('gov_proof',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('gov_proof')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
 										<th>{{__('Any Goverment Proof')}}</th>
 										<th>
 										{{ Form::file('gov_proof1',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('gov_proof1')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 									<tr>
 										<th>{{__('Any Other Document')}}</th>
 										<th>
-										{{ Form::file('quals_docs[]',['class' => 'form-control','accept'=>"image/*"])}}
+										{{ Form::file('any_other_doc',['class' => 'form-control','accept'=>"image/*"])}}
+										@error('any_other_doc')
+					                        <span class="text-danger" role="alert">
+					                            <strong>{{ $message }}</strong>
+					                        </span>
+					                    @enderror
 										</th>
 									</tr>
 								</tbody>
@@ -452,7 +503,10 @@
 </div>
 <script >
 	$(document).ready(function(){
-		 $('.select2').select2();
+		$('.select2').select2();
+		
+		$('.required').append('<span class="text-danger">*</span>');
+
 		$(function() {
 			$('.dob').datepicker({
 				format:'yyyy-mm-dd'

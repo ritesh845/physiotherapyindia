@@ -15,7 +15,7 @@ class BasicController extends Controller
     public function category_show($id){
     	$category = Category::where('sefriendly',$id)->first();
   
-    	$articles = Articles::select('id','title','category_id','image','slider_image','body','sefriendly','created','order_num')->where('category_id',$category->id)->orderBy('order_num','desc')->paginate(10);
+    	$articles = Articles::select('id','title','category_id','image','slider_image','body','sefriendly','created','order_num')->where('category_id',$category->id)->orderBy('order_num','asc')->paginate(10);
 
     	return view('pages.category.show',compact('articles','category'));
     }

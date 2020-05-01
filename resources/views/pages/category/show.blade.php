@@ -32,14 +32,10 @@
 					<h5 ><a href="{{url('article_show/'.$article->sefriendly)}}">{{$article->title}}</a></h5>
 					<p>
 						@php 
-						if(!preg_match( '@src="([^"]+)"@' , $article->body, $match )){
-						  echo str_limit($article->body,140,'...') ;
-
-						}
-
-
+							if(!preg_match( '@src="([^"]+)"@' , $article->body, $match )){
+							  echo str_limit($article->body,140,'...') ;
+							}
 						@endphp
-                       
                      </p>
                       <a href="{{url('article_show/'.$article->sefriendly)}}" style="font-size:12px;">Read More</a>
                  <hr>

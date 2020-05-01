@@ -30,7 +30,9 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Articles::with('tags')->orderBy('order_num','ASC')->get();
-        return view('admin::content.articles.index',compact('articles'));
+        $parentCategories =  Category::whereNull('parent_cat')->orderBy('order_num','ASC')->get();
+        // return $articles;
+        return view('admin::content.articles.index',compact('articles','parentCategories'));
     }
     
     /**
@@ -264,5 +266,44 @@ class ArticleController extends Controller
         $swl_path = $swf_file->storeAs('public/'.date('Y').'/article/sliderimages', $swf_filename);
         
         return $swl_path;
+    }
+    public function category_update(Request $request){
+        // Article::find($request->article_id)->update('');
+        return "Success";
+    }
+    public function update_order(Request $request){
+        foreach ($request->order as $order) {
+            $id[] = $order['id'];
+        }
+
+
+
+        $articles = Articles::all();
+
+        foreach ($articles as $article){
+            $id = $article->id;
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                   Articles::find($order['id'])->update(['order_num' => $order['position']]); 
+                }
+            }
+        }
+
+        // foreach ($articles as $task) {
+        //     // $task->timestamps = false; // To disable update_at field updation
+        //     $id = $task->id;
+
+        //     foreach ($request->order as $key => $order) {
+        //         // Articles::find($order['id'])->update(['order_num' => $key+1]);
+        //         if ($order['id'] == $id) {
+        //             $task->update(['order_num' => $key+1]);
+        //         }
+
+        //        // $al[] = $order['id'];
+        //        // $al1[] = $order['position'];
+        //     }
+        // }
+      // return $al;
+        
     }
 }

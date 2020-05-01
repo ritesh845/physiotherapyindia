@@ -8,7 +8,8 @@
 		<div class="card">
 			<div class="card-header">
 				<h5 class="card-title">Serivce 
-					{{link_to('/service', $title = 'Back', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}					
+					{{link_to('/service', $title = 'Back', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}
+								
 				</h5>
 					
 			</div>
@@ -24,9 +25,9 @@
 						echo $service->description;
 					@endphp</p>
 					
-				 	@if($service->id == '10' || $service->id == '12' || $service->id == '11' || $service->id == '13')
-						<a href="{{url('service/iap_membership/'.$service->id)}}" class="btn btn-sm btn-primary">Apply</a>
-					@endif
+				 	{{-- @if($service->id == '10' || $service->id == '12' || $service->id == '11' || $service->id == '13') --}}
+						<a href="{{url('service/'.$service->form_name.'/'.$service->id)}}" class="btn btn-sm btn-primary">Apply</a>
+					{{-- @endif --}}
 				</div>
 
 				

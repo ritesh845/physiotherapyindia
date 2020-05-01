@@ -11,9 +11,9 @@
 					@role('super_admin') 
 						{{link_to('/service/create', $title = 'Add Service', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'], $secure = null)}}
 					@endrole
-					@role('member')
+					{{-- @role('member')
 						{{link_to('',$title = 'Service Allocate', $attributes = ['class' => 'btn btn-sm btn-primary pull-right'])}}
-					@endrole
+					@endrole --}}
 				</h5>
 			</div>
 			<div class="card-body">
@@ -42,7 +42,22 @@
 									<a href="{{url('/service/'.$service->id.'/edit')}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
 									<a href="{{url('/service/destroy/'.$service->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash "></i></a>
 								@endrole
-								<a href="{{url('/service/'.$service->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+								@if(count($userServices) !='0')
+									@foreach($userServices as $userService)
+										@if($userService->service_id == $service->id)
+											@if($userService->payment_id == null)
+												{{__('Pending For Payment')}}
+												<br>
+												<a href="{{url('service/payment/'.$userService->user_id)}}" class="btn btn-sm btn-primary">Payment Now</a>
+											@endif
+												<a href="{{url('service/'.$service->form_name.'_edit/'.$userService->user_id)}}" class="btn btn-sm btn-primary">Show</a>
+										@else
+											<a href="{{url('/service/'.$service->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+										@endif
+									@endforeach
+								@else
+									<a href="{{url('/service/'.$service->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>	
+								@endif
 							</td>											
 						</tr>
 						@endforeach

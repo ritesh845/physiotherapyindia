@@ -14,6 +14,8 @@ use App\Models\UserService;
 use Auth;
 use Modules\Member\Entities\Member;
 use Srmklive\PayPal\Services\ExpressCheckout;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NotifyMessage;
 class ServiceController extends Controller
 {
     public function __construct()
@@ -26,8 +28,19 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        $userServices = UserService::where('user_id',Auth::user()->id)->get();
         $services =  Service::where('status','1')->get();
-        return view('admin::services.index',compact('services'));
+        foreach ($services as $service){
+            foreach ($userServices as $userservice){
+                if ($userservice->service_id == $service->id) {
+                    if($userservice->payment_id == null){
+                        echo "payment pending".$userservice->service_id."</br>";
+                    }
+                }
+            }
+        }
+        die;
+        return view('admin::services.index',compact('services','userServices'));
     }
 
     /**
@@ -170,6 +183,11 @@ class ServiceController extends Controller
         }
     }
 
+    public function coming_soon($id){
+        $service = Service::find($id);
+        return view('admin::services.forms.coming_soon',compact('service'));
+    }
+
     public function iap_membership($id){
         $colleges = CollegeMast::pluck('college_name','college_code');
         $colleges->prepend('Select IAP Member College','');
@@ -222,15 +240,13 @@ class ServiceController extends Controller
                 'college_code' => 'required|not_in:""'
             ]);
             $data['college_code'] = $request->college_code;
+
         }else{
             $request->validate([
                 'college_name' => 'required'
             ]);
             $data['college_name'] = $request->college_name;
         }
-
-
-
 
         if($request->address_proof_type !=''){
             $request->validate([
@@ -251,11 +267,22 @@ class ServiceController extends Controller
 
         $data['user_id'] = Auth::user()->id;
         $member = Member::create($data);
-        UserService::create([
+        $userService =UserService::create([
             'user_id'   => Auth::user()->id,
             'member_id' => $member->id,
             'service_id' => $request->service_id,
         ]);
+
+        $message = [
+            'id'     => $userService->id,
+            'title'  => 'Member Applied Serivce',
+            'message'=> $member->first_name.($member->middle_name !=null ? ' '.$member->middle_name : '' )." ". $member->last_name .' member service applied.',
+            'link'   => '/approval/service_request',
+        ];
+
+        $users = User::whereRoleIs('member_admin')->get();
+        Notification::send($users, new NotifyMessage($message));
+
        return redirect('service/payment/'.$member->id);
         
     }

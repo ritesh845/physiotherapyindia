@@ -11,6 +11,7 @@ use App\Notifications\NotifyMessage;
 use Illuminate\Support\Facades\Notification;
 use App\User;
 use Modules\Member\Entities\UserSpec;
+use App\Models\UserService;
 class ApprovalController extends Controller
 {
     public function __construct()
@@ -175,7 +176,7 @@ class ApprovalController extends Controller
         $user->notify(new NotifyMessage($message));
     }
     public function service_request(){
-        
-        return view('admin::approval.services.service_request');
+        $services = UserService::with('service')->with('member')->where('status','P')->get();
+        return view('admin::approval.services.service_request',compact('services'));
     }
 }

@@ -68,7 +68,7 @@
   <script src="js/demo/chart-pie-demo.js"></script>
  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
-
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
  <script >
 
   // $(document).ready(function() {

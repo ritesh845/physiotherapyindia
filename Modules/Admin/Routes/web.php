@@ -48,17 +48,24 @@
 		Route::get('/service/destroy/{id}', 'ServiceController@delete');
 	    Route::get('/services_docs/{id}', 'ServiceController@services_docs');
 	    Route::post('/member_document', 'ServiceController@member_document');
+		
+		Route::get('/service/coming_soon/{id}', 'ServiceFormController@coming_soon');
 	    
-		Route::get('/service/iap_membership/{id}', 'ServiceController@iap_membership');
-		Route::post('/service/iap_membership/store', 'ServiceController@iap_membership_store');
+		Route::get('/service/iap_membership/{id}', 'ServiceFormController@iap_membership');
+		Route::post('/service/iap_membership/store', 'ServiceFormController@iap_membership_store');
+		Route::get('/service/iap_membership_edit/{id}', 'ServiceFormController@iap_membership_edit');
+		Route::patch('/service/iap_membership/update/{id}', 'ServiceFormController@iap_membership_update');
 
-		Route::get('/service/payment/{id}', 'ServiceController@service_payment');
-		Route::get('/service/payment_now/{id}', 'ServiceController@payment_now');
+		Route::get('/service/payment/{id}', 'ServiceFormController@service_payment');
+		Route::get('/service/payment_now/{id}', 'ServiceFormController@payment_now');
 	});
 
 	Route::group(['middleware' => ['role:super_admin|admin']], function() {
 		Route::resource('/article', 'Content\ArticleController');
 		Route::get('/article/destroy/{id}', 'Content\ArticleController@delete');
+		Route::post('/article/category_update', 'Content\ArticleController@category_update');
+		
+		Route::post('/article/update_order', 'Content\ArticleController@update_order');
 	});
 
 
